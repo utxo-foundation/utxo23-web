@@ -53,10 +53,8 @@
       <div class="relative cursor-pointer mb-10">
         <div class="absolute inset-0 bg-gradient-to-b from-transparent to-white flex" on:click={handleShowFull}></div>
         <div class="flex flex-wrap gap-3 mt-10 justify-center">
-          {#each $bundle.spec.speakers as speaker}
-            {#if !speaker.lead}
-              <Avatar speaker={speaker} size="small" />
-            {/if}
+          {#each $bundle.spec.speakers.filter(s => !s.lead).sort(() => .5 - Math.random()).slice(0,27) as speaker}
+            <Avatar speaker={speaker} size="small" />
           {/each}
         </div>
       </div>
