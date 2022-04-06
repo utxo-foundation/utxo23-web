@@ -36,7 +36,7 @@
 
   <div class="mt-6">
     {#each $bundle.spec.events.filter(e => !e.parent) as e}
-      <div class="mb-4 border px-3 py-2 rounded-md shadow-lg">
+      <div class="mb-4 border px-3 py-2 rounded-md shadow">
         <div class="text-lg font-semibold">{e.name}</div>
         {#if e.speakers && e.speakers.length > 0}
           <div class="mt-1 mb-2 flex flex-wrap gap-2">

@@ -36,7 +36,7 @@
   {#if $bundle}
     <div class="flex flex-wrap gap-3 text-xs uppercase font-bold text-blue-web justify-left">
       {#each tracks as track}
-        <div class="py-2 px-8 rounded-full border border-solid {currentTrack === track.id ? 'bg-utxo-gradient border-0 text-white' : 'border-blue-web hover:bg-blue-web hover:text-white hover:border-transparent cursor-pointer'}" on:click={changeTrack(track.id)}>{track.shortname || track.name} {#if !track.id}({$bundle.spec.speakers.length}){/if}</div>
+        <div class="py-2 px-8 rounded-full shadow border border-solid {currentTrack === track.id ? 'bg-utxo-gradient border-0 text-white' : 'border-blue-web hover:bg-blue-web hover:text-white hover:border-transparent cursor-pointer'}" on:click={changeTrack(track.id)}>{track.shortname || track.name} {#if !track.id}({$bundle.spec.speakers.length}){/if}</div>
       {/each}
     </div>
 
