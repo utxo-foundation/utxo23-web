@@ -23,7 +23,7 @@
         <div class="flex lg:space-x-10 uppercase text-sm font-bold text-white">
           <a sveltekit:prefetch href="/" class="lg:w-auto w-1/3 m-auto hover:text-[#E16A61]" class:text-blue-400={$page.url.pathname === '/'}>O konferenci</a>
           <a sveltekit:prefetch href="/program" class="lg:w-auto w-1/3 m-auto hover:text-[#E16A61]"  class:text-blue-400={$page.url.pathname === '/program'}>Program</a>
-          <a sveltekit:prefetch href="/vstupenky" class="lg:w-auto w-1/3 m-auto border-solid border border-[#E16A61] rounded-full py-2 px-8 {$page.url.pathname === '/vstupenky' ? 'border-0 bg-utxo-gradient' : 'hover:border-0 hover:bg-utxo-gradient' }">Vstupenky</a>
+          <a sveltekit:prefetch href="/vstupenky" class="lg:w-auto w-1/3 m-auto border-solid border border-[#E16A61] rounded-full py-2 px-1 lg:px-8 {$page.url.pathname === '/vstupenky' ? 'border-0 bg-utxo-gradient m-px' : 'hover:border-0 hover:bg-utxo-gradient hover:m-px' }">Vstupenky</a>
         </div>
         <div class="my-auto lg:flex-1 lg:pt-0 pt-4 lg:justify-end justify-center">
           <SocialButtons />
