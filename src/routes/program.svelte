@@ -1,3 +1,7 @@
+<script context="module">
+	export const prerender = true;
+</script>
+
 <script>
   import { bundle } from '$lib/stores.js';
   import EventTypeLabel from '$lib/EventTypeLabel.svelte';

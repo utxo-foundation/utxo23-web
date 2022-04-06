@@ -1,3 +1,7 @@
+<script context="module">
+	export const prerender = true;
+</script>
+
 <script>
   import { faker } from '@faker-js/faker';
   import { orderTicketForm } from '$lib/stores';
