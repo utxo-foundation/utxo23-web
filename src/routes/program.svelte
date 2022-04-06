@@ -54,7 +54,7 @@
           <div class="text-xs my-auto">{e.duration}m</div>
         </div>
         {#if getParents(e).length > 0}
-          <div class="p-2 mt-2 w-auto">
+          <div class="mt-4 w-auto">
             <div class="flex flex-wrap gap-2" cellpadding="5">
               {#each getParents(e) as pe}
                 <div class="mb-2 border rounded py-1.5 px-2.5 bg-gray-100 text-sm">
