@@ -24,10 +24,10 @@
     </div>
   {/if}
   {#if size === 'normal'}
-    <div class="w-auto sm:w-1/4">
-      <div class="sm:flex gap-3 justify-between">
+    <div class="w-auto">
+      <div class="sm:flex flex-wrap gap-3 justify-end">
         {#each socials as soc}
-          <div class="mr-4 sm:mr-0 inline-block sm:block hover:text-red-500"><a href="{$bundle.links[soc.link]}" class="no-wrap" target="_blank"><i class="{soc.ico}" />&nbsp;&nbsp;{soc.name}</a></div>
+          <div class="mr-4 sm:mr-0 inline-block sm:block hover:text-red-500"><a href="{$bundle.links[soc.link]}" class="block flex" target="_blank"><i class="{soc.ico} mr-2 my-auto" />{soc.name}</a></div>
         {/each}
       </div>
     </div>

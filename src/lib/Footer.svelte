@@ -20,7 +20,7 @@
         <a href="{$bundle.links.docs}" class="hover:text-red-500"><i class="fas fa-book" />&nbsp; Dokumentace</a>
       </div>
     </div>
-    <div class="sm:mt-0 mt-6">
+    <div class="sm:mt-0 mt-6 sm:w-1/3 mr-2">
       <SocialButtons size="normal" />
     </div>
   </div>
