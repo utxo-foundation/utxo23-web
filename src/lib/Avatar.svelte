@@ -57,14 +57,14 @@
 
 {#if size === 'big'}
 <div class="w-64 text-center pb-4">
-  <img src={currentImg} class="w-64 rounded-full m-auto shadow-xl" alt={speaker.name} />
+  <img src={currentImg} class="w-64 rounded-full m-auto shadow-xl" alt={speaker.name}  on:mouseover={mouseOver} on:mouseleave={mouseLeave} />
 </div>
 {/if}
 
 {#if size === 'normal'}
 <div class="w-44 text-center pb-4">
-  <a href="/prednasejici/{speaker.id}" on:mouseover={mouseOver} on:mouseleave={mouseLeave}><img src={currentImg} class="w-40 rounded-full m-auto shadow-xl" alt={speaker.name} /></a>
-  <div class="mt-4 text-sm text-blue-web uppercase font-bold"><a href="/prednasejici/{speaker.id}">{speaker.name}</a> {country}</div>
+  <a href="/lide/{speaker.id}" on:mouseover={mouseOver} on:mouseleave={mouseLeave}><img src={currentImg} class="w-40 rounded-full m-auto shadow-xl" alt={speaker.name} /></a>
+  <div class="mt-4 text-sm text-blue-web uppercase font-bold"><a href="/lide/{speaker.id}">{speaker.name}</a> {country}</div>
   {#if speaker.bio}
     <div class="mt-1 text-xs text-blue-web italic"><SvelteMarkdown source={speaker.bio} /></div>
   {/if}
@@ -79,13 +79,13 @@
 
 {#if size === 'extra-small'}
 <div class="w-6 h-6 text-center">
-  <img src={currentImg} class="w-6 rounded-full m-auto" alt="{speaker.name}" />
+  <a href="/lide/{speaker.id}"><img src={currentImg} class="w-6 rounded-full m-auto" alt="{speaker.name}" /></a>
 </div>
 {/if}
 
 {#if size === 'micro'}
 <div class="w-4 h-4 text-center">
-  <img src={currentImg} class="w-4 rounded-full m-auto" alt="{speaker.name}" />
+  <a href="/lide/{speaker.id}"><img src={currentImg} class="w-4 rounded-full m-auto" alt="{speaker.name}" /></a>
 </div>
 {/if}
 

@@ -65,7 +65,7 @@
             {#each speakersMap(e.speakers) as s}
               <div class="flex gap-1.5">
                 <Avatar speaker={s} size='extra-small' />
-                <div class="m-auto"><a href="/prednasejici/{s.id}">{s.name}</a></div>
+                <div class="m-auto"><a href="/lide/{s.id}">{s.name}</a></div>
               </div>
             {/each}
           </div>
@@ -76,17 +76,17 @@
           <div class="text-xs my-auto">{e.duration}m</div>
         </div>
         {#if getParents(e).length > 0}
-          <div class="mt-4 w-auto">
+          <div class="mt-4 w-auto mb-2">
             <div class="flex flex-wrap gap-2" cellpadding="5">
               {#each getParents(e) as pe}
-                <div class="mb-2 border rounded py-1.5 px-2.5 bg-gray-100 text-sm">
+                <div class="border rounded py-1.5 px-2.5 bg-gray-100 text-sm">
                   <div class="font-bold">{pe.name}</div>
                   <div class="mt-1">
                     {#if pe.speakers.length === 0}
                       <div>TBA</div>
                     {:else}
                       {#each speakersMap(pe.speakers) as s}
-                        <div class="flex gap-1"><Avatar speaker={s} size='micro' /><div>{s.name}</div></div>
+                        <div class="flex gap-1"><Avatar speaker={s} size='micro' /><div><a href="/lide/{s.id}">{s.name}</a></div></div>
                       {/each}
                     {/if}
                   </div>
