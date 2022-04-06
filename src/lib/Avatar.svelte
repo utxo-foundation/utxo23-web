@@ -55,10 +55,16 @@
 
 </script>
 
+{#if size === 'big'}
+<div class="w-64 text-center pb-4">
+  <img src={currentImg} class="w-64 rounded-full m-auto shadow-xl" alt={speaker.name} />
+</div>
+{/if}
+
 {#if size === 'normal'}
 <div class="w-44 text-center pb-4">
-  <a href="/speakers/{speaker.id}" on:mouseover={mouseOver} on:mouseleave={mouseLeave}><img src={currentImg} class="w-40 rounded-full m-auto shadow-xl" alt={speaker.name} /></a>
-  <div class="mt-4 text-sm text-blue-web uppercase font-bold">{speaker.name} {country}</div>
+  <a href="/prednasejici/{speaker.id}" on:mouseover={mouseOver} on:mouseleave={mouseLeave}><img src={currentImg} class="w-40 rounded-full m-auto shadow-xl" alt={speaker.name} /></a>
+  <div class="mt-4 text-sm text-blue-web uppercase font-bold"><a href="/prednasejici/{speaker.id}">{speaker.name}</a> {country}</div>
   {#if speaker.bio}
     <div class="mt-1 text-xs text-blue-web italic"><SvelteMarkdown source={speaker.bio} /></div>
   {/if}

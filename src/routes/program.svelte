@@ -57,7 +57,7 @@
 
   <div class="mt-6">
     {#each $bundle.spec.events.filter(e => !e.parent) as e}
-      <div class="transition-all mb-4 border px-3 py-2 rounded-md shadow {$userData.favoriteEvents.includes(e.id) ? 'bg-yellow-100' : '' }">
+      <div class="transition-all mb-4 border px-3 py-2 rounded-md shadow {$userData.favoriteEvents.includes(e.id) ? 'bg-yellow-100' : '' }" >
         <div class="float-right"><i class="fa-star {$userData.favoriteEvents.includes(e.id) ? 'fa-solid' : 'fa-regular'} cursor-pointer" utxo-event-id="{e.id}" on:click={handleFavorite}></i></div>
         <div class="text-lg font-semibold">{e.name}</div>
         {#if e.speakers && e.speakers.length > 0}
@@ -65,7 +65,7 @@
             {#each speakersMap(e.speakers) as s}
               <div class="flex gap-1.5">
                 <Avatar speaker={s} size='extra-small' />
-                <div class="m-auto">{s.name}</div>
+                <div class="m-auto"><a href="/prednasejici/{s.id}">{s.name}</a></div>
               </div>
             {/each}
           </div>
