@@ -21,10 +21,9 @@ jobs:
         with:
           node-version: '17'
 
-
+      - run: "rm src/lib/bundle.json && wget -O src/lib/bundle.json https://spec.utxo.cz/22/bundle.json"
       - run: npm install
       - run: npm run build
-      - run: "rm src/lib/bundle.json && wget -O src/lib/bundle.json https://spec.utxo.cz/22/bundle.json"
 
       - name: Add custom domain
         run: "touch build/CNAME && echo \"new.utxo.cz\" >> build/CNAME"
