@@ -1,17 +1,21 @@
 <script>
 	import Header from '$lib/header/Header.svelte';
+	import Footer from '$lib/Footer.svelte';
 	import '../app.css';
-  import * as api from '$lib/api.js';
+  import api from '$lib/api.js';
+  import { page } from '$app/stores';
   import { onMount } from 'svelte';
 
-  let spec = null
+  let bundle = null
+
   onMount(async () => {
-    spec = await api.spec()
+    bundle = await api.loadBundle($page.url.hostname === 'localhost')
   })
 
 </script>
 
-<div class="layout min-h-screen py-6 flex flex-col justify-center relative overflow-hidden">
+{#if bundle}
+<div class="layout min-h-screen">
   <div class="inset-0">
     <Header />
 
@@ -19,10 +23,9 @@
       <slot />
     </main>
   </div>
-  <footer>
-  </footer>
+  <Footer />
 </div>
-
+{/if}
 
 <style>
 </style>

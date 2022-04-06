@@ -1,0 +1,88 @@
+<script>
+  export let speaker;
+  export let col = 'speakers';
+  export let size = 'normal';
+
+  import SvelteMarkdown from 'svelte-markdown';
+  import { page } from '$app/stores';
+
+  let imagesRoot = 'https://spec.utxo.cz/22/photos'
+  /*if ($page.url.hostname === 'localhost') {
+    imagesRoot = 'http://localhost:8000/22/photos'
+  }*/
+  const priority = [ 'web:svg', 'web:webp', 'web:png', 'web:jpg', 'twitter:jpg' ]
+
+  let speakerImg = null
+  let speakerImgAlt = null
+
+  if (speaker.photos && speaker.photos.length > 0) {
+    for (const prio of priority) {
+      if (speaker.photos.includes(prio)) {
+        const [ ext, format ] = prio.split(':')
+        const fn = `${imagesRoot}/${col}/${speaker.id}-${ext}.${format}`
+        if (speakerImg) {
+          $: speakerImgAlt = fn
+          break
+        }
+        $: speakerImg = fn
+      }
+    }
+  }
+
+  if (!speakerImg) {
+    speakerImg = '/img/twitter-avatar.png'
+  }
+
+  function getFlagEmoji(countryCode) {
+    const codePoints = countryCode
+      .toUpperCase()
+      .split('')
+      .map(char =>  127397 + char.charCodeAt());
+    return String.fromCodePoint(...codePoints);
+  }
+
+  $: country = getFlagEmoji(speaker.country)
+  $: currentImg = speakerImg
+
+  function mouseOver () {
+    if (speakerImgAlt) {
+      $: currentImg = speakerImgAlt
+    }
+  }
+  function mouseLeave () {
+    $: currentImg = speakerImg
+  }
+
+</script>
+
+{#if size === 'normal'}
+<div class="w-44 text-center pb-4">
+  <a href="/speakers/{speaker.id}" on:mouseover={mouseOver} on:mouseleave={mouseLeave}><img src={currentImg} class="w-40 rounded-full m-auto" /></a>
+  <div class="mt-4 text-sm text-blue-web uppercase font-bold">{speaker.name} {country}</div>
+  {#if speaker.bio}
+    <div class="mt-1 text-xs text-blue-web italic"><SvelteMarkdown source={speaker.bio} /></div>
+  {/if}
+  {#if speaker.orgs}
+    <div class="mt-1 text-xs text-blue-web"><SvelteMarkdown source={speaker.orgs} /></div>
+  {/if}
+</div>
+{/if}
+
+{#if size === 'small'}
+<div class="w-16 text-center">
+  <img src={currentImg} class="w-16 rounded-full m-auto" />
+</div>
+{/if}
+
+{#if size === 'extra-small'}
+<div class="w-6 h-6 text-center">
+  <img src={currentImg} class="w-6 rounded-full m-auto" />
+</div>
+{/if}
+
+{#if size === 'micro'}
+<div class="w-4 h-4 text-center">
+  <img src={currentImg} class="w-4 rounded-full m-auto" />
+</div>
+{/if}
+
