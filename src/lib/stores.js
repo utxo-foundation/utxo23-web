@@ -8,3 +8,7 @@ export const orderTicketForm = writable({
   tickets: [],
   paymentMethod: 'card',
 });
+
+export const userData = writable({
+  favoriteEvents: []
+});

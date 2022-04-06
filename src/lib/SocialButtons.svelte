@@ -5,7 +5,7 @@
 	import { page } from '$app/stores';
 
   const socials = [
-    { link: 'twitter', ico: 'fab fa-twitter', name: 'Twitter' },
+    { link: 'twitter', ico: 'fa-brands fa-twitter', name: 'Twitter' },
     { link: 'instagram', ico: 'fab fa-instagram', name: 'Instagram' },
     { link: 'fbevent', ico: 'fab fa-facebook', name: 'Facebook' },
     { link: 'discord', ico: 'fab fa-discord', name: 'Discord' },

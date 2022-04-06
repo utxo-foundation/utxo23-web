@@ -14,9 +14,9 @@
           <a href="/"><img src="/img/logo-white.svg" class="w-26" alt="UTXO.22" /></a>
         </div>
         <div class="sm:flex sm:space-x-10 uppercase text-sm font-bold text-white">
-          <a sveltekit:prefetch href="/" class="m-auto hover:text-red-500" class:text-blue-400={$page.url.pathname === '/'}>O konferenci</a>
-          <a sveltekit:prefetch href="/program" class="m-auto hover:text-red-500"  class:text-blue-400={$page.url.pathname === '/program'}>Program</a>
-          <a sveltekit:prefetch href="/vstupenky" class="border-solid border border-red-500 rounded-full py-2 px-8 {$page.url.pathname === '/vstupenky' ? 'border-0 bg-utxo-gradient' : 'hover:border-0 hover:my-px hover:bg-utxo-gradient' }">Vstupenky</a>
+          <a sveltekit:prefetch href="/" class="m-auto hover:text-[#E16A61]" class:text-blue-400={$page.url.pathname === '/'}>O konferenci</a>
+          <a sveltekit:prefetch href="/program" class="m-auto hover:text-[#E16A61]"  class:text-blue-400={$page.url.pathname === '/program'}>Program</a>
+          <a sveltekit:prefetch href="/vstupenky" class="border-solid border border-[#E16A61] rounded-full py-2 px-8 {$page.url.pathname === '/vstupenky' ? 'border-0 bg-utxo-gradient' : 'hover:border-0 hover:my-px hover:bg-utxo-gradient' }">Vstupenky</a>
         </div>
         <SocialButtons />
       </div>
