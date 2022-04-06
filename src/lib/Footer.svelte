@@ -5,15 +5,15 @@
 
 {#if $bundle}
 <div class="bg-blue-web-bg text-white">
-  <div class="relative mx-auto px-6 pt-10 pb-8 max-w-6xl flex">
+  <div class="relative mx-auto px-6 pt-10 pb-6 max-w-6xl flex pr-4">
     <div class="flex-1">
       <div>
         <a href="/"><img src="/img/logo-white.svg" alt="UTXO.22" class="w-26" /></a>
       </div>
-      <div class="mt-4 font-bold">
+      <div class="mt-4 font-semibold">
         4.-5. červen 2022 @ Gabriel Loci, Praha
       </div>
-      <div class="mt-2">
+      <div class="mt-2 font-thin">
         Otevřená komunitní kryptoměnová konference
       </div>
       <div class="mt-4">
@@ -22,8 +22,15 @@
     </div>
     <SocialButtons size="normal" />
   </div>
-  <div class="relative mx-auto px-6 pt-10 pb-10 max-w-6xl text-xs opacity-50">
-    <i class="fas fa-heart text-red-500" /> S láskou vytváří <a href="https://utxo.foundation" class="underline hover:no-underline">UTXO Foundation, z.s.</a>
+  <div class="relative mx-auto px-6 pt-10 pb-6 max-w-6xl text-xs opacity-50 sm:flex">
+    <div class="flex-1 mt-1 mb-2">
+      <i class="fas fa-heart text-red-500" /> S láskou vytváří <a href="https://utxo.foundation" class="underline hover:no-underline" target="_blank">UTXO Foundation, z.s.</a>
+    </div>
+    <div>
+      <span class="font-bold">v0.8.0</span> | powered by 
+      <a href="https://svelte.dev/" class="font-bold"  target="_blank" ><img src="/img/svelte-logo.svg" class="w-5 inline" alt="Svelte" /> Svelte</a> | 
+      grafický návrh <a href="https://www.ppmedia.cz/" target="_blank"><img src="/img/pen-production-logo.svg" class="w-24 inline-block pb-1 ml-1" /></a> 
+    </div>
   </div>
 </div>
 {/if}

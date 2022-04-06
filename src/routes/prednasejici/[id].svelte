@@ -16,14 +16,23 @@
     return track.shortname || track.name
   }
 
+  function getFlagEmoji(countryCode) {
+    const codePoints = countryCode
+      .toUpperCase()
+      .split('')
+      .map(char =>  127397 + char.charCodeAt());
+    return String.fromCodePoint(...codePoints);
+  }
+
 </script>
 
 <section class="relative mx-auto py-10 px-6 max-w-6xl mb-10 text-blue-web">
   {#if $bundle}
     <div class="sm:flex gap-10 mt-4">
       <div><Avatar speaker={s} size="big" /></div>
-      <div class="mt-4">
-        <h1 class="uppercase text-2xl font-bold">{s.name}</h1>
+      <div class="mt-4 sm:mt-0">
+        <div class="mb-4 text-sm uppercase">Přednášející</div>
+        <h1 class="uppercase text-2xl font-bold">{s.name} {getFlagEmoji(s.country)}</h1>
         {#if s.bio}
           <div class="mt-4 text-blue-web italic"><SvelteMarkdown source={s.bio} /></div>
         {/if}
@@ -32,10 +41,10 @@
         {/if}
         <div class="mt-4">Sekce: {s.tracks.map(t => trackRender(t)).join(', ')}</div>
         {#if s.twitter}
-          <div class="mt-2">Twitter: <a href="https://twitter.com/{s.twitter}" target="_blank">@{s.twitter}</a></div>
+          <div class="mt-2">Twitter: <a href="https://twitter.com/{s.twitter}" target="_blank" class="font-bold">@{s.twitter}</a></div>
         {/if}
         {#if s.web && s.web.url}
-          <div class="mt-2">Web: <a href="{s.web.url}" target="_blank">{s.web.name || s.web.url}</a></div>
+          <div class="mt-2">Web: <a href="{s.web.url}" target="_blank" class="font-bold">{s.web.name || s.web.url.replace(/^https?:\/\//, '')}</a></div>
         {/if}
       </div>
     </div>

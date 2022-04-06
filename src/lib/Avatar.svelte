@@ -68,9 +68,6 @@
   {#if speaker.bio}
     <div class="mt-1 text-xs text-blue-web italic"><SvelteMarkdown source={speaker.bio} /></div>
   {/if}
-  {#if speaker.orgs}
-    <div class="mt-1 text-xs text-blue-web"><SvelteMarkdown source={speaker.orgs} /></div>
-  {/if}
 </div>
 {/if}
 

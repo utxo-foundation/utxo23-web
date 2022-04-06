@@ -1,7 +1,14 @@
 <script>
 	import { page } from '$app/stores';
-	import { bundle } from '$lib/stores';
+	import { bundle, userData } from '$lib/stores';
   import SocialButtons from '$lib/SocialButtons.svelte';
+
+  function logoClick () {
+    userData.update(ud => {
+      ud.hpTrack = 'top'
+      return ud
+    })
+  }
 
 </script>
 
@@ -11,7 +18,7 @@
     <div class="">
       <div class="sm:flex flex-wrap space-x-10">
         <div class="block justify-start flex-1 my-auto">
-          <a href="/"><img src="/img/logo-white.svg" class="w-26" alt="UTXO.22" /></a>
+          <a href="/" on:click={logoClick}><img src="/img/logo-white.svg" class="w-26" alt="UTXO.22" /></a>
         </div>
         <div class="sm:flex sm:space-x-10 uppercase text-sm font-bold text-white">
           <a sveltekit:prefetch href="/" class="m-auto hover:text-[#E16A61]" class:text-blue-400={$page.url.pathname === '/'}>O konferenci</a>

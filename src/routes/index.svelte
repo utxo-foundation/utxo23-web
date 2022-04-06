@@ -3,11 +3,10 @@
 </script>
 
 <script>
-  import { bundle } from '$lib/stores.js';
+  import { bundle, userData } from '$lib/stores.js';
   import Avatar from '$lib/Avatar.svelte';
   import SvelteMarkdown from 'svelte-markdown';
 
-  let currentTrack = 'top'
   let onlyLead = true
   let onlyLeadPreview = false
 
@@ -17,13 +16,13 @@
 
   function changeTrack (tId) {
     return function () {
-      currentTrack = tId
+      userData.update(ud => { ud.hpTrack = tId; return ud; })
       onlyLead = !tId
     }
   }
 
   function handleShowFull () {
-    $: currentTrack = null
+    userData.update(ud => { ud.hpTrack = null; return ud })
   }
 
 </script>
@@ -36,20 +35,20 @@
   {#if $bundle}
     <div class="flex flex-wrap gap-3 text-xs uppercase font-bold text-blue-web justify-left">
       {#each tracks as track}
-        <div class="py-2 px-8 rounded-full shadow border border-solid {currentTrack === track.id ? 'bg-utxo-gradient border-0 text-white' : 'border-blue-web hover:bg-blue-web hover:text-white hover:border-transparent cursor-pointer'}" on:click={changeTrack(track.id)}>{track.shortname || track.name} {#if !track.id}({$bundle.spec.speakers.length}){/if}</div>
+        <div class="py-2 px-8 rounded-full shadow border border-solid {$userData.hpTrack === track.id ? 'bg-utxo-gradient border-0 text-white' : 'border-blue-web hover:bg-blue-web hover:text-white hover:border-transparent cursor-pointer'}" on:click={changeTrack(track.id)}>{track.shortname || track.name} {#if !track.id}({$bundle.spec.speakers.length}){/if}</div>
       {/each}
     </div>
 
     <div class="flex flex-wrap gap-6 mt-14 justify-center">
       {#each $bundle.spec.speakers as speaker}
-        {#if (currentTrack === 'top' && speaker.lead === true) || currentTrack !== 'top'}
-          {#if (!currentTrack || speaker.tracks.includes(currentTrack)) || currentTrack === 'top'}
+        {#if ($userData.hpTrack === 'top' && speaker.lead === true) || $userData.hpTrack !== 'top'}
+          {#if (!$userData.hpTrack || speaker.tracks.includes($userData.hpTrack)) || $userData.hpTrack === 'top'}
             <Avatar speaker={speaker} />
           {/if}
         {/if}
       {/each}
     </div>
-    {#if currentTrack === 'top'}
+    {#if $userData.hpTrack === 'top'}
       <div class="relative cursor-pointer mb-10">
         <div class="absolute inset-0 bg-gradient-to-b from-transparent to-white flex" on:click={handleShowFull}></div>
         <div class="flex flex-wrap gap-3 mt-10 justify-center">
