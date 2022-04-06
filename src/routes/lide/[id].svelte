@@ -5,11 +5,14 @@
 <script>
   import SvelteMarkdown from 'svelte-markdown';
 
+  import Avatar from '$lib/Avatar.svelte';
+  import Event from '$lib/Event.svelte';
 	import { page } from '$app/stores';
   import { bundle } from '$lib/stores.js';
-  import Avatar from '$lib/Avatar.svelte';
 
   $: s = $bundle ? $bundle.spec.speakers.find(s => s.id === $page.params.id) : null
+
+  $: events = $bundle.spec.events.filter(ev => ev.speakers && ev.speakers.includes(s.id))
 
   function trackRender (trackId) {
     const track = $bundle.spec.tracks.find(t => t.id === trackId)
@@ -31,7 +34,7 @@
     <div class="sm:flex gap-10 mt-4">
       <div><Avatar speaker={s} size="big" /></div>
       <div class="mt-4 sm:mt-0">
-        <div class="mb-4 text-sm uppercase">Přednášející</div>
+        <div class="mb-4 text-md uppercase">Přednášející</div>
         <h1 class="text-2xl font-bold">{s.name} {getFlagEmoji(s.country)}</h1>
         {#if s.bio}
           <div class="mt-4 text-blue-web italic"><SvelteMarkdown source={s.bio} /></div>
@@ -45,6 +48,18 @@
         {/if}
         {#if s.web && s.web.url}
           <div class="mt-2">Web: <a href="{s.web.url}" target="_blank" class="font-bold">{s.web.name || s.web.url.replace(/^https?:\/\//, '')}</a></div>
+        {/if}
+      </div>
+    </div>
+    <div class="mt-6">
+      <h2 class="uppercase mb-4 text-md">Události ({ events.length })</h2>
+      <div>
+        {#if events.length > 0}
+          {#each events as e}
+            <Event event={e} />
+          {/each}
+        {:else}
+          Tento člověk zatím nemá v programu žádnou událost.
         {/if}
       </div>
     </div>

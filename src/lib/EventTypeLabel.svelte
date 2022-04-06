@@ -7,6 +7,7 @@
     talk: { title: 'Přednáška', style: 'bg-custom-green text-white' },
     workshop: { title: 'Workshop', style: 'bg-custom-blue text-white' },
     other: { title: 'Ostatní', style: 'bg-custom-yellow' },
+    lightning: { title: 'Lightning talk', style: 'bg-pink-400' },
   }
 
   const current = config[event.type];

@@ -6,7 +6,7 @@
   import SvelteMarkdown from 'svelte-markdown';
 
 	import { page } from '$app/stores';
-  import { bundle } from '$lib/stores.js';
+  import { bundle, userData } from '$lib/stores.js';
   import EventTypeLabel from '$lib/EventTypeLabel.svelte';
   import Avatar from '$lib/Avatar.svelte';
 
@@ -28,7 +28,7 @@
 
 <section class="relative mx-auto py-10 px-6 max-w-6xl mb-10 text-blue-web">
   {#if $bundle}
-    <div class="mb-4 flex flex-wrap gap-4">
+    <div class="mb-6 flex flex-wrap gap-4">
       <div><EventTypeLabel event={e} size="big" /></div>
       <div class="text-md my-auto">{trackRender(e.track)}</div>
       <div class="text-sm my-auto">{e.duration}m</div>
@@ -37,7 +37,7 @@
     {#if e.speakers && e.speakers.length > 0}
       <div class="mt-4 mb-2 flex flex-wrap gap-4">
         {#each speakersMap(e.speakers) as s}
-          <div class="flex gap-1.5">
+          <div class="flex gap-2">
             <Avatar speaker={s} size='semi-small' />
             <div class="m-auto"><a href="/lide/{s.id}" class="text-xl">{s.name}</a></div>
           </div>

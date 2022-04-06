@@ -56,7 +56,7 @@
 </script>
 
 {#if size === 'big'}
-<div class="w-64 text-center pb-4">
+<div class="w-64 text-center pb-4 m-auto">
   <img src={currentImg} class="w-64 rounded-full m-auto shadow-xl" alt={speaker.name}  on:mouseover={mouseOver} on:mouseleave={mouseLeave} />
 </div>
 {/if}
@@ -79,7 +79,7 @@
 
 {#if size === 'semi-small'}
 <div class="w-10 text-center">
-  <img src={currentImg} class="w-10 rounded-full m-auto" alt="{speaker.name}" />
+  <img src={currentImg} class="w-10 rounded-full m-auto shadow-md" alt="{speaker.name}" />
 </div>
 {/if}
 
