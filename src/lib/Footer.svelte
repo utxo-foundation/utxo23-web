@@ -5,7 +5,7 @@
 
 {#if $bundle}
 <div class="bg-blue-web-bg text-white">
-  <div class="relative mx-auto px-6 pt-10 pb-6 max-w-6xl flex pr-4">
+  <div class="relative mx-auto px-6 pt-10 pb-2 sm:pb-6 max-w-6xl sm:flex pr-4">
     <div class="flex-1">
       <div>
         <a href="/"><img src="/img/logo-white.svg" alt="UTXO.22" class="w-26" /></a>
@@ -20,7 +20,9 @@
         <a href="{$bundle.links.docs}" class="hover:text-red-500"><i class="fas fa-book" />&nbsp; Dokumentace</a>
       </div>
     </div>
-    <SocialButtons size="normal" />
+    <div class="sm:mt-0 mt-6">
+      <SocialButtons size="normal" />
+    </div>
   </div>
   <div class="relative mx-auto px-6 pt-10 pb-6 max-w-6xl text-xs opacity-50 sm:flex">
     <div class="flex-1 mt-1 mb-2">

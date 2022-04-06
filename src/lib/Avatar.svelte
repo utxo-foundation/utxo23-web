@@ -62,8 +62,8 @@
 {/if}
 
 {#if size === 'normal'}
-<div class="w-44 text-center pb-4">
-  <a href="/lide/{speaker.id}" on:mouseover={mouseOver} on:mouseleave={mouseLeave}><img src={currentImg} class="w-40 rounded-full m-auto shadow-xl" alt={speaker.name} /></a>
+<div class="w-36 sm:w-44 text-center pb-4">
+  <a href="/lide/{speaker.id}" on:mouseover={mouseOver} on:mouseleave={mouseLeave}><img src={currentImg} class="w-36 sm:w-40 rounded-full m-auto shadow-xl" alt={speaker.name} /></a>
   <div class="mt-4 text-sm text-blue-web uppercase font-bold"><a href="/lide/{speaker.id}">{speaker.name}</a> {country}</div>
   {#if speaker.bio}
     <div class="mt-1 text-xs text-blue-web italic"><SvelteMarkdown source={speaker.bio} /></div>

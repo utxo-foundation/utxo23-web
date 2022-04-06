@@ -31,15 +31,15 @@
   <title>UTXO.22 - 4-5. červen 2022 - {$bundle.description}</title>
 </svelte:head>
 
-<section class="relative mx-auto py-10 px-6 max-w-6xl">
+<section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl">
   {#if $bundle}
-    <div class="flex flex-wrap gap-3 text-xs uppercase font-bold text-blue-web justify-left">
+    <div class="flex flex-wrap gap-1.5 sm:gap-3 text-xs uppercase font-bold text-blue-web justify-left">
       {#each tracks as track}
-        <div class="py-2 px-8 rounded-full shadow border border-solid {$userData.hpTrack === track.id ? 'bg-utxo-gradient border-0 text-white' : 'border-blue-web hover:bg-blue-web hover:text-white hover:border-transparent cursor-pointer'}" on:click={changeTrack(track.id)}>{track.shortname || track.name} {#if !track.id}({$bundle.spec.speakers.length}){/if}</div>
+        <div class="py-1.5 sm:py-2 px-2.5 sm:px-8 rounded-full shadow border border-solid {$userData.hpTrack === track.id ? 'bg-utxo-gradient border-0 text-white' : 'border-blue-web hover:bg-blue-web hover:text-white hover:border-transparent cursor-pointer'}" on:click={changeTrack(track.id)}>{track.shortname || track.name} {#if !track.id}({$bundle.spec.speakers.length}){/if}</div>
       {/each}
     </div>
 
-    <div class="flex flex-wrap gap-6 mt-14 justify-center">
+    <div class="flex flex-wrap gap-6 mt-6 sm:mt-14 justify-center">
       {#each $bundle.spec.speakers as speaker}
         {#if ($userData.hpTrack === 'top' && speaker.lead === true) || $userData.hpTrack !== 'top'}
           {#if (!$userData.hpTrack || speaker.tracks.includes($userData.hpTrack)) || $userData.hpTrack === 'top'}
