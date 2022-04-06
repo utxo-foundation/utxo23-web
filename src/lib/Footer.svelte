@@ -8,9 +8,12 @@
   <div class="relative mx-auto px-6 pt-10 pb-8 max-w-6xl flex">
     <div class="flex-1">
       <div>
-        <a href="/"><img src="/img/logo.png" alt="UTXO.22" class="w-28" /></a>
+        <a href="/"><img src="/img/logo-white.svg" alt="UTXO.22" class="w-26" /></a>
       </div>
-      <div class="mt-4">
+      <div class="mt-4 font-bold">
+        4.-5. červen 2022 @ Gabriel Loci, Praha
+      </div>
+      <div class="mt-2">
         Otevřená komunitní kryptoměnová konference
       </div>
       <div class="mt-4">

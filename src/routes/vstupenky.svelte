@@ -61,6 +61,10 @@
 
 </script>
 
+<svelte:head>
+  <title>Vstupenky | UTXO.22</title>
+</svelte:head>
+
 <section class="relative mx-auto py-10 px-6 max-w-6xl mb-10 text-blue-web">
   <div class="">
     <h1 class="uppercase text-2xl font-bold">Vaše vstupenky</h1>
@@ -76,7 +80,7 @@
           div class="bg-[#E5EFC1] h-6 rounded-r-full text-blue-web" style="width: 34%"><div class="py-1 px-2">III. vlna</div></div>-->
       </div>
     </div>
-    <div class="bg-gray-200 rounded-lg p-6">
+    <div class="bg-gray-200 rounded-md p-6 shadow-lg">
       <div class="mb-4">
         Aktuální cena vstupenky: <span class="font-bold">{ticketPrice} Kč</span> / osobu
       </div>
@@ -99,7 +103,7 @@
         </div>
       </div>
     </div>
-    <div class="p-5 bg-blue-web-light rounded-xl mt-4 text-blue-web">
+    <div class="p-5 bg-blue-web-light rounded-md mt-4 text-blue-web shadow-lg">
       <div>
         <div class="uppercase text-sm font-bold">Počet vstupenek</div>
         <div class="mt-2">
@@ -121,7 +125,7 @@
       </div>
       <div class="mt-2">
         {#each ticketFormCountArray($orderTicketForm.count) as i}
-          <div class="p-4 bg-utxo-gradient text-white rounded-md mb-6">
+          <div class="p-4 bg-utxo-gradient text-white rounded-md mb-6 shadow-lg">
             <div class="">
               <div class="uppercase font-bold">Vstupenka #{i+1}</div>
               <div class="md:flex gap-2">

@@ -29,7 +29,7 @@
 </script>
 
 <svelte:head>
-	<title>Home</title>
+  <title>UTXO.22 - 4-5. červen 2022 - {$bundle.description}</title>
 </svelte:head>
 
 <section class="relative mx-auto py-10 px-6 max-w-6xl">
@@ -68,7 +68,7 @@
   <div class="relative mx-auto py-6 px-6 max-w-6xl">
     <div class="py-6 md:py-10 md:flex gap-12">
       <div class="block flex-1">
-        <img src="/photos/gabriel-loci.jpeg" class="flex rounded-xl" alt="Gabriel Loci" />
+        <img src="/photos/gabriel-loci.jpeg" class="flex rounded-xl shadow-xl" alt="Gabriel Loci" />
       </div>
       <div class="text-white md:w-1/2 md:pt-0 pt-6">
         <div class="uppercase">Místo</div>

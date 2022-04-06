@@ -25,14 +25,18 @@
 
 </script>
 
+<svelte:head>
+  <title>Program | UTXO.22</title>
+</svelte:head>
+
 
 <section class="relative mx-auto py-10 px-6 max-w-6xl mb-10 text-blue-web">
   <h1 class="uppercase text-2xl font-bold">Program</h1>
   <div class="mt-2 text-sm">Program stále připravujeme. Jeho konečná podoba bude zveřejněna par týdnů před konferencí.</div>
 
-  <div class="mt-6 ml-2">
+  <div class="mt-6">
     {#each $bundle.spec.events.filter(e => !e.parent) as e}
-      <div class="mb-4 border px-3 py-2 rounded">
+      <div class="mb-4 border px-3 py-2 rounded-md shadow-lg">
         <div class="text-lg font-semibold">{e.name}</div>
         {#if e.speakers && e.speakers.length > 0}
           <div class="mt-1 mb-2 flex flex-wrap gap-2">
@@ -53,7 +57,7 @@
           <div class="p-2 mt-2 w-auto">
             <div class="flex flex-wrap gap-2" cellpadding="5">
               {#each getParents(e) as pe}
-                <div class="mb-2 border rounded-md py-1.5 px-2.5 bg-gray-100 text-sm">
+                <div class="mb-2 border rounded py-1.5 px-2.5 bg-gray-100 text-sm">
                   <div class="font-bold">{pe.name}</div>
                   <div class="mt-1">
                     {#if pe.speakers.length === 0}

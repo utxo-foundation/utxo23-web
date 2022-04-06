@@ -10,8 +10,8 @@
 	<nav class="relative mx-auto py-6 px-6 max-w-6xl text-center">
     <div class="">
       <div class="sm:flex flex-wrap space-x-10">
-        <div class="block justify-start flex-1">
-          <a href="/"><img src="/img/logo.png" alt="UTXO.22" style="width: 110px;" /></a>
+        <div class="block justify-start flex-1 my-auto">
+          <a href="/"><img src="/img/logo-white.svg" class="w-26" alt="UTXO.22" /></a>
         </div>
         <div class="sm:flex sm:space-x-10 uppercase text-sm font-bold text-white">
           <a sveltekit:prefetch href="/" class="m-auto hover:text-red-500" class:text-blue-400={$page.url.pathname === '/'}>O konferenci</a>
