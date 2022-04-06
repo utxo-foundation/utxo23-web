@@ -72,7 +72,7 @@
   </div>
   <div class="mt-10">
     <h1 class="uppercase text-2xl font-bold">Nákup vstupenek</h1>
-    <div class="mb-10 mt-4">
+    <div class="mb-6 mt-6 lg:mt-4">
       <div class="text-right text-sm">Zbývá 333 z 333 (celková emise: 999 vstupenek)</div>
       <div class="w-full bg-gray-200 rounded-full h-6 dark:bg-gray-200 mt-2 flex text-xs text-white">
         <div class="bg-[#39AEA9] h-6 rounded-l-full" style="width: 10%"><div class="py-1 px-2">I. vlna</div></div>
@@ -80,21 +80,21 @@
           div class="bg-[#E5EFC1] h-6 rounded-r-full text-blue-web" style="width: 34%"><div class="py-1 px-2">III. vlna</div></div>-->
       </div>
     </div>
-    <div class="border rounded-md p-6 shadow-md">
+    <div class="border rounded-md p-4 shadow-md">
       <div class="mb-4">
         Aktuální cena vstupenky: <span class="font-bold">{ticketPrice} Kč</span> / osobu
       </div>
-      <div class="flex">
-        <div class="w-1/2 p-4">
+      <div class="md:flex">
+        <div class="md:w-1/2 p-4">
           <div class="font-bold">✅ &nbsp;Vstupenka obsahuje</div>
           <div class="mt-4">
-            <div class="mb-2">• přístup na všechny přednášky, workshopy a další událostí v rámci konference (do naplnění kapacity sálu)</div>
+            <div class="mb-2">• přístup na všechny přednášky, workshopy a další události v rámci konference (do naplnění kapacity sálu)</div>
             <div class="mb-2">• platnost oba dva konferenční dny (sobota + neděle)</div>
-            <div class="mb-2">• přístup na <b>UTXO.Party</b> během sobotního večera/noci</div>
+            <div class="mb-2">• přístup na <span class="font-bold">UTXO.Party</span> během sobotního večera/noci</div>
             <div>• skvělou možnost networkingu v rámci lokální kryptokomunity</div>
           </div>
         </div>
-        <div class="w-1/2 p-4">
+        <div class="md:w-1/2 p-4">
           <div class="font-bold">❌ &nbsp;Vstupenka NEobsahuje</div>
           <div class="mt-4 ml-4">
             <div class="mb-2">• jídlo nebo pití - teplé i studené občerstvení bude možné zakoupit na místě, platba kartou nebo Lightning Network (LN)</div>
@@ -103,7 +103,7 @@
         </div>
       </div>
     </div>
-    <div class="p-5 bg-blue-web-light rounded-md mt-4 text-blue-web shadow-md">
+    <div class="p-5 bg-blue-web-light rounded-md mt-6 text-blue-web shadow-md">
       <div>
         <div class="uppercase text-sm font-bold">Počet vstupenek</div>
         <div class="mt-2">
