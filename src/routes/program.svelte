@@ -59,7 +59,7 @@
     {#each $bundle.spec.events.filter(e => !e.parent) as e}
       <div class="transition-all mb-4 border px-3 py-2 rounded-md shadow {$userData.favoriteEvents.includes(e.id) ? 'bg-yellow-100' : '' }" >
         <div class="float-right"><i class="fa-star {$userData.favoriteEvents.includes(e.id) ? 'fa-solid' : 'fa-regular'} cursor-pointer" utxo-event-id="{e.id}" on:click={handleFavorite}></i></div>
-        <div class="text-lg font-semibold">{e.name}</div>
+        <div class="text-lg font-semibold"><a href="/udalosti/{e.id}">{e.name}</a></div>
         {#if e.speakers && e.speakers.length > 0}
           <div class="mt-1 mb-2 flex flex-wrap gap-2">
             {#each speakersMap(e.speakers) as s}

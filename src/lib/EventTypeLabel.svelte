@@ -1,5 +1,6 @@
 <script>
   export let event = {};
+  export let size = null;
 
   const config = {
     panel: { title: 'Panelová debata', style: 'bg-custom-red text-white' },
@@ -12,8 +13,8 @@
 
 </script>
 
-<div class="text-xs flex h-5">
+<div class="flex { size === 'big' ? 'h-6 text-sm' : 'h-5 text-xs' }">
   <div class="w-1 rounded-l-sm {current.style}"></div>
-  <div class="px-1.5 py-0.5 rounded-r-sm bg-gray-100 uppercase">{current.title}</div>
+  <div class="{ size === 'big' ? 'px-2 py-0.5' : 'px-1.5 py-0.5' } rounded-r-sm bg-gray-100 uppercase">{current.title}</div>
 </div>
 

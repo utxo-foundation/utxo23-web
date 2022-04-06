@@ -77,6 +77,12 @@
 </div>
 {/if}
 
+{#if size === 'semi-small'}
+<div class="w-10 text-center">
+  <img src={currentImg} class="w-10 rounded-full m-auto" alt="{speaker.name}" />
+</div>
+{/if}
+
 {#if size === 'extra-small'}
 <div class="w-6 h-6 text-center">
   <a href="/lide/{speaker.id}"><img src={currentImg} class="w-6 rounded-full m-auto" alt="{speaker.name}" /></a>

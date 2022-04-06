@@ -32,7 +32,7 @@
       <div><Avatar speaker={s} size="big" /></div>
       <div class="mt-4 sm:mt-0">
         <div class="mb-4 text-sm uppercase">Přednášející</div>
-        <h1 class="uppercase text-2xl font-bold">{s.name} {getFlagEmoji(s.country)}</h1>
+        <h1 class="text-2xl font-bold">{s.name} {getFlagEmoji(s.country)}</h1>
         {#if s.bio}
           <div class="mt-4 text-blue-web italic"><SvelteMarkdown source={s.bio} /></div>
         {/if}
