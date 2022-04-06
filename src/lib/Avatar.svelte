@@ -57,7 +57,7 @@
 
 {#if size === 'normal'}
 <div class="w-44 text-center pb-4">
-  <a href="/speakers/{speaker.id}" on:mouseover={mouseOver} on:mouseleave={mouseLeave}><img src={currentImg} class="w-40 rounded-full m-auto" /></a>
+  <a href="/speakers/{speaker.id}" on:mouseover={mouseOver} on:mouseleave={mouseLeave}><img src={currentImg} class="w-40 rounded-full m-auto" alt={speaker.name} /></a>
   <div class="mt-4 text-sm text-blue-web uppercase font-bold">{speaker.name} {country}</div>
   {#if speaker.bio}
     <div class="mt-1 text-xs text-blue-web italic"><SvelteMarkdown source={speaker.bio} /></div>
@@ -70,19 +70,19 @@
 
 {#if size === 'small'}
 <div class="w-16 text-center">
-  <img src={currentImg} class="w-16 rounded-full m-auto" />
+  <img src={currentImg} class="w-16 rounded-full m-auto" alt="{speaker.name}" />
 </div>
 {/if}
 
 {#if size === 'extra-small'}
 <div class="w-6 h-6 text-center">
-  <img src={currentImg} class="w-6 rounded-full m-auto" />
+  <img src={currentImg} class="w-6 rounded-full m-auto" alt="{speaker.name}" />
 </div>
 {/if}
 
 {#if size === 'micro'}
 <div class="w-4 h-4 text-center">
-  <img src={currentImg} class="w-4 rounded-full m-auto" />
+  <img src={currentImg} class="w-4 rounded-full m-auto" alt="{speaker.name}" />
 </div>
 {/if}
 
