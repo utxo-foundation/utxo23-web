@@ -65,7 +65,7 @@
   <title>Vstupenky | UTXO.22</title>
 </svelte:head>
 
-<section class="relative mx-auto py-10 px-6 max-w-6xl mb-10 text-blue-web">
+<section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl mb-10 text-blue-web">
   <div class="">
     <h1 class="uppercase text-2xl font-bold">Vaše vstupenky</h1>
     <div class="mt-6">Nemáte žádnou vstupenku</div>
