@@ -80,30 +80,30 @@
           div class="bg-[#E5EFC1] h-6 rounded-r-full text-blue-web" style="width: 34%"><div class="py-1 px-2">III. vlna</div></div>-->
       </div>
     </div>
-    <div class="bg-gray-200 rounded-md p-6 shadow-lg">
+    <div class="border rounded-md p-6 shadow-md">
       <div class="mb-4">
         Aktuální cena vstupenky: <span class="font-bold">{ticketPrice} Kč</span> / osobu
       </div>
       <div class="flex">
         <div class="w-1/2 p-4">
-          <div class="font-bold">✅ Vstupenka obsahuje</div>
-          <div class="mt-4 ml-4 text-sm">
-            <div>• přístup na všechny přednášky, workshopy a další událostí v rámci konference (do naplnění kapacity sálu)</div>
-            <div>• platnost oba dva konferenční dny (sobota + neděle)</div>
-            <div>• přístup na <b>UTXO.Party</b> během sobotního večera/noci</div>
+          <div class="font-bold">✅ &nbsp;Vstupenka obsahuje</div>
+          <div class="mt-4">
+            <div class="mb-2">• přístup na všechny přednášky, workshopy a další událostí v rámci konference (do naplnění kapacity sálu)</div>
+            <div class="mb-2">• platnost oba dva konferenční dny (sobota + neděle)</div>
+            <div class="mb-2">• přístup na <b>UTXO.Party</b> během sobotního večera/noci</div>
             <div>• skvělou možnost networkingu v rámci lokální kryptokomunity</div>
           </div>
         </div>
         <div class="w-1/2 p-4">
-          <div class="font-bold">❌ Vstupenka NEobsahuje</div>
-          <div class="mt-4 ml-4 text-sm">
-            <div>• jídlo nebo pití - teplé i studené občerstvení bude možné zakoupit na místě, platba kartou nebo Lightning Network (LN)</div>
+          <div class="font-bold">❌ &nbsp;Vstupenka NEobsahuje</div>
+          <div class="mt-4 ml-4">
+            <div class="mb-2">• jídlo nebo pití - teplé i studené občerstvení bude možné zakoupit na místě, platba kartou nebo Lightning Network (LN)</div>
             <div>• v případě menších přednášejících sálů negarantujeme místo pro každého</div>
           </div>
         </div>
       </div>
     </div>
-    <div class="p-5 bg-blue-web-light rounded-md mt-4 text-blue-web shadow-lg">
+    <div class="p-5 bg-blue-web-light rounded-md mt-4 text-blue-web shadow-md">
       <div>
         <div class="uppercase text-sm font-bold">Počet vstupenek</div>
         <div class="mt-2">
@@ -125,7 +125,7 @@
       </div>
       <div class="mt-2">
         {#each ticketFormCountArray($orderTicketForm.count) as i}
-          <div class="p-4 bg-utxo-gradient text-white rounded-md mb-6 shadow-lg">
+          <div class="p-4 bg-utxo-gradient text-white rounded-md mb-6 shadow-md">
             <div class="">
               <div class="uppercase font-bold">Vstupenka #{i+1}</div>
               <div class="md:flex gap-2">
@@ -160,7 +160,7 @@
         Celkem: <span class="font-bold">{$orderTicketForm.count * ticketPrice} Kč</span>
       </div>
       <div class="mt-4">
-        <button class="bg-utxo-gradient hover:drop-shadow-lg text-white font-bold py-2 px-4 rounded-full" on:click={submitOrderHandler}>Odeslat objednávku - přejít k platbě</button>
+        <button class="bg-utxo-gradient hover:drop-shadow-md text-white font-bold py-2 px-4 rounded-full" on:click={submitOrderHandler}>Odeslat objednávku - přejít k platbě</button>
       </div>
     </div>
   </div>
