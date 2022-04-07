@@ -29,18 +29,21 @@
 
 </script>
 
-<section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl mb-10 text-blue-web">
+<section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-blue-web">
   {#if $bundle}
     <div class="sm:flex gap-10 mt-4">
       <div><Avatar speaker={s} size="big" /></div>
       <div class="mt-4 sm:mt-0">
         <div class="mb-4 text-md uppercase">Přednášející</div>
         <h1 class="text-2xl font-bold">{s.name} {getFlagEmoji(s.country)}</h1>
+        {#if s.nickname}
+          <div class="mt-1"><span class="text-xs">aka</span> <span class="font-bold">{s.nickname}</span></div>
+        {/if}
         {#if s.bio}
           <div class="mt-4 text-blue-web italic"><SvelteMarkdown source={s.bio} /></div>
         {/if}
         {#if s.orgs}
-          <div class="mt-2 text-blue-web links"><SvelteMarkdown source={s.orgs} /></div>
+          <div class="mt-4 text-blue-web links"><SvelteMarkdown source={s.orgs} /></div>
         {/if}
         <div class="mt-4">Sekce: {s.tracks.map(t => trackRender(t)).join(', ')}</div>
         {#if s.twitter}

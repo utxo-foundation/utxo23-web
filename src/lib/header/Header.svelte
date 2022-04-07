@@ -18,7 +18,7 @@
     <div class="">
       <div class="lg:flex lg:flex-wrap lg:space-x-10">
         <div class="block justify-start lg:flex-1 my-auto text-center pb-3 lg:pb-0">
-          <div class="w-36 lg:w-32 inline-block lg:block"><a href="/" on:click={logoClick}><img src="/img/logo-white.svg" class="w-full" alt="UTXO.22" /></a></div>
+          <div class="w-36 lg:w-24 inline-block lg:block"><a href="/" on:click={logoClick}><img src="/img/logo-white.svg" class="w-full" alt="UTXO.22" /></a></div>
         </div>
         <div class="flex lg:space-x-10 uppercase text-sm font-bold text-white">
           <a sveltekit:prefetch href="/" class="lg:w-auto w-1/3 m-auto hover:text-[#E16A61]" class:text-blue-400={$page.url.pathname === '/'}>O konferenci</a>

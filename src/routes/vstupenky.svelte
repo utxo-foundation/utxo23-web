@@ -65,12 +65,12 @@
   <title>Vstupenky | UTXO.22</title>
 </svelte:head>
 
-<section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl mb-10 text-blue-web">
+<section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-blue-web">
   <div class="">
     <h1 class="uppercase text-2xl font-bold">Vaše vstupenky</h1>
     <div class="mt-6">Nemáte žádnou vstupenku</div>
   </div>
-  <div class="mt-10">
+  <div class="mt-10 mb-10">
     <h1 class="uppercase text-2xl font-bold">Nákup vstupenek</h1>
     <div class="border rounded-md p-4 shadow-md mt-4">
       <div class="mb-4">
@@ -78,7 +78,7 @@
       </div>
       <div class="md:flex">
         <div class="md:w-1/2 p-2">
-          <div class="font-bold">✅ &nbsp;Vstupenka obsahuje</div>
+          <div class="font-bold uppercase">✅ &nbsp;Vstupenka obsahuje:</div>
           <div class="mt-4">
             <div class="mb-2"> přístup na všechny přednášky, workshopy a další události v rámci konference (do naplnění kapacity sálu)</div>
             <div class="mb-2">• platnost oba dva konferenční dny (sobota + neděle)</div>
@@ -87,7 +87,7 @@
           </div>
         </div>
         <div class="md:w-1/2 p-2 md:mt-0 mt-3">
-          <div class="font-bold">❌ &nbsp;Vstupenka NEobsahuje</div>
+          <div class="font-bold uppercase">❌ &nbsp;Vstupenka NEobsahuje:</div>
           <div class="mt-4 ml-4">
             <div class="mb-2">• jídlo nebo pití - teplé i studené občerstvení bude možné zakoupit na místě, platba kartou nebo Lightning Network (LN)</div>
             <div>• v případě menších přednášejících sálů negarantujeme místo pro každého</div>

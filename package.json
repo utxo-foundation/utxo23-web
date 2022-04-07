@@ -1,6 +1,6 @@
 {
   "name": "utxo22-web",
-  "version": "0.0.1",
+  "version": "0.8.0",
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
