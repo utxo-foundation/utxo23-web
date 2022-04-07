@@ -143,7 +143,7 @@
       <div class="mt-6">
         <div class="uppercase text-sm font-bold">Email</div>
         <div class="mt-2 text-sm">Kontaktní email, na který budou zaslány vstupenky.</div>
-        <div class="mt-2"><input type="text" class="border border-blue-web rounded-md p-2 w-1/2 text-blue-web" bind:value={$orderTicketForm.email} /></div>
+        <div class="mt-2"><input type="text" class="border border-blue-web rounded-md p-2 w-full lg:w-1/2 text-blue-web" bind:value={$orderTicketForm.email} /></div>
       </div>
       <div class="mt-6">
         <div class="uppercase text-sm font-bold">Údaje na jmenovku</div>
@@ -156,7 +156,7 @@
               <div class="uppercase font-bold">Vstupenka #{i+1}</div>
               <div class="md:flex gap-2">
                 <div class="mt-2 flex-1">
-                  <div class="uppercase text-sm">Jméno</div>
+                  <div class="uppercase text-sm">Jméno (Přezdívka)</div>
                   <div class="mt-2"><input type="text" class="border border-blue-web rounded-md p-2 w-full text-blue-web" bind:value={$orderTicketForm.tickets[i].name} placeholder="{faker.name.findName()}" /></div>
                 </div>
                 <div class="mt-2 flex-1">
@@ -172,16 +172,6 @@
           </div>
         {/each}
       </div>
-      <div class="mt-4">
-        <div class="uppercase text-sm font-bold">Platební metoda</div>
-        <div class="mt-2">
-          {#each paymentMethods as pm}
-            <div class="mb-2">
-              <label class="cursor-pointer"><input checked={$orderTicketForm.paymentMethod === pm.id} name="paymentMethod" value="{pm.id}" type="radio" on:change={selectPaymentMethod} /> {pm.name}</label>
-            </div>
-          {/each}
-        </div>
-      </div>
       <div class="mt-6">
         <div class="uppercase text-sm font-bold">Dýško pro organizátory</div>
         <div class="mt-2 flex flex-wrap gap-2">
@@ -191,13 +181,24 @@
           <div class="px-2 py-1 {$orderTicketForm.tipCustom > 0 ? 'px-5 border border-blue-web rounded-full bg-blue-web text-white' : ''}">Jiná částka: <input class="border border border-blue-web rounded-md px-2 py-1 text-blue-web w-16" bind:value={$orderTicketForm.tipCustom} /> Kč</div>
         </div>
       </div>
-      <div class="mt-10">
-        <div class="uppercase text-sm font-bold">Shrnutí objednávky</div>
-        <div class="mt-2">{$orderTicketForm.count} x vstupenka za {defaultTicketPrice} Kč {#if tip} + dýško {tip} Kč{/if} = <span class="font-bold">{totalPrice} Kč</span></div>
-        <div class="mt-2">Celkem k platbě: <span class="font-bold">{totalPrice} Kč</span> {#if $orderTicketForm.paymentMethod === 'btcpay'}(v BTC){/if}</div>
+      <div class="mt-8">
+        <div class="uppercase text-sm font-bold">Platební metoda</div>
+        <div class="mt-2">
+          {#each paymentMethods as pm}
+            <div class="mb-2">
+              <label class="cursor-pointer"><input checked={$orderTicketForm.paymentMethod === pm.id} name="paymentMethod" value="{pm.id}" type="radio" on:change={selectPaymentMethod} /> {pm.name}</label>
+            </div>
+          {/each}
+        </div>
       </div>
-      <div class="mt-4">
-        <button class="bg-utxo-gradient hover:drop-shadow-md text-white font-bold py-2 px-4 rounded-full" on:click={submitOrderHandler}>Odeslat objednávku - zaplatit {totalPrice} Kč {#if $orderTicketForm.paymentMethod === 'btcpay'}bitcoinem{:else}platební kartou{/if}</button>
+      <div class="mt-6 py-3 px-4 bg-white rounded-md shadow-md text-sm">
+        <div class="uppercase text-sm font-bold">Shrnutí objednávky</div>
+        <div class="mt-1.5">{$orderTicketForm.count} x vstupenka za {defaultTicketPrice} Kč {#if tip} + dýško {tip} Kč{/if} = <span class="font-bold">{totalPrice} Kč</span></div>
+        <div class="mt-1.5">Platební metoda: <span class="font-bold">{#if $orderTicketForm.paymentMethod === 'btcpay'}Bitcoin{:else}Platební karta{/if}</span></div>
+        <div class="mt-1.5">Celkem: <span class="font-bold">{totalPrice} Kč</span> {#if $orderTicketForm.paymentMethod === 'btcpay'}(v BTC){/if}</div>
+      </div>
+      <div class="mt-6">
+        <button class="bg-utxo-gradient hover:drop-shadow-md text-white font-semibold py-2 px-4 rounded-full" on:click={submitOrderHandler}>Odeslat objednávku - zaplatit {totalPrice} Kč {#if $orderTicketForm.paymentMethod === 'btcpay'}bitcoinem{:else}platební kartou{/if}</button>
       </div>
     </div>
   </div>
