@@ -18,8 +18,8 @@ Stránka využívá data z [hlavního repozitáře "utxo"](https://github.com/ut
 Pro vývoj musíte mít nainstalové prostředí [Node.js](https://nodejs.org/en/).
 
 ```bash
-git clone https://github.com/utxo-foundation/utxo22-landing.git
-cd utxo22-landing
+git clone https://github.com/utxo-foundation/utxo22-web.git
+cd utxo22-web
 npm install
 npm run dev
 ```
