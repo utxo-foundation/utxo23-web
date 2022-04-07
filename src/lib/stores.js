@@ -7,6 +7,8 @@ export const orderTicketForm = writable({
   email: '',
   tickets: [],
   paymentMethod: 'card',
+  tipPercent: 10,
+  tipCustom: '',
 });
 
 export const userData = writable({

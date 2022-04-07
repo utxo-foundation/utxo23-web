@@ -20,9 +20,17 @@
   ]
 
   const maxTickets = 10
-  const ticketPrice = 400
+  const defaultTicketPrice = 400
 
   const count = [...Array(maxTickets).keys()].map(i => i+1);
+
+  const tipPercentages = [ 
+    [ 0, 'Bez dýška' ],
+    [ 5 ],
+    [ 10 ],
+    [ 20 ],
+  ]
+
 
   function selectPaymentMethod (el) {
     orderTicketForm.update(f => {
@@ -42,6 +50,7 @@
   }
 
   let tickets = 0
+
   orderTicketForm.subscribe(f => {
     if (f.count !== tickets) {
       tickets = f.count
@@ -59,6 +68,31 @@
     localStorage.setItem('orderTicketForm', JSON.stringify(f))
   })
 
+  function changeTip (perc) {
+    return () => {
+      orderTicketForm.update(of => {
+        of.tipPercent = perc
+        of.tipCustom = ''
+        return of
+      })
+    }
+  }
+
+  orderTicketForm.subscribe(of => {
+    const val = Number(of.tipCustom)
+    if (val === NaN || !val || val < 1 || !String(val).match(/^\d+$/)) {
+      of.tipCustom = ''
+    }
+    else if (val && val > 0 && of.tipPercent > 0) {
+      of.tipPercent = 0
+    }
+    return of
+  })
+
+  $: ticketPrice = ($orderTicketForm.count * defaultTicketPrice)
+  $: tip = $orderTicketForm.tipPercent > 0 ? $orderTicketForm.tipPercent * (ticketPrice/100) : Number($orderTicketForm.tipCustom)
+  $: totalPrice = ticketPrice + tip
+
 </script>
 
 <svelte:head>
@@ -74,7 +108,7 @@
     <h1 class="uppercase text-2xl font-bold">Nákup vstupenek</h1>
     <div class="border rounded-md p-4 shadow-md mt-4">
       <div class="mb-4">
-        Aktuální cena vstupenky: <span class="font-bold">{ticketPrice} Kč</span> / osobu
+        Aktuální cena vstupenky: <span class="font-bold">{defaultTicketPrice} Kč</span> / osobu
       </div>
       <div class="md:flex">
         <div class="md:w-1/2 p-2">
@@ -106,12 +140,12 @@
           </select>
         </div>
       </div>
-      <div class="mt-4">
+      <div class="mt-6">
         <div class="uppercase text-sm font-bold">Email</div>
         <div class="mt-2 text-sm">Kontaktní email, na který budou zaslány vstupenky.</div>
         <div class="mt-2"><input type="text" class="border border-blue-web rounded-md p-2 w-1/2 text-blue-web" bind:value={$orderTicketForm.email} /></div>
       </div>
-      <div class="mt-4">
+      <div class="mt-6">
         <div class="uppercase text-sm font-bold">Údaje na jmenovku</div>
         <div class="mt-2 text-sm">Informace, které budou vytištěné na Vaší konferenční jmenovku. Tyto údaje jsou nepovinné a je možné je změnit později.</div>
       </div>
@@ -148,13 +182,23 @@
           {/each}
         </div>
       </div>
+      <div class="mt-6">
+        <div class="uppercase text-sm font-bold">Dýško pro organizátory</div>
+        <div class="mt-2 flex flex-wrap gap-2">
+          {#each tipPercentages as tp}
+            <button class="block py-1.5 px-4 min-w-16 {$orderTicketForm.tipPercent === tp[0] && $orderTicketForm.tipCustom < 1  ? (tp[0] === 0 ? 'bg-gray-400' : 'bg-blue-web' )+' rounded-full text-white shadow-lg' : 'border border-solid border-blue-web rounded-full'}" on:click={changeTip(tp[0])}>{tp[1] || tp[0] + '%'}</button>
+          {/each}
+          <div class="ml-2 px-3 py-1 {$orderTicketForm.tipCustom > 0 ? 'px-5 border border-blue-web rounded-full bg-blue-web text-white' : ''}">Jiná částka: <input class="border border border-blue-web rounded-md px-2 py-1 text-blue-web w-20" bind:value={$orderTicketForm.tipCustom} /> Kč</div>
+        </div>
+      </div>
       <div class="mt-10">
-        Celkem: <span class="font-bold">{$orderTicketForm.count * ticketPrice} Kč</span>
+        Celkem: <span class="font-bold">{totalPrice} Kč</span>
       </div>
       <div class="mt-4">
         <button class="bg-utxo-gradient hover:drop-shadow-md text-white font-bold py-2 px-4 rounded-full" on:click={submitOrderHandler}>Odeslat objednávku - přejít k platbě</button>
       </div>
     </div>
   </div>
+  <pre>{JSON.stringify($orderTicketForm, null, 2)}</pre>
 </section>
 
