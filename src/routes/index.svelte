@@ -69,10 +69,10 @@
       </div>
       <div class="text-white md:w-1/2 md:pt-0 pt-6">
         <div class="uppercase">Místo</div>
-        <div class="uppercase mt-4 text-4xl font-bold">Gabriel Loci</div>
+        <div class="uppercase mt-3 text-4xl font-bold">Gabriel Loci</div>
         <div class="mt-4 font-bold">
           Holečkova 106/10<br/>
-          150 00 Praha 5 - Smíchov
+          150 00 Praha 5 - Smíchov <span class="font-normal">(<a href="https://goo.gl/maps/u1aY4RxXMgcm889V7" class="underline hover:no-underline" target="_blank">Google Maps</a>, <a href="https://mapy.cz/s/cuvetubafo" class="underline hover:no-underline" target="_blank">Mapy.cz</a>)</span>
         </div>
         <div class="mt-4">
           Benediktinky. Kulturní památka. Česká Pošta. Poštovní muzeum.

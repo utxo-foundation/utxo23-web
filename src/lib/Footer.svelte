@@ -25,13 +25,13 @@
     </div>
   </div>
   <div class="relative mx-auto px-6 pt-10 pb-6 max-w-6xl text-xs opacity-50 sm:flex">
-    <div class="flex-1 mt-1 mb-2">
+    <div class="flex-1 mt-2 mb-2">
       <i class="fas fa-heart text-red-500" /> S láskou vytváří <a href="https://utxo.foundation" class="underline hover:no-underline" target="_blank">UTXO Foundation, z.s.</a>
     </div>
     <div>
       <span class="font-bold">v0.8.0</span> | powered by 
       <a href="https://svelte.dev/" class="font-bold"  target="_blank" ><img src="/img/svelte-logo.svg" class="w-5 inline" alt="Svelte" /> Svelte</a> | 
-      grafický návrh <a href="https://www.ppmedia.cz/" target="_blank"><img src="/img/pen-production-logo.svg" class="w-24 inline-block pb-1 ml-1" /></a> 
+      grafický návrh <a href="https://www.ppmedia.cz/" target="_blank"><img src="/img/pen-production-logo.svg" class="w-28 inline-block pb-2 ml-1" alt="Pen&Production" /></a> 
     </div>
   </div>
 </div>

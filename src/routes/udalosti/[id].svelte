@@ -26,7 +26,7 @@
 
 </script>
 
-<section class="relative mx-auto py-10 px-6 max-w-6xl mb-10 text-blue-web">
+<section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl mb-10 text-blue-web">
   {#if $bundle}
     <div class="mb-6 flex flex-wrap gap-4">
       <div><EventTypeLabel event={e} size="big" /></div>
