@@ -188,14 +188,16 @@
           {#each tipPercentages as tp}
             <button class="block py-1.5 px-4 min-w-16 {$orderTicketForm.tipPercent === tp[0] && $orderTicketForm.tipCustom < 1  ? (tp[0] === 0 ? 'bg-gray-400' : 'bg-blue-web' )+' rounded-full text-white shadow-lg' : 'border border-solid border-blue-web rounded-full'}" on:click={changeTip(tp[0])}>{tp[1] || tp[0] + '%'}</button>
           {/each}
-          <div class="ml-2 px-3 py-1 {$orderTicketForm.tipCustom > 0 ? 'px-5 border border-blue-web rounded-full bg-blue-web text-white' : ''}">Jiná částka: <input class="border border border-blue-web rounded-md px-2 py-1 text-blue-web w-20" bind:value={$orderTicketForm.tipCustom} /> Kč</div>
+          <div class="px-2 py-1 {$orderTicketForm.tipCustom > 0 ? 'px-5 border border-blue-web rounded-full bg-blue-web text-white' : ''}">Jiná částka: <input class="border border border-blue-web rounded-md px-2 py-1 text-blue-web w-16" bind:value={$orderTicketForm.tipCustom} /> Kč</div>
         </div>
       </div>
       <div class="mt-10">
-        Celkem: <span class="font-bold">{totalPrice} Kč</span>
+        <div class="uppercase text-sm font-bold">Shrnutí objednávky</div>
+        <div class="mt-2">{$orderTicketForm.count} x vstupenka za {defaultTicketPrice} Kč {#if tip} + dýško {tip} Kč{/if} = <span class="font-bold">{totalPrice} Kč</span></div>
+        <div class="mt-2">Celkem k platbě: <span class="font-bold">{totalPrice} Kč</span> {#if $orderTicketForm.paymentMethod === 'btcpay'}(v BTC){/if}</div>
       </div>
       <div class="mt-4">
-        <button class="bg-utxo-gradient hover:drop-shadow-md text-white font-bold py-2 px-4 rounded-full" on:click={submitOrderHandler}>Odeslat objednávku - přejít k platbě</button>
+        <button class="bg-utxo-gradient hover:drop-shadow-md text-white font-bold py-2 px-4 rounded-full" on:click={submitOrderHandler}>Odeslat objednávku - zaplatit {totalPrice} Kč {#if $orderTicketForm.paymentMethod === 'btcpay'}bitcoinem{:else}platební kartou{/if}</button>
       </div>
     </div>
   </div>
