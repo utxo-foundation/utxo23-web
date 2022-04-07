@@ -21,7 +21,7 @@
 </script>
 
 {#if bundle}
-<div class="layout min-h-screen bg-blue-web-bg">
+<div class="layout min-h-screen bg-gray-900">
   <div class="inset-0 bg-white">
     <Header />
 
