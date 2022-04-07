@@ -29,7 +29,7 @@
       <i class="fas fa-heart text-red-500" /> S láskou organizuje <a href="https://utxo.foundation" class="underline hover:no-underline" target="_blank">UTXO Foundation, z.s.</a>
     </div>
     <div>
-      <span class="font-bold">v0.8.0</span> | powered by 
+      <a href="https://github.com/utxo-foundation/utxo22-web" target="_blank"><span class="font-bold">v0.8.0</span></a> | powered by 
       <a href="https://svelte.dev/" class="font-bold"  target="_blank" ><img src="/img/svelte-logo.svg" class="w-5 inline" alt="Svelte" /> Svelte</a> | 
       grafický návrh <a href="https://www.ppmedia.cz/" target="_blank"><img src="/img/pen-production-logo.svg" class="w-28 inline-block pb-2 ml-1" alt="Pen&Production" /></a> 
     </div>

@@ -27,3 +27,7 @@ npm run dev
 ## Autoři
 
 - [tree](https://twitter.com/treecz)
+
+## License
+
+MIT
