@@ -26,7 +26,7 @@
   </div>
   <div class="relative mx-auto px-6 pt-10 pb-6 max-w-6xl text-xs opacity-50 sm:flex">
     <div class="flex-1 mt-2 mb-2">
-      <i class="fas fa-heart text-red-500" /> S láskou vytváří <a href="https://utxo.foundation" class="underline hover:no-underline" target="_blank">UTXO Foundation, z.s.</a>
+      <i class="fas fa-heart text-red-500" /> S láskou organizuje <a href="https://utxo.foundation" class="underline hover:no-underline" target="_blank">UTXO Foundation, z.s.</a>
     </div>
     <div>
       <span class="font-bold">v0.8.0</span> | powered by 
