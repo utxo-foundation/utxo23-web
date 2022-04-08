@@ -23,6 +23,11 @@ class API {
     return this.bundle
   }
 
+  async apiCall (path, opts={ method: 'get' }) {
+    const resp = await fetch(`https://api.utxo.cz/${path}`, opts)
+    return resp.json()
+  }
+
   async submitOrder (data) {
     const resp = await fetch('https://api.utxo.cz/submitOrder', {
       method: 'POST',

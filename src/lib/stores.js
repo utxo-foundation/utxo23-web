@@ -1,6 +1,7 @@
 import { writable } from 'svelte/store';
 
 export const bundle = writable(null);
+export const apiStatus = writable(null);
 
 export const orderTicketForm = writable({
   count: 1,
