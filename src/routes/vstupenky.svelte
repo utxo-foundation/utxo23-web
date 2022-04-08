@@ -11,7 +11,7 @@
 
   const orderTicketFormLS = localStorage.getItem('orderTicketForm')
   let parsed = JSON.parse(orderTicketFormLS)
-  if (parsed.__v !== $orderTicketForm.__v) {
+  if (parsed.__v === $orderTicketForm.__v) {
     orderTicketForm.set(parsed)
   }
  
