@@ -1,0 +1,21 @@
+
+.top-header { max-height: 160px !important; }
+.header { width: 100%; justify-content: center; }
+.header__icon { margin-top: 15px !important; margin-bottom: 5px; width: auto !important; }
+
+.top-header .timer-row__progress-bar {background: #393F67;}
+.top-header .timer-row {background: #a0a0a0;}
+
+.payment-tabs__tab.active { border-bottom: #393F67 3px solid !important; }
+
+.btnGroupLnd button { border-color: #393F67 !important; }
+.btnGroupLnd button.active { background-color: #4B5072; }
+.btnGroupLnd button.active:hover { background-color: #393F67 !important; }
+.btnGroupLnd button:hover { background-color: rgb(219 234 254 / 0.6) !important; }
+
+.powered__by__btcpayserver a { color: #393F67 !important; }
+.separatorGem { background: #393F67 !important; }
+
+.action-button {background:#4B5072 !important; border: 0;}
+.action-button:hover {background:#393F67 !important; border: 0;}
+.action-button:active {background:#393F67 !important; border: 0;}
