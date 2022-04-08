@@ -10,13 +10,13 @@
   import api from '$lib/api.js';
 
   const orderTicketFormLS = localStorage.getItem('orderTicketForm')
-  if (orderTicketFormLS) {
-    orderTicketForm.set(JSON.parse(orderTicketFormLS))
+  let parsed = JSON.parse(orderTicketFormLS)
+  if (parsed.__v !== $orderTicketForm.__v) {
+    orderTicketForm.set(parsed)
   }
  
   onMount(async () => {
-    const as = await api.apiCall('status')
-    apiStatus.set(as)
+    apiStatus.set(await api.apiCall('status'))
   })
 
   faker.locale = 'cz';
