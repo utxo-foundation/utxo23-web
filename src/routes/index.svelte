@@ -28,7 +28,7 @@
 </script>
 
 <svelte:head>
-  <title>UTXO.22 - 4-5. červen 2022 - {$bundle.description}</title>
+  <title>UTXO.22 - 4-5. červen 2022 {$bundle ? '- '+$bundle.description : ''}</title>
 </svelte:head>
 
 <section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl">
