@@ -202,7 +202,7 @@
       <div class="mt-6">
         <div class="uppercase text-sm font-bold">Počet vstupenek</div>
         <div class="mt-2 flex gap-3">
-          <select name="count" id="count" class="border border-blue-web rounded-md p-2 text-blue-web" bind:value={$orderTicketForm.count}>
+          <select name="count" class="border border-blue-web rounded-md p-2 text-blue-web bg-white" bind:value={$orderTicketForm.count}>
             {#each count as i}
               <option value={i}>{i}</option>
             {/each}
