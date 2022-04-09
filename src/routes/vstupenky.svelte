@@ -9,8 +9,6 @@
   //import btcPay from 'https://btcpay.utxo.cz/modal/btcpay.js';
   import api from '$lib/api.js';
   import makeBlockie from 'ethereum-blockies-base64';
-  import sha256 from 'crypto-js/sha256';
-  import Base64 from 'crypto-js/enc-base64';
   import { format } from 'date-fns';
 
   const orderTicketFormLS = localStorage.getItem('orderTicketForm')
