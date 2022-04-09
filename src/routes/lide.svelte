@@ -12,23 +12,18 @@
 	import { page } from '$app/stores';
   import { bundle } from '$lib/stores.js';
 
-  let id = null
-  let s = null
-
+  $: id = getId($page.url.search)
   $: s = $bundle ? $bundle.spec.speakers.find(s => s.id === id) : null
   $: events = s ? $bundle.spec.events.filter(ev => ev.speakers && ev.speakers.includes(s.id)) : []
 
-  function loadItem () {
-    const searchParams = new URLSearchParams($page.url.search)
-    id = searchParams.get('id')
-    if (!$bundle.spec.speakers.find(s => s.id === id)) {
+  function getId (search) {
+    const searchParams = new URLSearchParams(search)
+    const cid = searchParams.get('id')
+    if (!$bundle.spec.speakers.find(s => s.id === cid)) {
       goto('/')
     }
+    return cid
   }
-
-  onMount(() => {
-    loadItem()
-  })
 
   function trackRender (trackId) {
     const track = $bundle.spec.tracks.find(t => t.id === trackId)

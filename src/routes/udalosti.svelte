@@ -12,21 +12,17 @@
   import EventTypeLabel from '$lib/EventTypeLabel.svelte';
   import Avatar from '$lib/Avatar.svelte';
 
-  let id = null
-
+  $: id = getId($page.url.search)
   $: e = $bundle ? $bundle.spec.events.find(ev => ev.id === id) : null
  
-  function loadItem () {
-    const searchParams = new URLSearchParams($page.url.search)
-    id = searchParams.get('id')
-    if (!$bundle.spec.events.find(ev => ev.id === id)) {
-      goto('/program')
+  function getId (search) {
+    const searchParams = new URLSearchParams(search)
+    const cid = searchParams.get('id')
+    if (!$bundle.spec.events.find(s => s.id === cid)) {
+      goto('/')
     }
+    return cid
   }
-
-  onMount(() => {
-    loadItem()
-  })
 
   function speakersMap (arr) {
     if (!arr) return;

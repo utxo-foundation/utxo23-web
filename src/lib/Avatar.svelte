@@ -12,21 +12,26 @@
   }*/
   const priority = [ 'web:svg', 'web:webp', 'web:png', 'web:jpg', 'twitter:jpg' ]
 
-  let speakerImg = null
-  let speakerImgAlt = null
+  $: photos = getPhotos(speaker)
+  $: speakerImg = photos[0]
+  $: speakerImgAlt = photos[1]
 
-  if (speaker.photos && speaker.photos.length > 0) {
-    for (const prio of priority) {
-      if (speaker.photos.includes(prio)) {
-        const [ ext, format ] = prio.split(':')
-        const fn = `${imagesRoot}/${col}/${speaker.id}-${ext}.${format}`
-        if (speakerImg) {
-          $: speakerImgAlt = fn
-          break
+  function getPhotos (sp) {
+    const output = []
+    if (speaker.photos && speaker.photos.length > 0) {
+      for (const prio of priority) {
+        if (speaker.photos.includes(prio)) {
+          const [ ext, format ] = prio.split(':')
+          const fn = `${imagesRoot}/${col}/${speaker.id}-${ext}.${format}`
+          if (output[0]) {
+            output.push(fn)
+            break
+          }
+          output.push(fn)
         }
-        $: speakerImg = fn
       }
     }
+    return output
   }
 
   if (!speakerImg) {
