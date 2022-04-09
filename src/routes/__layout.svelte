@@ -16,6 +16,11 @@
     if (userDataLS) {
       userData.set(JSON.parse(userDataLS))
     }
+
+    userData.subscribe(ud => {
+      localStorage.setItem('userData', JSON.stringify(ud))
+    })
+
   })
 
 </script>

@@ -16,4 +16,5 @@ export const orderTicketForm = writable({
 export const userData = writable({
   favoriteEvents: [],
   hpTrack: 'top',
+  orders: [],
 });

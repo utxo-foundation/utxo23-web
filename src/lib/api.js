@@ -23,7 +23,11 @@ class API {
     return this.bundle
   }
 
-  async apiCall (path, opts={ method: 'get' }) {
+  async apiCall (path, opts={ method: 'get' }, body = null) {
+    if (body) {
+      opts.headers = { 'Content-Type': 'application/json', }
+      opts.body = JSON.stringify(body)
+    }
     const resp = await fetch(`https://api.utxo.cz/${path}`, opts)
     return resp.json()
   }
@@ -31,9 +35,7 @@ class API {
   async submitOrder (data) {
     const resp = await fetch('https://api.utxo.cz/submitOrder', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json', },
       body: JSON.stringify(data),
     })
     return resp.json()

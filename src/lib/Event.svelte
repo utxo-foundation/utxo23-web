@@ -35,7 +35,7 @@
         fe.push(t)
         output = Object.assign($userData, { favoriteEvents: fe })
       }
-      localStorage.setItem('userData', JSON.stringify(output))
+      //localStorage.setItem('userData', JSON.stringify(output))
       return output
     })
   }
