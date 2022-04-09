@@ -28,7 +28,9 @@
       const resp = await api.apiCall('orders', { method: 'POST' }, { orders: $userData.orders })
       orders = resp.orders
       tickets = resp.tickets
-      showOrder = false
+      if (orders.length > 0 || tickets.length > 0) {
+        showOrder = false
+      }
     }
   }
  
