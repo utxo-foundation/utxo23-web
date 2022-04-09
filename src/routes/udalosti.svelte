@@ -17,7 +17,8 @@
   $: e = $bundle ? $bundle.spec.events.find(ev => ev.id === id) : null
  
   function loadItem () {
-    id = $page.params.id
+    const searchParams = new URLSearchParams($page.url.search)
+    id = searchParams.get('id')
     if (!$bundle.spec.events.find(ev => ev.id === id)) {
       goto('/program')
     }
@@ -58,7 +59,7 @@
         {#each speakersMap(e.speakers) as s}
           <div class="flex gap-2">
             <Avatar speaker={s} size='semi-small' />
-            <div class="m-auto"><a href="/lide/{s.id}" class="text-xl">{s.name}</a></div>
+            <div class="m-auto"><a href="/lide?id={s.id}" class="text-xl">{s.name}</a></div>
           </div>
         {/each}
       </div>
