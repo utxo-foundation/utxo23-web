@@ -44,7 +44,7 @@
 
 <div class="transition-all mb-4 border px-3 py-2 rounded-md shadow {$userData.favoriteEvents.includes(e.id) ? 'bg-yellow-100' : '' }" >
   <div class="float-right"><i class="fa-star {$userData.favoriteEvents.includes(e.id) ? 'fa-solid' : 'fa-regular'} cursor-pointer" utxo-event-id="{e.id}" on:click={handleFavorite}></i></div>
-  <div class="text-lg font-semibold"><a href="/udalosti?id={e.id}">{e.name}</a></div>
+  <div class="text-lg font-semibold"><a href="/udalosti/{e.id}">{e.name}</a></div>
   {#if e.speakers && e.speakers.length > 0}
     <div class="mt-1 mb-2 flex flex-wrap gap-2">
       {#each speakersMap(e.speakers) as s}
@@ -65,7 +65,7 @@
       <div class="flex flex-wrap gap-2" cellpadding="5">
         {#each getParents(e) as pe}
           <div class="border rounded py-1.5 px-2.5 bg-gray-100 text-sm">
-            <div class="font-bold"><a href="/udalosti?id={pe.id}">{pe.name}</a></div>
+            <div class="font-bold"><a href="/udalosti/{pe.id}">{pe.name}</a></div>
             <div class="mt-1">
               {#if pe.speakers.length === 0}
                 <div>TBA</div>

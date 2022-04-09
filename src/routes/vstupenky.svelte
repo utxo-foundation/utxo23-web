@@ -246,7 +246,7 @@
                 <div class="w-11 h-11 rounded-md" style="background-image: url({makeBlockie(ticket.avatarHash)}); background-size: 100% 100%;"></div>
                 <div class="w-auto">
                   <div class="no-flex">
-                    <span class="font-bold px-2 py-1 bg-gray-200 rounded w-auto">#{ticket.id}</span>
+                    <span class="px-2 py-1 bg-blue-web text-white rounded w-auto">#{ticket.id}</span>
                   </div>
                   <div class="mt-1.5">Běžná vstupenka</div>
                 </div>

@@ -8,7 +8,7 @@
   import { goto } from '$app/navigation';
   import Avatar from '$lib/Avatar.svelte';
   import Event from '$lib/Event.svelte';
-	import { onMount } from 'svelte';
+	import { onMount, beforeUpdate } from 'svelte';
 	import { page } from '$app/stores';
   import { bundle } from '$lib/stores.js';
 
@@ -18,12 +18,16 @@
   $: s = $bundle ? $bundle.spec.speakers.find(s => s.id === id) : null
   $: events = s ? $bundle.spec.events.filter(ev => ev.speakers && ev.speakers.includes(s.id)) : []
 
-  onMount(() => {
+  function loadItem () {
     const searchParams = new URLSearchParams($page.url.search)
     id = searchParams.get('id')
     if (!$bundle.spec.speakers.find(s => s.id === id)) {
       goto('/')
     }
+  }
+
+  onMount(() => {
+    loadItem()
   })
 
   function trackRender (trackId) {
@@ -40,6 +44,10 @@
   }
 
 </script>
+
+<svelte:head>
+  <title>{s ? s.name : ''} | Lidé | {$bundle ? $bundle.name : 'UTXO.22'}</title>
+</svelte:head>
 
 <section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-blue-web">
   {#if $bundle && s}

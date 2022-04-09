@@ -15,13 +15,16 @@
   let id = null
 
   $: e = $bundle ? $bundle.spec.events.find(ev => ev.id === id) : null
-
-  onMount(() => {
-    const searchParams = new URLSearchParams($page.url.search)
-    id = searchParams.get('id')
+ 
+  function loadItem () {
+    id = $page.params.id
     if (!$bundle.spec.events.find(ev => ev.id === id)) {
       goto('/program')
     }
+  }
+
+  onMount(() => {
+    loadItem()
   })
 
   function speakersMap (arr) {
@@ -37,6 +40,10 @@
   }
 
 </script>
+
+<svelte:head>
+  <title>{e ? e.name : ''} | Události | {$bundle ? $bundle.name : 'UTXO.22'}</title>
+</svelte:head>
 
 <section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-blue-web">
   {#if $bundle && e}
