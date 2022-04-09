@@ -6,11 +6,23 @@
   import SvelteMarkdown from 'svelte-markdown';
 
 	import { page } from '$app/stores';
+  import { goto } from '$app/navigation';
+  import { onMount } from 'svelte';
   import { bundle, userData } from '$lib/stores.js';
   import EventTypeLabel from '$lib/EventTypeLabel.svelte';
   import Avatar from '$lib/Avatar.svelte';
 
-  $: e = $bundle ? $bundle.spec.events.find(ev => ev.id === $page.params.id) : null
+  let id = null
+
+  $: e = $bundle ? $bundle.spec.events.find(ev => ev.id === id) : null
+
+  onMount(() => {
+    const searchParams = new URLSearchParams($page.url.search)
+    id = searchParams.get('id')
+    if (!$bundle.spec.events.find(ev => ev.id === id)) {
+      goto('/program')
+    }
+  })
 
   function speakersMap (arr) {
     if (!arr) return;
@@ -27,7 +39,7 @@
 </script>
 
 <section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-blue-web">
-  {#if $bundle}
+  {#if $bundle && e}
     <div class="mb-6 flex flex-wrap gap-4">
       <div><EventTypeLabel event={e} size="big" /></div>
       <div class="text-md my-auto">{trackRender(e.track)}</div>

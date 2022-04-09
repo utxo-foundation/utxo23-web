@@ -5,14 +5,26 @@
 <script>
   import SvelteMarkdown from 'svelte-markdown';
 
+  import { goto } from '$app/navigation';
   import Avatar from '$lib/Avatar.svelte';
   import Event from '$lib/Event.svelte';
+	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
   import { bundle } from '$lib/stores.js';
 
-  $: s = $bundle ? $bundle.spec.speakers.find(s => s.id === $page.params.id) : null
+  let id = null
+  let s = null
 
-  $: events = $bundle.spec.events.filter(ev => ev.speakers && ev.speakers.includes(s.id))
+  $: s = $bundle ? $bundle.spec.speakers.find(s => s.id === id) : null
+  $: events = s ? $bundle.spec.events.filter(ev => ev.speakers && ev.speakers.includes(s.id)) : []
+
+  onMount(() => {
+    const searchParams = new URLSearchParams($page.url.search)
+    id = searchParams.get('id')
+    if (!$bundle.spec.speakers.find(s => s.id === id)) {
+      goto('/')
+    }
+  })
 
   function trackRender (trackId) {
     const track = $bundle.spec.tracks.find(t => t.id === trackId)
@@ -30,7 +42,7 @@
 </script>
 
 <section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-blue-web">
-  {#if $bundle}
+  {#if $bundle && s}
     <div class="sm:flex gap-10 mt-4">
       <div><Avatar speaker={s} size="big" /></div>
       <div class="mt-4 sm:mt-0">
