@@ -2,6 +2,7 @@
   export let speaker;
   export let col = 'speakers';
   export let size = 'normal';
+  export let customSize = null;
 
   import SvelteMarkdown from 'svelte-markdown';
   import { page } from '$app/stores';
@@ -46,7 +47,7 @@
     return String.fromCodePoint(...codePoints);
   }
 
-  $: country = getFlagEmoji(speaker.country)
+  $: country = speaker.country ? getFlagEmoji(speaker.country) : ''
   $: currentImg = speakerImg
 
   function mouseOver () {
@@ -59,6 +60,12 @@
   }
 
 </script>
+
+{#if size === 'custom'}
+<div class="customSize} text-center pb-4 m-auto">
+  <img src={currentImg} class="{customSize} rounded-full m-auto" alt={speaker.name} />
+</div>
+{/if}
 
 {#if size === 'big'}
 <div class="w-64 text-center pb-4 m-auto">

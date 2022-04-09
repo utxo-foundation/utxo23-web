@@ -85,6 +85,33 @@ Zažijte mysteriózní atmosféru komplexu na 1.ročníku konference UTXO.22. Č
   </div>
 </section>
 
+<section class="relative mx-auto py-10 px-6 max-w-6xl">
+  <div class="text-blue-web lg:mt-10">
+    <div class="text-2xl uppercase font-bold">Partneři</div>
+    <div class="mt-6">Sponzoři</div>
+    <div class="mt-6 flex flex-wrap gap-8 justify-left">
+      {#each $bundle.spec.partners.filter(p => p.type === 'sponsor') as p}
+        <div class="w-28">
+          <a href={p.web.url} target="_blank"><Avatar speaker={p} col="partners" size="custom" customSize="w-24 shadow-xl" /></a>
+          <div class="text-center text-sm uppercase font-bold">{p.name}</div>
+        </div>
+      {/each}
+    </div>
+    <div class="mt-10">Komunity</div>
+    <div class="mt-6 flex flex-wrap gap-6 justify-left">
+      {#each $bundle.spec.partners.filter(p => p.type === 'community') as p}
+        <div><a href={p.web ? p.web.url : (p.twitter ? `https://twitter.com/${p.twitter}` : '')} target="_blank"><Avatar speaker={p} col="partners" size="custom" customSize="w-20 shadow-lg" /></a></div>
+      {/each}
+    </div>
+    <div class="mt-10">Mediální partneři</div>
+    <div class="mt-6 flex flex-wrap gap-4 justify-left">
+      {#each $bundle.spec.partners.filter(p => p.type === 'medium') as p}
+        <div><a href={p.web ? p.web.url : (p.twitter ? `https://twitter.com/${p.twitter}` : '')} target="_blank"><Avatar speaker={p} col="partners" size="custom" customSize="w-16 shadow-lg" /></a></div>
+      {/each}
+    </div>
+  </div>
+</section>
+
 {#if $bundle}
 <section class="relative mx-auto py-10 px-6 max-w-6xl">
   <div class="text-blue-web">

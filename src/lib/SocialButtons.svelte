@@ -15,7 +15,7 @@
 
 {#if $bundle}
   {#if size === 'small'}
-    <div class="flex block space-x-2 m-auto w-full justify-center">
+    <div class="flex block space-x-2 m-auto w-full justify-end">
       {#each socials as soc}
         <a href="{$bundle.links[soc.link]}" class="w-6 h-6 bg-white rounded-full hover:bg-utxo-gradient hover:text-white" target="_blank">
           <i class="{soc.ico}" />
