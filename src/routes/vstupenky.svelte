@@ -8,24 +8,35 @@
   import { orderTicketForm, apiStatus, userData } from '$lib/stores';
   //import btcPay from 'https://btcpay.utxo.cz/modal/btcpay.js';
   import api from '$lib/api.js';
+  import makeBlockie from 'ethereum-blockies-base64';
+  import sha256 from 'crypto-js/sha256';
+  import Base64 from 'crypto-js/enc-base64';
+  import { format } from 'date-fns';
 
   const orderTicketFormLS = localStorage.getItem('orderTicketForm')
   let parsed = JSON.parse(orderTicketFormLS)
-  if (parsed.__v === $orderTicketForm.__v) {
+  if (parsed && parsed.__v === $orderTicketForm.__v) {
     orderTicketForm.set(parsed)
   }
 
+  let showOrder = true
   let orders = []
- 
-  onMount(async () => {
-    apiStatus.set(await api.apiCall('status'))
+  let tickets = []
 
-    // load orders
+  // load orders
+  async function loadOrders () {
     if ($userData.orders && $userData.orders.length > 0) {
 
       const resp = await api.apiCall('orders', { method: 'POST' }, { orders: $userData.orders })
       orders = resp.orders
+      tickets = resp.tickets
+      showOrder = false
     }
+  }
+ 
+  onMount(async () => {
+    apiStatus.set(await api.apiCall('status'))
+    await loadOrders()
   })
 
   faker.locale = 'cz';
@@ -89,6 +100,13 @@
       return null
     }
 
+    // reset tickets in form
+    orderTicketForm.update(of => {
+      of.count = 1
+      of.tickets = []
+      return of
+    })
+
     // add order to user data
     userData.update(ud => {
       if (!ud.orders) {
@@ -101,11 +119,11 @@
     window.location.replace(resp.payment.url)
   }
 
-  let tickets = 0
+  let ticketsNum = 0
 
   orderTicketForm.subscribe(f => {
-    if (f.count !== tickets) {
-      tickets = f.count
+    if (f.count !== ticketsNum) {
+      ticketsNum = f.count
       orderTicketForm.update(cf => {
         f.tickets = f.tickets.slice(0, f.count)
         for (let i = 0; i < f.count; i++) {
@@ -169,6 +187,48 @@
   $: tip = roundPrice($orderTicketForm.tipPercent > 0 ? $orderTicketForm.tipPercent * (totalBeforeTip/100) : Number($orderTicketForm.tipCustom))
   $: totalPrice = totalBeforeTip + tip
 
+  const orderStatuses = {
+    new: {
+      name: 'Čeká na platbu',
+      icon: 'fa-solid fa-clock',
+      color: 'text-yellow-600',
+      text: (o) => {
+        return 'Tato objednávka čeká na platbu'
+      },
+    },
+    done: {
+      name: 'Zaplacená',
+      icon: 'fa-solid fa-check',
+      color: 'text-green-600'
+    },
+    cancelled: {
+      name: 'Zrušená',
+      icon: 'fa-solid fa-ban',
+      color: 'text-gray-600'
+    },
+    expired: {
+      name: 'Expirovaná',
+      icon: 'fa-solid fa-clock',
+      color: 'text-gray-600'
+    }
+  }
+
+  async function orderActionHandler (id, action) {
+    const resp = await api.apiCall('updateOrder', { method: 'POST' }, { id, action })
+    await loadOrders()
+  }
+
+  function removeOrder (id) {
+    userData.update(ud => {
+      let index = ud.orders.indexOf(id)
+      if (index >= 0) {
+        ud.orders.splice(index, 1)
+        loadOrders()
+      }
+      return ud
+    })
+  }
+
 </script>
 
 <svelte:head>
@@ -178,23 +238,81 @@
 <section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-blue-web">
   <div class="">
     <h1 class="uppercase text-2xl font-bold">Vaše vstupenky</h1>
-    <div class="mt-4">Nemáte žádnou vstupenku</div>
+    {#if tickets.length > 0}
+      <div class="mt-4 flex flex-wrap gap-3">
+        {#each tickets as ticket}
+          <div class="w-full sm:w-80">
+            <div class="h-2 bg-utxo-gradient rounded-t-md shadow-md"></div>
+            <div class="border-l border-b border-r p-4 rounded-b-md shadow-md border-blue-web">
+              <div class="flex gap-3 text-sm">
+                <div class="w-11 h-11 rounded-md" style="background-image: url({makeBlockie(ticket.avatarHash)}); background-size: 100% 100%;"></div>
+                <div class="w-auto">
+                  <div class="no-flex">
+                    <span class="font-bold px-2 py-1 bg-gray-200 rounded w-auto">#{ticket.id}</span>
+                  </div>
+                  <div class="mt-1.5">Běžná vstupenka</div>
+                </div>
+              </div>
+              {#if ticket.data}
+                <div class="mt-2">
+                  {#if ticket.data.name}{ticket.data.name}{:else}<span class="italic">Anonym</span>{/if} {#if ticket.data.org}({ticket.data.org}){/if}
+                  {#if ticket.data.twitter}<a href="https://twitter.com/{ticket.data.twitter}" target="_blank"><i class="fa-brands fa-twitter"></i></a>{/if}
+                </div>
+              {/if}
+            </div>
+          </div>
+        {/each}
+      </div>
+    {:else}
+      <div class="mt-4">Nemáte žádnou vstupenku</div>
+    {/if}
   </div>
+  {#if $apiStatus}
   {#if orders.length > 0}
     <div class="mt-10">
       <h1 class="uppercase text-2xl font-bold">Vaše objednávky</h1>
       <div class="mt-4">
         {#each orders as order}
-          <div class="px-3 py-2 border rounded-lg">
-            {order.id} - {order.status}
+          <div class="mb-2 px-3 py-2 border rounded-lg">
+            {#if ['expired', 'cancelled'].includes(order.status)}
+              <div class="float-right"><a class="cursor-pointer" on:click={() => removeOrder(order.id)}><i class="fa-solid fa-xmark"></i></a></div>
+            {/if}
+            <div class="flex flex-wrap gap-3 text-sm">
+              <div class="px-2 py-1 bg-gray-200 rounded">#{order.id}</div>
+              <div class="my-auto uppercase {orderStatuses[order.status].color ? (orderStatuses[order.status].color) : ''}">
+                {#if orderStatuses[order.status].icon}
+                  <i class="{orderStatuses[order.status].icon} mr-0.5"></i>
+                {/if}
+                {orderStatuses[order.status].name}
+              </div>
+            </div>
+            <div class="mt-2 text-sm flex gap-2">
+              <div>Vytvořeno: <span class="font-bold">{format(new Date(order.created), 'd.M.y H:mm')}</span><br/></div>
+              <div>Částka: <span class="font-bold">{order.amount} Kč</span><br/></div>
+              <div>Platební metoda: <span class="font-bold">{$apiStatus.config.paymentMethods.find(pm => pm.id === order.paymentMethod).shortname}</span></div>
+            </div>
+            {#if orderStatuses[order.status].text}
+              <div class="mt-2 italic">{orderStatuses[order.status].text(order)}</div>
+              {#if order.actions}
+                <div class="flex gap-3">
+                {#each order.actions as action}
+                  <div class="mt-2"><a href="{action.url}" class="underline hover:no-underline cursor-pointer" on:click={() => orderActionHandler(order.id, action.remote)}>{action.name}</a></div>
+                {/each}
+                </div>
+              {/if}
+            {/if}
           </div>
         {/each}
       </div>
     </div>
   {/if}
-  {#if $apiStatus}
   <div class="mt-10 mb-10">
     <h1 class="uppercase text-2xl font-bold">Nákup vstupenek</h1>
+    {#if !showOrder}
+      <div class="mt-4">
+        <button class="border rounded-full border-[#E16A61] hover:border-0 hover:p-px hover:bg-utxo-gradient hover:text-white" on:click={() => showOrder = true}><div class="px-6 py-2">Nakoupit další vstupenky</div></button>
+      </div>
+    {:else}
     {#if !$apiStatus.wave}
       <div class="mt-4">V současné době nelze zakoupit vstupenky.</div>
     {:else}
@@ -334,6 +452,7 @@
         </div>
       </div>
     </div>
+    {/if}
     {/if}
   </div>
   <!--pre>{JSON.stringify($orderTicketForm, null, 2)}</pre>
