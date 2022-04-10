@@ -17,4 +17,10 @@ export const userData = writable({
   favoriteEvents: [],
   hpTrack: 'top',
   orders: [],
+  tickets: [],
 });
+
+export const userDataLocal = writable({
+  tickets: [],
+  orders: [],
+})

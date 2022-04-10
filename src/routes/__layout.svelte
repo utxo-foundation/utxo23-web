@@ -4,7 +4,8 @@
 	import '../app.css';
   import api from '$lib/api.js';
   import { page } from '$app/stores';
-  import { userData } from '$lib/stores';
+  import { userData, userDataLocal, apiStatus } from '$lib/stores';
+  import { loadOrders, loadApiStatus } from '$lib/orders';
   import { onMount } from 'svelte';
 
   let bundle = null
@@ -21,7 +22,11 @@
       localStorage.setItem('userData', JSON.stringify(ud))
     })
 
+    await loadApiStatus()
+    await loadOrders($userData)
   })
+
+  // load orders
 
 </script>
 

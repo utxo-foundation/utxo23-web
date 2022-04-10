@@ -3,13 +3,18 @@
 </script>
 
 <script>
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
   import { faker } from '@faker-js/faker';
-  import { orderTicketForm, apiStatus, userData } from '$lib/stores';
+  import { orderTicketForm, apiStatus, userData, userDataLocal } from '$lib/stores';
   //import btcPay from 'https://btcpay.utxo.cz/modal/btcpay.js';
   import api from '$lib/api.js';
   import makeBlockie from 'ethereum-blockies-base64';
-  import { format } from 'date-fns';
+  import { format, formatDistanceToNow } from 'date-fns';
+  import { cs } from 'date-fns/locale'
+
+  import { page } from '$app/stores';
+  import { goto } from '$app/navigation';
+  import { loadOrders, loadApiStatus } from '$lib/orders';
 
   const orderTicketFormLS = localStorage.getItem('orderTicketForm')
   let parsed = JSON.parse(orderTicketFormLS)
@@ -17,26 +22,43 @@
     orderTicketForm.set(parsed)
   }
 
-  let showOrder = true
-  let orders = []
-  let tickets = []
+  let forceShow = false
+  let loading = true
+  let formProcessing = false
+  $: showOrder = !(($userDataLocal.orders && $userDataLocal.orders.length > 0) || ($userDataLocal.tickets && $userDataLocal.tickets.length > 0))
+  $: orders = $userDataLocal.orders
+  $: tickets = $userDataLocal.tickets
 
-  // load orders
-  async function loadOrders () {
-    if ($userData.orders && $userData.orders.length > 0) {
-
-      const resp = await api.apiCall('orders', { method: 'POST' }, { orders: $userData.orders })
-      orders = resp.orders
-      tickets = resp.tickets
-      if (orders.length > 0 || tickets.length > 0) {
-        showOrder = false
-      }
-    }
-  }
+  
+  let periodic15 = null
+  let periodic60 = null
  
   onMount(async () => {
-    apiStatus.set(await api.apiCall('status'))
-    await loadOrders()
+    
+    const sp = $page.url.searchParams
+    if (sp.get('id') && sp.get('secret')) {
+      userData.update(ud => {
+        if (!ud.tickets) ud.tickets = [];
+        ud.tickets.push([ sp.get('id'), sp.get('secret') ].join(':'))
+        return ud
+      })
+      await loadOrders($userData)
+      goto('/vstupenky');
+    }
+    loading = false
+
+    periodic15 = setInterval(() => {
+      loadApiStatus()
+    }, 15 * 1000)
+
+    periodic60 = setInterval(() => {
+      loadOrders($userData)
+    }, 60 * 1000)
+  })
+
+  onDestroy(() => {
+    clearInterval(periodic15)
+    clearInterval(periodic60)
   })
 
   faker.locale = 'cz';
@@ -83,6 +105,7 @@
 
   async function submitOrderHandler () {
     // order process
+    formProcessing = true
 
     // clean previous errors
     $: orderError = null
@@ -94,6 +117,7 @@
 
     if (resp.error) {
       $: orderError = processOrderError(resp.error)
+      formProcessing = false
       return null;
     }
     if (!resp.ok || !resp.payment.url) {
@@ -215,18 +239,20 @@
 
   async function orderActionHandler (id, action) {
     const resp = await api.apiCall('updateOrder', { method: 'POST' }, { id, action })
-    await loadOrders()
+    loadOrders($userData)
+    loadApiStatus()
   }
 
   function removeOrder (id) {
     userData.update(ud => {
+      console.log('change', id)
       let index = ud.orders.indexOf(id)
       if (index >= 0) {
         ud.orders.splice(index, 1)
-        loadOrders()
       }
       return ud
     })
+    loadOrders($userData)
   }
 
 </script>
@@ -236,13 +262,16 @@
 </svelte:head>
 
 <section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-blue-web">
+  {#if loading}
+    <div>Načítám...</div>
+  {:else}
   <div class="">
     <h1 class="uppercase text-2xl font-bold">Vaše vstupenky</h1>
     {#if tickets.length > 0}
       <div class="mt-4 flex flex-wrap gap-3">
         {#each tickets as ticket}
           <div class="w-full sm:w-80">
-            <div class="h-2 bg-utxo-gradient rounded-t-md shadow-md"></div>
+            <div class="h-2 bg-blue-web rounded-t-md shadow-md"></div>
             <div class="border-l border-b border-r p-4 rounded-b-md shadow-md border-blue-web">
               <div class="flex gap-3 text-sm">
                 <div class="w-11 h-11 rounded-md" style="background-image: url({makeBlockie(ticket.avatarHash)}); background-size: 100% 100%;"></div>
@@ -284,6 +313,9 @@
                   <i class="{orderStatuses[order.status].icon} mr-0.5"></i>
                 {/if}
                 {orderStatuses[order.status].name}
+                {#if order.status === 'new'}
+                  &nbsp;- expirace {format(new Date(order.expiration), 'd.M. H:mm')} (zbývá {formatDistanceToNow(new Date(order.expiration), { locale: cs, includeSeconds: true })})
+                {/if}
               </div>
             </div>
             <div class="mt-2 text-sm flex gap-2">
@@ -308,9 +340,21 @@
   {/if}
   <div class="mt-10 mb-10">
     <h1 class="uppercase text-2xl font-bold">Nákup vstupenek</h1>
-    {#if !showOrder}
+    <div class="mt-4 mb-8">
+      <div class="flex w-full uppercase text-sm mb-2">
+        <div class="flex-1">{$apiStatus.wave.name} ({$apiStatus.wave.price} Kč)</div>
+        <div class="justify-end">Zbývá {$apiStatus.wave.live.left} / {$apiStatus.wave.count}</div>
+      </div>
+      <div class="w-full bg-gray-200 rounded-full h-2.5">
+        <div class="bg-utxo-gradient h-2.5 rounded-full transition-all" style="width: {$apiStatus.wave.live.perc}%"></div>
+      </div>
+    </div>
+    {#if $apiStatus.wave.live.left <= 0}
+      <div class="mt-2">Aktuální vlna je vyprodaná. {#if $apiStatus.wave.live.waiting > 0}Zarezervované a nezaplacené vstupenky ({$apiStatus.wave.live.waiting}) se postupně vrací do prodeje.{/if}</div>
+    {:else}
+    {#if !showOrder && !forceShow}
       <div class="mt-4">
-        <button class="border rounded-full border-[#E16A61] hover:border-0 hover:p-px hover:bg-utxo-gradient hover:text-white" on:click={() => showOrder = true}><div class="px-6 py-2">Nakoupit další vstupenky</div></button>
+        <button class="border rounded-full border-[#E16A61] hover:border-0 hover:p-px hover:bg-utxo-gradient hover:text-white" on:click={() => forceShow = true}><div class="px-6 py-2">Nakoupit další vstupenky</div></button>
       </div>
     {:else}
     {#if !$apiStatus.wave}
@@ -445,7 +489,18 @@
           <div class="mt-1.5">Platební metoda: <span class="font-bold">{#if $orderTicketForm.paymentMethod === 'btcpay'}Bitcoin{:else}Platební karta{/if}</span></div>
         </div>
         <div class="mt-6">
-          <button class="hover:bg-utxo-gradient bg-[#E16A61] text-white font-semibold rounded-full shadow-md" on:click={submitOrderHandler}><div class="py-2 px-4">Odeslat objednávku - zaplatit {totalPrice} Kč {#if $orderTicketForm.paymentMethod === 'btcpay'}bitcoinem{:else}platební kartou{/if}</div></button>
+          <div class="flex gap-3">
+            {#if !formProcessing}
+            <div><button class="{formProcessing ? 'bg-gray-800' : 'hover:bg-utxo-gradient bg-[#E16A61]'} text-white font-semibold rounded-full shadow-md" disabled={formProcessing} on:click={submitOrderHandler}><div class="py-2 px-4">Odeslat objednávku - zaplatit {totalPrice} Kč {#if $orderTicketForm.paymentMethod === 'btcpay'}bitcoinem{:else}platební kartou{/if}</div></button></div>
+            {/if}
+
+            {#if formProcessing}
+              <div class="flex gap-3">
+                <div class=""><img src="/img/Spin-1s-200px.gif" class="w-10" /></div>
+                <div class="my-auto text-red-600 font-bold">Odesílám objednávku ..</div>
+              </div>
+            {/if}
+          </div>
           {#if orderError}
             <div class="py-2 px-3 mt-4 text-red-600 bg-red-200 rounded-xl shadow-md">Chyba: {orderError.title}</div>
           {/if}
@@ -454,9 +509,11 @@
     </div>
     {/if}
     {/if}
+    {/if}
   </div>
   <!--pre>{JSON.stringify($orderTicketForm, null, 2)}</pre>
   <pre>{JSON.stringify(extrasStats, null, 2)}</pre -->
+  {/if}
   {/if}
 </section>
 
