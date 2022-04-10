@@ -245,10 +245,14 @@
 
   function removeOrder (id) {
     userData.update(ud => {
-      console.log('change', id)
+      console.log('change', ud.orders, id)
       let index = ud.orders.indexOf(id)
       if (index >= 0) {
-        ud.orders.splice(index, 1)
+        if (ud.orders.length === 1) {
+          ud.orders = []
+        } else {
+          ud.orders.splice(index, 1)
+        }
       }
       return ud
     })

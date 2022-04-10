@@ -6,9 +6,10 @@
   import { page } from '$app/stores';
   import { userData, userDataLocal, apiStatus } from '$lib/stores';
   import { loadOrders, loadApiStatus } from '$lib/orders';
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
 
   let bundle = null
+  let uds = null
 
   onMount(async () => {
     bundle = await api.loadBundle($page.url.hostname === 'localhost')
@@ -18,13 +19,19 @@
       userData.set(JSON.parse(userDataLS))
     }
 
-    userData.subscribe(ud => {
+    uds = userData.subscribe(ud => {
       localStorage.setItem('userData', JSON.stringify(ud))
     })
 
     await loadApiStatus()
     await loadOrders($userData)
   })
+
+  onDestroy(() => {
+    //userData.unsubscribe(uds)
+  })
+
+
 
   // load orders
 
