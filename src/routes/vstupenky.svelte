@@ -10,7 +10,7 @@
   import api from '$lib/api.js';
   import makeBlockie from 'ethereum-blockies-base64';
   import { format, formatDistanceToNow } from 'date-fns';
-  import { cs } from 'date-fns/locale'
+  import { cs } from 'date-fns/locale/index.js'
 
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
