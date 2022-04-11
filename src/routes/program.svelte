@@ -17,8 +17,23 @@
     Program stále připravujeme. Jeho konečná podoba bude zveřejněna pár týdnů
     před konferencí.
   </div>
+  <div class="mt-6 flex flex-wrap gap-3 px-4 text-center">
+    <div class="flex-1">
+      <div class="text-4xl">{$bundle.spec.events.length}</div>
+      <div class="uppercase font-sm mt-1">událostí</div>
+    </div>
+    <div class="flex-1">
+      <div class="text-4xl">{$bundle.spec.speakers.length}</div>
+      <div class="uppercase font-sm mt-1">přednášejících</div>
+    </div>
+    <div class="flex-1">
+      <div class="text-4xl">{$bundle.spec.events.reduce((p, c) => p + c.duration, 0)}</div>
+      <div class="uppercase font-sm mt-1">minut obsahu</div>
+    </div>
+  </div>
 
-  <div class="mt-6">
+  <h1 class="mt-10 uppercase text-lg font-semibold">Seznam událostí</h1>
+  <div class="mt-4">
     {#each $bundle.spec.events.filter((e) => !e.parent) as e}
       <Event event={e} />
     {/each}
