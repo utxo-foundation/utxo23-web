@@ -36,6 +36,9 @@
   onMount(async () => {
     
     const sp = $page.url.searchParams
+    if (sp.get('done')) {
+      goto('/gratulujeme');
+    }
     if (sp.get('id') && sp.get('secret')) {
       userData.update(ud => {
         if (!ud.tickets) ud.tickets = [];
@@ -376,17 +379,15 @@
           <div class="md:w-1/2 p-2">
             <div class="font-bold uppercase">✅ &nbsp;Vstupenka obsahuje:</div>
             <div class="mt-4">
-              <div class="mb-2">• přístup na všechny přednášky, workshopy a další události v rámci konference (do naplnění kapacity sálu)</div>
+              <div class="mb-2">• přístup na všechny přednášky, workshopy a další události v rámci konference</div>
               <div class="mb-2">• platnost oba dva konferenční dny (sobota + neděle)</div>
-              <div class="mb-2">• přístup na <span class="font-bold">UTXO.Party</span> během sobotního večera/noci</div>
-              <div>• skvělou možnost networkingu v rámci lokální kryptokomunity</div>
+              <div class="mb-2">• přístup na <span class="font-bold">UTXO.Party</span> v sobotu večer</div>
             </div>
           </div>
           <div class="md:w-1/2 p-2 md:mt-0 mt-3">
             <div class="font-bold uppercase">❌ &nbsp;Vstupenka NEobsahuje:</div>
             <div class="mt-4">
-              <div class="mb-2">• jídlo nebo pití - teplé i studené občerstvení bude možné zakoupit na místě, platba kartou nebo Lightning Network (LN)</div>
-              <div>• v případě menších přednášejících sálů negarantujeme místo pro každého</div>
+              <div class="mb-2">• jídlo a pití - občerstvení bude možné zakoupit na místě (platba kartou nebo Lightning)</div>
             </div>
           </div>
         </div>

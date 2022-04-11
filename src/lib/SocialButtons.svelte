@@ -8,6 +8,7 @@
     { link: 'twitter', ico: 'fa-brands fa-twitter', name: 'Twitter' },
     { link: 'instagram', ico: 'fab fa-instagram', name: 'Instagram' },
     { link: 'fbevent', ico: 'fab fa-facebook', name: 'Facebook' },
+    { link: 'substack', ico: 'fa-solid fa-envelope', name: 'Newsletter' },
     { link: 'discord', ico: 'fab fa-discord', name: 'Discord' },
     { link: 'telegram', ico: 'fab fa-telegram', name: 'Telegram' },
   ]
