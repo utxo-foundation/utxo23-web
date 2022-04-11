@@ -1,5 +1,8 @@
-<script>
+<script context="module">
+	export const prerender = true;
+</script>
 
+<script>
 </script>
 
 <section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-blue-web">
