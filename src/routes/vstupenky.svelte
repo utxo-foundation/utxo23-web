@@ -183,6 +183,9 @@
     else if (val && val > 0 && of.tipPercent > 0) {
       of.tipPercent = 0
     }
+    if (orderError) {
+      orderError = false
+    }
     return of
   })
 
