@@ -47,6 +47,7 @@
 
 <section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-blue-web">
   {#if $bundle && e}
+    <div class="mb-6 uppercase text-gray-500"><a href="javascript:history.back()"><i class="fa-solid fa-arrow-left"></i>&nbsp;Zpět</a></div>
     <div class="mb-6 flex flex-wrap gap-4">
       <div><EventTypeLabel event={e} size="big" /></div>
       <div class="text-md my-auto">{trackRender(e.track)}</div>

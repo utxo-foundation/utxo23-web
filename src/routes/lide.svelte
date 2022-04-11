@@ -50,6 +50,7 @@
 
 <section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-blue-web">
   {#if $bundle && s}
+    <div class="mb-6 uppercase text-gray-500"><a href="javascript:history.back()"><i class="fa-solid fa-arrow-left"></i>&nbsp;Zpět</a></div>
     <div class="sm:flex gap-10 mt-4">
       <div><Avatar speaker={s} size="big" /></div>
       <div class="mt-4 sm:mt-0">
