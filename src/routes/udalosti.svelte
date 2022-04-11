@@ -3,14 +3,16 @@
 </script>
 
 <script>
-  import SvelteMarkdown from 'svelte-markdown';
-
 	import { page } from '$app/stores';
   import { goto } from '$app/navigation';
   import { onMount } from 'svelte';
   import { bundle, userData } from '$lib/stores.js';
   import EventTypeLabel from '$lib/EventTypeLabel.svelte';
   import Avatar from '$lib/Avatar.svelte';
+  import SvelteMarkdown from 'svelte-markdown';
+  import Link from '$lib/Link.svelte';
+
+  const renderers = { link: Link }
 
   $: id = getId($page.url.search)
   $: e = $bundle ? $bundle.spec.events.find(ev => ev.id === id) : null
@@ -60,5 +62,10 @@
         {/each}
       </div>
     {/if}
+    <div class="mt-8">
+      {#if e.description}
+        <SvelteMarkdown source={e.description} renderers={renderers}/>
+      {/if}
+    </div>
   {/if}
 </section>

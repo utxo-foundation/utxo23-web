@@ -5,7 +5,10 @@
   export let customSize = null;
 
   import SvelteMarkdown from 'svelte-markdown';
+  import Link from '$lib/Link.svelte';
   import { page } from '$app/stores';
+
+  const renderers = { link: Link }
 
   let imagesRoot = 'https://spec.utxo.cz/22/photos'
   /*if ($page.url.hostname === 'localhost') {
@@ -78,7 +81,7 @@
   <a href="/lide?id={speaker.id}" on:mouseover={mouseOver} on:mouseleave={mouseLeave}><img src={currentImg} class="w-36 sm:w-40 rounded-full m-auto shadow-xl" alt={speaker.name} /></a>
   <div class="mt-4 text-sm text-blue-web uppercase font-bold"><a href="/lide?id={speaker.id}">{speaker.name}</a> {country}</div>
   {#if speaker.bio || speaker.orgs}
-    <div class="mt-1 text-xs text-blue-web italic"><SvelteMarkdown source={speaker.bio || speaker.orgs} /></div>
+    <div class="mt-1 text-xs text-blue-web italic"><SvelteMarkdown source={speaker.bio || speaker.orgs} renderers={renderers}/></div>
   {/if}
 </div>
 {/if}

@@ -6,6 +6,8 @@
   import { bundle, userData } from '$lib/stores.js';
   import Avatar from '$lib/Avatar.svelte';
   import SvelteMarkdown from 'svelte-markdown';
+  import Link from '$lib/Link.svelte';
+  const renderers = { link: Link }
 
   let onlyLead = true
   let onlyLeadPreview = false
@@ -124,7 +126,7 @@ Zažijte mysteriózní atmosféru komplexu na 1.ročníku konference UTXO.22. Č
        {#each $bundle.spec.faqs as item}
          <div class="mb-5 break-inside-avoid-column bg-blue-100/60 rounded-xl px-8 py-6 text-left transition-all box-shadow-light overflow-visible">
            <div class="mb-4 font-bold">{item.question}</div>
-           <SvelteMarkdown source={item.answer} />
+           <SvelteMarkdown source={item.answer} renderers={renderers} />
          </div>
        {/each}
     </div>
