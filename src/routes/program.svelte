@@ -6,6 +6,34 @@
   import Event from "$lib/Event.svelte";
   import { bundle, userData } from "$lib/stores.js";
   import { calcDuration } from "$lib/events.js";
+  import WordCloud from "$lib/WordCloud.svelte";
+
+  $: tags = getTags($bundle)
+  $: totalDuration = calcTotalDuration($bundle);
+
+  function getTags (data) {
+    let res = {}
+    data.spec.events.forEach(e => {
+      if (!e.tags) {
+        return;
+      }
+      e.tags.forEach(t => {
+        if (!res[t]) {
+          res[t] = { text: t, count: 0 }
+        }
+        //res[t].count++
+        res[t].count += 1
+      })
+    })
+    let arr = Object.keys(res).map(k => res[k])
+    const max = arr.reduce((p, c) => c.count > p ? c.count : p, 0)
+    arr = arr.map(i => {
+      i.count = Math.round(i.count/(max/40))
+      return i
+    })
+    console.log(arr)
+    return arr
+  }
 
   function calcTotalDuration(bundle) {
     if (!bundle) {
@@ -17,7 +45,10 @@
     );
   }
 
-  $: totalDuration = calcTotalDuration($bundle);
+  function wordClick (e) {
+    console.log(e.detail.path[0].innerHTML)
+  }
+
 </script>
 
 <svelte:head>
@@ -44,8 +75,11 @@
       <div class="uppercase font-sm mt-1">hodin obsahu</div>
     </div>
   </div>
+  <div class="mt-10 flex sm:justify-center overflow-auto">
+    <WordCloud words={tags} on:click={wordClick} />
+  </div>
 
-  <h1 class="mt-10 uppercase text-lg font-semibold">Seznam událostí</h1>
+  <h1 class="mt-2 uppercase text-lg font-semibold">Seznam událostí</h1>
   <div class="mt-4">
     {#each $bundle.spec.events.filter((e) => !e.parent) as e}
       <Event event={e} />

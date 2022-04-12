@@ -3,7 +3,6 @@ export function calcDuration(e, bundle) {
   if (!bundle) {
     return 0
   }
-  console.log(e.duration)
   if (e.duration) {
     return e.duration
   }
