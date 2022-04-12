@@ -57,7 +57,9 @@
   {/if}
   <div class="mt-2 text-sm flex flex-wrap gap-2">
     <div><EventTypeLabel event={e} /></div>
-    <div class="text-sm my-auto">{trackRender(e.track)}</div>
+    {#if e.track}
+      <div class="text-sm my-auto">{trackRender(e.track)}</div>
+    {/if}
     {#if duration}<div class="text-xs my-auto">{duration}m</div>{/if}
   </div>
   {#if getChildrens(e).length > 0}

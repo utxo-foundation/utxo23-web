@@ -31,6 +31,9 @@
   }
 
   function trackRender(trackId) {
+    if (!trackId) {
+      return "n/a";
+    }
     const track = $bundle.spec.tracks.find((t) => t.id === trackId);
     return track.shortname || track.name;
   }
@@ -76,9 +79,11 @@
             <SvelteMarkdown source={s.orgs} {renderers} />
           </div>
         {/if}
-        <div class="mt-4">
-          Sekce: {s.tracks.map((t) => trackRender(t)).join(", ")}
-        </div>
+        {#if s.tracks && s.tracks.length > 0}
+          <div class="mt-4">
+            Sekce: {s.tracks.map((t) => trackRender(t)).join(", ")}
+          </div>
+        {/if}
         {#if s.twitter}
           <div class="mt-2">
             Twitter: <a
