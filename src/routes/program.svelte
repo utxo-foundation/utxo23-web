@@ -5,17 +5,19 @@
 <script>
   import Event from "$lib/Event.svelte";
   import { bundle, userData } from "$lib/stores.js";
-  import calcDuration from "$lib/events.js";
+  import { calcDuration } from "$lib/events.js";
 
-  $: totalDuration = (() => {
-    if (!$bundle) {
+  function calcTotalDuration(bundle) {
+    if (!bundle) {
       return null;
     }
-    return $bundle.spec.events.reduce(
-      (p, c) => p + (c ? calcDuration(c, $bundle) : 0),
+    return bundle.spec.events.reduce(
+      (p, e) => p + (calcDuration(e, bundle) || 0),
       0
     );
-  })();
+  }
+
+  $: totalDuration = calcTotalDuration($bundle);
 </script>
 
 <svelte:head>

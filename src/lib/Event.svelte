@@ -5,7 +5,7 @@
   import Tooltip from "$lib/Tooltip.svelte";
   import EventTypeLabel from "$lib/EventTypeLabel.svelte";
   import { bundle, userData } from "$lib/stores.js";
-  import calcDuration from "$lib/events.js";
+  import { calcDuration, addFavorite } from "$lib/events.js";
 
   const e = event;
   $: duration = calcDuration(e, $bundle);
@@ -25,24 +25,6 @@
   function getChildrens(e) {
     return $bundle.spec.events.filter((i) => i.parent === e.id);
   }
-
-  function handleFavorite(el) {
-    const t = el.target.getAttribute("utxo-event-id");
-    userData.update((data) => {
-      const fe = data.favoriteEvents;
-      let output = null;
-      if (fe.includes(t)) {
-        output = Object.assign($userData, {
-          favoriteEvents: fe.filter((f) => f !== t),
-        });
-      } else {
-        fe.push(t);
-        output = Object.assign($userData, { favoriteEvents: fe });
-      }
-      //localStorage.setItem('userData', JSON.stringify(output))
-      return output;
-    });
-  }
 </script>
 
 <div
@@ -57,8 +39,7 @@
       class="fa-star {$userData.favoriteEvents.includes(e.id)
         ? 'fa-solid'
         : 'fa-regular'} cursor-pointer"
-      utxo-event-id={e.id}
-      on:click={handleFavorite}
+      on:click={() => addFavorite(e.id, userData)}
     />
   </div>
   <div class="text-lg font-semibold">
@@ -96,8 +77,7 @@
                 class="fa-star {$userData.favoriteEvents.includes(pe.id)
                   ? 'fa-solid'
                   : 'fa-regular'} cursor-pointer"
-                utxo-event-id={pe.id}
-                on:click={handleFavorite}
+                on:click={() => addFavorite(e.id, userData)}
               />
             </div>
             <div class="mt-1">

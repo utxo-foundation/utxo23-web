@@ -7,6 +7,7 @@
   import { goto } from "$app/navigation";
   import { onMount } from "svelte";
   import { bundle, userData } from "$lib/stores.js";
+  import { addFavorite } from "$lib/events.js";
   import EventTypeLabel from "$lib/EventTypeLabel.svelte";
   import Avatar from "$lib/Avatar.svelte";
   import Event from "$lib/Event.svelte";
@@ -61,6 +62,17 @@
       <div><EventTypeLabel event={e} size="big" /></div>
       <div class="text-md my-auto">{trackRender(e.track)}</div>
       <div class="text-sm my-auto">{duration}m</div>
+    </div>
+    <div class="float-right">
+      <div class="cursor-pointer" on:click={() => addFavorite(e.id, userData)}>
+        <i
+          class="fa-star {$userData.favoriteEvents.includes(e.id)
+            ? 'fa-solid'
+            : 'fa-regular'}"
+        />
+        {#if $userData.favoriteEvents.includes(e.id)}&nbsp;Tvoje oblíbená
+          událost{/if}
+      </div>
     </div>
     <h1 class="text-2xl font-bold">{e.name}</h1>
     {#if e.speakers && e.speakers.length > 0}
