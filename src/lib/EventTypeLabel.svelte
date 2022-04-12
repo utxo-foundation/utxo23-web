@@ -10,7 +10,7 @@
     lightning: { title: "Lightning talk", style: "bg-pink-400" },
   };
 
-  const current = config[event.type];
+  $: current = config[event.type];
 </script>
 
 <div class="flex {size === 'big' ? 'h-6 text-sm' : 'h-5 text-xs'}">
