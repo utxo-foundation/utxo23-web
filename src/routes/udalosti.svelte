@@ -9,6 +9,8 @@
   import { bundle, userData } from "$lib/stores.js";
   import EventTypeLabel from "$lib/EventTypeLabel.svelte";
   import Avatar from "$lib/Avatar.svelte";
+  import Event from "$lib/Event.svelte";
+  import calcDuration from "$lib/events.js";
   import SvelteMarkdown from "svelte-markdown";
   import Link from "$lib/Link.svelte";
 
@@ -16,6 +18,8 @@
 
   $: id = getId($page.url.search);
   $: e = $bundle ? $bundle.spec.events.find((ev) => ev.id === id) : null;
+  $: duration = e ? calcDuration(e, $bundle) : null
+  $: childrens = $bundle.spec.events.filter(i => i.parent === e.id);
 
   function getId(search) {
     const searchParams = new URLSearchParams(search);
@@ -51,7 +55,7 @@
     <div class="mb-6 flex flex-wrap gap-4">
       <div><EventTypeLabel event={e} size="big" /></div>
       <div class="text-md my-auto">{trackRender(e.track)}</div>
-      <div class="text-sm my-auto">{e.duration}m</div>
+      <div class="text-sm my-auto">{duration}m</div>
     </div>
     <h1 class="text-2xl font-bold">{e.name}</h1>
     {#if e.speakers && e.speakers.length > 0}
@@ -71,5 +75,13 @@
         <SvelteMarkdown source={e.description} {renderers} />
       {/if}
     </div>
+    {#if childrens.length}
+      <div><h2 class="text uppercase mb-4">Obsahuje události ({ childrens.length })</h2></div>
+      <div>
+        {#each childrens as child}
+          <Event event={child} />
+        {/each}
+      </div>
+    {/if}
   {/if}
 </section>

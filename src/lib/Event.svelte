@@ -1,12 +1,14 @@
 <script>
   export let event;
 
-  const e = event;
-
   import Avatar from "$lib/Avatar.svelte";
+  import Tooltip from "$lib/Tooltip.svelte";
   import EventTypeLabel from "$lib/EventTypeLabel.svelte";
-
   import { bundle, userData } from "$lib/stores.js";
+  import calcDuration from "$lib/events.js";
+
+  const e = event;
+  $: duration = calcDuration(e, $bundle);
 
   function speakersMap(arr) {
     if (!arr) return;
@@ -20,7 +22,7 @@
     return track.shortname || track.name;
   }
 
-  function getParents(e) {
+  function getChildrens(e) {
     return $bundle.spec.events.filter((i) => i.parent === e.id);
   }
 
@@ -41,23 +43,14 @@
       return output;
     });
   }
+
 </script>
 
 <div
-  class="transition-all mb-4 border px-3 py-2 rounded-md shadow {$userData.favoriteEvents.includes(
-    e.id
-  )
-    ? 'bg-yellow-100'
-    : ''}"
+  class="transition-all mb-4 border px-3 py-2 rounded-md shadow {$userData.favoriteEvents.includes( e.id) ? 'bg-yellow-100' : ''}"
 >
   <div class="float-right">
-    <i
-      class="fa-star {$userData.favoriteEvents.includes(e.id)
-        ? 'fa-solid'
-        : 'fa-regular'} cursor-pointer"
-      utxo-event-id={e.id}
-      on:click={handleFavorite}
-    />
+    <i class="fa-star {$userData.favoriteEvents.includes(e.id) ? 'fa-solid' : 'fa-regular'} cursor-pointer" utxo-event-id={e.id} on:click={handleFavorite} />
   </div>
   <div class="text-lg font-semibold">
     <a href="/udalosti?id={e.id}">{e.name}</a>
@@ -75,15 +68,15 @@
   <div class="mt-2 text-sm flex flex-wrap gap-2">
     <div><EventTypeLabel event={e} /></div>
     <div class="text-sm my-auto">{trackRender(e.track)}</div>
-    <div class="text-xs my-auto">{e.duration}m</div>
+    {#if duration}<div class="text-xs my-auto">{duration}m</div>{/if}
   </div>
-  {#if getParents(e).length > 0}
+  {#if getChildrens(e).length > 0}
     <div class="mt-4 w-auto mb-2">
       <div class="flex flex-wrap gap-2" cellpadding="5">
-        {#each getParents(e) as pe}
-          <div class="border rounded py-1.5 px-2.5 bg-gray-100 text-sm">
+        {#each getChildrens(e) as pe}
+          <div class="border rounded py-1.5 px-2.5 text-sm transition-all {$userData.favoriteEvents.includes( pe.id) ? 'bg-yellow-100' : 'bg-gray-100'}">
             <div class="font-bold">
-              <a href="/udalosti?id={pe.id}">{pe.name}</a>
+              <a href="/udalosti?id={pe.id}">{pe.name}</a>  <i class="fa-star {$userData.favoriteEvents.includes(pe.id) ? 'fa-solid' : 'fa-regular'} cursor-pointer" utxo-event-id={pe.id} on:click={handleFavorite} />
             </div>
             <div class="mt-1">
               {#if pe.speakers.length === 0}
