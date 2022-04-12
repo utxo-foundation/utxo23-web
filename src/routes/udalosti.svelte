@@ -60,8 +60,12 @@
     </div>
     <div class="mb-6 flex flex-wrap gap-4">
       <div><EventTypeLabel event={e} size="big" /></div>
-      <div class="text-md my-auto">{trackRender(e.track)}</div>
-      <div class="text-sm my-auto">{duration}m</div>
+      {#if e.track}
+        <div class="text-md my-auto">{trackRender(e.track)}</div>
+      {/if}
+      {#if duration}
+        <div class="text-sm my-auto">{duration}m</div>
+      {/if}
     </div>
     <div class="float-right">
       <div class="cursor-pointer" on:click={() => addFavorite(e.id, userData)}>
