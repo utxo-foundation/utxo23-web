@@ -1,6 +1,7 @@
 <script>
   import { bundle } from "$lib/stores";
   import SocialButtons from "$lib/SocialButtons.svelte";
+  import version from "$lib/version.txt";
 </script>
 
 {#if $bundle}
@@ -43,7 +44,7 @@
       </div>
       <div>
         <a href="https://github.com/utxo-foundation/utxo22-web" target="_blank"
-          ><span class="font-bold">v0.9.1</span></a
+          ><span class="font-bold">v{version}</span></a
         >
         | powered by
         <a href="https://svelte.dev/" class="font-bold" target="_blank"
