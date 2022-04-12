@@ -61,7 +61,7 @@
     Program stále připravujeme. Jeho konečná podoba bude zveřejněna pár týdnů
     před konferencí.
   </div>
-  <div class="mt-6 flex flex-wrap gap-3 px-4 text-center">
+  <!--div class="mt-6 flex flex-wrap gap-3 px-4 text-center">
     <div class="flex-1">
       <div class="text-4xl">{$bundle.spec.events.length}</div>
       <div class="uppercase font-sm mt-1">událostí</div>
@@ -74,7 +74,7 @@
       <div class="text-4xl">{Math.round((totalDuration / 60) * 100) / 100}</div>
       <div class="uppercase font-sm mt-1">hodin obsahu</div>
     </div>
-  </div>
+  </div-->
   <div class="mt-10 flex sm:justify-center overflow-auto">
     <WordCloud words={tags} on:click={wordClick} />
   </div>
