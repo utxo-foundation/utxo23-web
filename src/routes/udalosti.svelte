@@ -77,7 +77,9 @@
       </div>
     {/if}
     {#if childrens.length}
-      <div><h2 class="text uppercase mb-4">Obsahuje události ({ childrens.length })</h2></div>
+      <div class="mt-6">
+        <h2 class="text uppercase mb-4">Obsahuje události ({ childrens.length })</h2>
+      </div>
       <div>
         {#each childrens as child}
           <Event event={child} />
