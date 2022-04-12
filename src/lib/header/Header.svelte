@@ -21,7 +21,7 @@
         <div
           class="block justify-start lg:flex-1 my-auto text-center pb-3 lg:pb-0"
         >
-          <div class="w-36 lg:w-24 inline-block lg:block">
+          <div class="w-36 lg:w-32 inline-block lg:block">
             <a href="/" on:click={logoClick}
               ><img src="/img/logo-white.svg" class="w-full" alt="UTXO.22" /></a
             >

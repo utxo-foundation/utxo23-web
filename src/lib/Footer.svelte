@@ -11,7 +11,7 @@
       <div class="flex-1">
         <div>
           <a href="/"
-            ><img src="/img/logo-white.svg" alt="UTXO.22" class="w-24" /></a
+            ><img src="/img/logo-white.svg" alt="UTXO.22" class="w-32" /></a
           >
         </div>
         <div class="mt-4 font-semibold">
