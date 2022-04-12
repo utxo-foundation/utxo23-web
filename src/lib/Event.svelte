@@ -77,7 +77,7 @@
                 class="fa-star {$userData.favoriteEvents.includes(pe.id)
                   ? 'fa-solid'
                   : 'fa-regular'} cursor-pointer"
-                on:click={() => addFavorite(e.id, userData)}
+                on:click={() => addFavorite(pe.id, userData)}
               />
             </div>
             <div class="mt-1">
