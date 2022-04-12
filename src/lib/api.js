@@ -14,6 +14,8 @@ class API {
     if (!this.bundle) {
       if (local) {
         this.bundle = staticBundle
+        //const resp = await fetch('http://localhost:8000/22/bundle.json')
+        //this.bundle = await resp.json()
       } else {
         const resp = await fetch('https://spec.utxo.cz/22/bundle.json')
         this.bundle = await resp.json()

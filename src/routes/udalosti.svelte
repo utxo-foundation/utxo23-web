@@ -13,8 +13,9 @@
   import calcDuration from "$lib/events.js";
   import SvelteMarkdown from "svelte-markdown";
   import Link from "$lib/Link.svelte";
+  import Paragraph from "$lib/Paragraph.svelte";
 
-  const renderers = { link: Link };
+  const renderers = { link: Link, paragraph: Paragraph };
 
   $: id = getId($page.url.search);
   $: e = $bundle ? $bundle.spec.events.find((ev) => ev.id === id) : null;
@@ -70,11 +71,11 @@
         {/each}
       </div>
     {/if}
-    <div class="mt-8">
-      {#if e.description}
+    {#if e.description}
+      <div class="mt-6 mb-6">
         <SvelteMarkdown source={e.description} {renderers} />
-      {/if}
-    </div>
+      </div>
+    {/if}
     {#if childrens.length}
       <div><h2 class="text uppercase mb-4">Obsahuje události ({ childrens.length })</h2></div>
       <div>
