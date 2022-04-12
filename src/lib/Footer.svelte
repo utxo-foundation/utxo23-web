@@ -1,7 +1,7 @@
 <script>
   import { bundle } from "$lib/stores";
   import SocialButtons from "$lib/SocialButtons.svelte";
-  import version from "$lib/version.txt";
+  import { version } from "$lib/version.js";
 </script>
 
 {#if $bundle}
