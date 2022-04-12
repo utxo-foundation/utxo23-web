@@ -440,7 +440,9 @@
 
         {#if !$apiStatus.wave}
           <div class="mt-4">
-            Není aktivní žádná prodejní vlna. Sledujte naše sociální sítě - <a
+            Není aktivní žádná prodejní vlna.<br /><br />
+            Sledujte naše sociální sítě -
+            <a
               href={$bundle.links.twitter}
               target="_blank"
               class="underline hover:no-underline">Twitter</a
@@ -449,12 +451,17 @@
               href={$bundle.links.instagram}
               target="_blank"
               class="underline hover:no-underline">Instagram</a
-            >
-            nebo
+            >,
             <a
               href={$bundle.links.fbevent}
               target="_blank"
               class="underline hover:no-underline">Facebook</a
+            >
+            nebo odebírejte náš
+            <a
+              href={$bundle.links.substack}
+              target="_blank"
+              class="underline hover:no-underline">Newsletter</a
             >.
           </div>
         {:else}
