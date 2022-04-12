@@ -19,8 +19,8 @@
 
   $: id = getId($page.url.search);
   $: e = $bundle ? $bundle.spec.events.find((ev) => ev.id === id) : null;
-  $: duration = e ? calcDuration(e, $bundle) : null
-  $: childrens = $bundle.spec.events.filter(i => i.parent === e.id);
+  $: duration = e ? calcDuration(e, $bundle) : null;
+  $: childrens = $bundle.spec.events.filter((i) => i.parent === e.id);
 
   function getId(search) {
     const searchParams = new URLSearchParams(search);
@@ -52,7 +52,11 @@
 
 <section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-blue-web">
   {#if $bundle && e}
-    <div class="mb-6 uppercase text-gray-500"><a href="javascript:history.back()"><i class="fa-solid fa-arrow-left"></i>&nbsp;Zpět</a></div>
+    <div class="mb-6 uppercase text-gray-500">
+      <a href="javascript:history.back()"
+        ><i class="fa-solid fa-arrow-left" />&nbsp;Zpět</a
+      >
+    </div>
     <div class="mb-6 flex flex-wrap gap-4">
       <div><EventTypeLabel event={e} size="big" /></div>
       <div class="text-md my-auto">{trackRender(e.track)}</div>
@@ -79,12 +83,14 @@
     {#if e.parent}
       <div class="mt-6">
         <h2 class="text uppercase mb-4 font-semibold">Součást události:</h2>
-        <Event event={$bundle.spec.events.find(ev => ev.id === e.parent)} />
+        <Event event={$bundle.spec.events.find((ev) => ev.id === e.parent)} />
       </div>
     {/if}
     {#if childrens.length}
       <div class="mt-6">
-        <h2 class="text uppercase mb-4">Obsahuje události ({ childrens.length })</h2>
+        <h2 class="text uppercase mb-4">
+          Obsahuje události ({childrens.length})
+        </h2>
       </div>
       <div>
         {#each childrens as child}

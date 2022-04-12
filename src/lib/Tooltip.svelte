@@ -10,6 +10,26 @@
   let style = `background-color: ${color};`;
 </script>
 
+<div class="tooltip-wrapper">
+  <span class="tooltip-slot">
+    <slot />
+  </span>
+  <div
+    class="tooltip"
+    class:active
+    class:left
+    class:right
+    class:bottom
+    class:top
+  >
+    {#if tip}
+      <div class="default-tip" {style}>{@html tip}</div>
+    {:else}
+      <slot name="custom-tip" />
+    {/if}
+  </div>
+</div>
+
 <style>
   .tooltip-wrapper {
     position: relative;
@@ -69,23 +89,3 @@
     visibility: initial;
   }
 </style>
-
-<div class="tooltip-wrapper">
-  <span class="tooltip-slot">
-    <slot />
-  </span>
-  <div
-    class="tooltip"
-    class:active
-    class:left
-    class:right
-    class:bottom
-    class:top>
-    {#if tip}
-      <div class="default-tip" {style}>{@html tip}</div>
-    {:else}
-      <slot name="custom-tip" />
-    {/if}
-
-  </div>
-</div>

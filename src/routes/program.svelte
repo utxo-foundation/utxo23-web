@@ -9,10 +9,13 @@
 
   $: totalDuration = (() => {
     if (!$bundle) {
-      return null
+      return null;
     }
-    return $bundle.spec.events.reduce((p, c) => p + (c ? calcDuration(c, $bundle) : 0), 0)
-  })()
+    return $bundle.spec.events.reduce(
+      (p, c) => p + (c ? calcDuration(c, $bundle) : 0),
+      0
+    );
+  })();
 </script>
 
 <svelte:head>
@@ -35,7 +38,7 @@
       <div class="uppercase font-sm mt-1">přednášejících</div>
     </div>
     <div class="flex-1">
-      <div class="text-4xl">{Math.round((totalDuration/60)*100)/100}</div>
+      <div class="text-4xl">{Math.round((totalDuration / 60) * 100) / 100}</div>
       <div class="uppercase font-sm mt-1">hodin obsahu</div>
     </div>
   </div>

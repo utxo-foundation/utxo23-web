@@ -43,14 +43,23 @@
       return output;
     });
   }
-
 </script>
 
 <div
-  class="transition-all mb-4 border px-3 py-2 rounded-md shadow {$userData.favoriteEvents.includes( e.id) ? 'bg-yellow-100' : ''}"
+  class="transition-all mb-4 border px-3 py-2 rounded-md shadow {$userData.favoriteEvents.includes(
+    e.id
+  )
+    ? 'bg-yellow-100'
+    : ''}"
 >
   <div class="float-right">
-    <i class="fa-star {$userData.favoriteEvents.includes(e.id) ? 'fa-solid' : 'fa-regular'} cursor-pointer" utxo-event-id={e.id} on:click={handleFavorite} />
+    <i
+      class="fa-star {$userData.favoriteEvents.includes(e.id)
+        ? 'fa-solid'
+        : 'fa-regular'} cursor-pointer"
+      utxo-event-id={e.id}
+      on:click={handleFavorite}
+    />
   </div>
   <div class="text-lg font-semibold">
     <a href="/udalosti?id={e.id}">{e.name}</a>
@@ -74,9 +83,22 @@
     <div class="mt-4 w-auto mb-2">
       <div class="flex flex-wrap gap-2" cellpadding="5">
         {#each getChildrens(e) as pe}
-          <div class="border rounded py-1.5 px-2.5 text-sm transition-all {$userData.favoriteEvents.includes( pe.id) ? 'bg-yellow-100' : 'bg-gray-100'}">
+          <div
+            class="border rounded py-1.5 px-2.5 text-sm transition-all {$userData.favoriteEvents.includes(
+              pe.id
+            )
+              ? 'bg-yellow-100'
+              : 'bg-gray-100'}"
+          >
             <div class="font-bold">
-              <a href="/udalosti?id={pe.id}">{pe.name}</a>  <i class="fa-star {$userData.favoriteEvents.includes(pe.id) ? 'fa-solid' : 'fa-regular'} cursor-pointer" utxo-event-id={pe.id} on:click={handleFavorite} />
+              <a href="/udalosti?id={pe.id}">{pe.name}</a>
+              <i
+                class="fa-star {$userData.favoriteEvents.includes(pe.id)
+                  ? 'fa-solid'
+                  : 'fa-regular'} cursor-pointer"
+                utxo-event-id={pe.id}
+                on:click={handleFavorite}
+              />
             </div>
             <div class="mt-1">
               {#if pe.speakers.length === 0}
