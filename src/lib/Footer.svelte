@@ -22,7 +22,7 @@
           Otevřená komunitní kryptoměnová konference
         </div>
         <div class="mt-4">
-          <a href={$bundle.links.docs} class="hover:text-red-500"
+          <a href={$bundle.links.docs} class="hover:text-red-500" target="_blank"
             ><i class="fas fa-book" />&nbsp; Dokumentace</a
           >
         </div>
