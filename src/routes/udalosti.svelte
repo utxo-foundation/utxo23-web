@@ -76,6 +76,12 @@
         <SvelteMarkdown source={e.description} {renderers} />
       </div>
     {/if}
+    {#if e.parent}
+      <div class="mt-6">
+        <h2 class="text uppercase mb-4 font-semibold">Součást události:</h2>
+        <Event event={$bundle.spec.events.find(ev => ev.id === e.parent)} />
+      </div>
+    {/if}
     {#if childrens.length}
       <div class="mt-6">
         <h2 class="text uppercase mb-4">Obsahuje události ({ childrens.length })</h2>
