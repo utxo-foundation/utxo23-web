@@ -71,7 +71,7 @@
     <div class="flex flex-wrap gap-6 mt-6 sm:mt-14 justify-center">
       {#each $bundle.spec.speakers as speaker}
         {#if ($userData.hpTrack === "top" && speaker.lead === true) || $userData.hpTrack !== "top"}
-          {#if !$userData.hpTrack || speaker.tracks.includes($userData.hpTrack) || $userData.hpTrack === "top"}
+          {#if !$userData.hpTrack || (speaker.tracks && speaker.tracks.includes($userData.hpTrack)) || $userData.hpTrack === "top"}
             <Avatar {speaker} />
           {/if}
         {/if}
