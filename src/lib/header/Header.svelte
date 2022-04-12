@@ -24,9 +24,9 @@
         <div class="lg:flex lg:flex-wrap lg:space-x-10">
           {#if $page.url.pathname !== "/"}
             <div
-              class="block justify-start lg:flex-1 my-auto text-center pb-3 lg:pb-0"
+              class="block justify-start lg:flex-1 my-auto text-center pb-3 lg:pb-0 pt-3 lg:pt-0"
             >
-              <div class="w-36 lg:w-32 inline-block lg:block">
+              <div class="w-40 lg:w-32 inline-block lg:block">
                 <a href="/" on:click={logoClick}
                   ><img
                     src="/img/logo-white.svg"
