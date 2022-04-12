@@ -8,7 +8,8 @@
     "preview": "svelte-kit preview",
     "prepare": "svelte-kit sync",
     "prettier": "prettier --write --plugin-search-dir=. ./**/*.svelte",
-    "bump-version": "node -e 'console.log(\"export const version = \\\"\"+require(\"./package.json\").version+\"\\\";\");' > ./src/lib/version.js"
+    "bump-version": "node -e 'console.log(\"export const version = \\\"\"+require(\"./package.json\").version+\"\\\";\");' > ./src/lib/version.js",
+    "postinstall": "wget -O ./src/lib/bundle.json https://spec.utxo.cz/22/bundle.json"
   },
   "devDependencies": {
     "@faker-js/faker": "^6.1.2",
