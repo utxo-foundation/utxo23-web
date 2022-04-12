@@ -22,6 +22,7 @@ jobs:
           node-version: '17'
 
       - run: "rm src/lib/bundle.json && wget -O src/lib/bundle.json https://spec.utxo.cz/22/bundle.json"
+      - run: npm bump-version
       - run: npm install
       - run: npm run build
 

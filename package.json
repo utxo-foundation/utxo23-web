@@ -8,7 +8,7 @@
     "preview": "svelte-kit preview",
     "prepare": "svelte-kit sync",
     "prettier": "prettier --write --plugin-search-dir=. ./**/*.svelte",
-    "version": "node -e 'console.log(require(\"./package.json\").version);' > ./src/lib/version.txt"
+    "bump-version": "node -e 'console.log(require(\"./package.json\").version);' > ./src/lib/version.txt"
   },
   "devDependencies": {
     "@faker-js/faker": "^6.1.2",
