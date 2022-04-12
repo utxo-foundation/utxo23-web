@@ -11,7 +11,7 @@
   import EventTypeLabel from "$lib/EventTypeLabel.svelte";
   import Avatar from "$lib/Avatar.svelte";
   import Event from "$lib/Event.svelte";
-  import calcDuration from "$lib/events.js";
+  import { calcDuration } from "$lib/events.js";
   import SvelteMarkdown from "svelte-markdown";
   import Link from "$lib/Link.svelte";
   import Paragraph from "$lib/Paragraph.svelte";
