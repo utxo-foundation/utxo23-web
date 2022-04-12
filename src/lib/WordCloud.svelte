@@ -33,7 +33,7 @@
   export let maxRotate = 0;
   export let scheme = "schemeTableau10";
   export let padding = 10;
-  export let backgroundColor = "#fff"
+  export let backgroundColor = "#fff";
 
   // count max word occurence
   const maxWordCount = words.reduce((prev, cur) =>
@@ -77,7 +77,7 @@
       .append("text")
       .style("font-size", (d) => d.size + "px")
       .style("font-family", font)
-      .style('fill', '#393F67')
+      .style("fill", "#393F67")
       //.style("fill", (_d, i) => fill(i))
       .attr("text-anchor", "middle")
       .attr(
@@ -95,14 +95,17 @@
   onMount(async () => {
     layout.start();
   });
-
 </script>
 
-<div id="wordcloud" style="background-color: {backgroundColor};" class="justify-end" />
+<div
+  id="wordcloud"
+  style="background-color: {backgroundColor};"
+  class="justify-end"
+/>
 
 <style>
-    div#wordcloud {        
-        width: fit-content; 
-        height: fit-content;        
-    }
+  div#wordcloud {
+    width: fit-content;
+    height: fit-content;
+  }
 </style>

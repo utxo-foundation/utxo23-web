@@ -8,31 +8,31 @@
   import { calcDuration } from "$lib/events.js";
   import WordCloud from "$lib/WordCloud.svelte";
 
-  $: tags = getTags($bundle)
+  $: tags = getTags($bundle);
   $: totalDuration = calcTotalDuration($bundle);
 
-  function getTags (data) {
-    let res = {}
-    data.spec.events.forEach(e => {
+  function getTags(data) {
+    let res = {};
+    data.spec.events.forEach((e) => {
       if (!e.tags) {
         return;
       }
-      e.tags.forEach(t => {
+      e.tags.forEach((t) => {
         if (!res[t]) {
-          res[t] = { text: t, count: 0 }
+          res[t] = { text: t, count: 0 };
         }
         //res[t].count++
-        res[t].count += 1
-      })
-    })
-    let arr = Object.keys(res).map(k => res[k])
-    const max = arr.reduce((p, c) => c.count > p ? c.count : p, 0)
-    arr = arr.map(i => {
-      i.count = Math.round(i.count/(max/40))
-      return i
-    })
-    console.log(arr)
-    return arr
+        res[t].count += 1;
+      });
+    });
+    let arr = Object.keys(res).map((k) => res[k]);
+    const max = arr.reduce((p, c) => (c.count > p ? c.count : p), 0);
+    arr = arr.map((i) => {
+      i.count = Math.round(i.count / (max / 40));
+      return i;
+    });
+    console.log(arr);
+    return arr;
   }
 
   function calcTotalDuration(bundle) {
@@ -45,10 +45,9 @@
     );
   }
 
-  function wordClick (e) {
-    console.log(e.detail.path[0].innerHTML)
+  function wordClick(e) {
+    console.log(e.detail.path[0].innerHTML);
   }
-
 </script>
 
 <svelte:head>
