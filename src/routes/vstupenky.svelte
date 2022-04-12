@@ -665,7 +665,7 @@
                 </div>
                 <div class="mt-6">
                   <div class="uppercase text-sm font-bold">
-                    Dýško pro organizátory
+                    Příspěvek pro organizátory (dýško)
                   </div>
                   <div class="mt-2 flex flex-wrap gap-2">
                     {#each $apiStatus.config.tipPercentages as tp}
@@ -676,7 +676,7 @@
                             ' rounded-full text-white shadow-lg'
                           : 'border border-solid border-blue-web rounded-full'}"
                         on:click={changeTip(tp[0])}
-                        >{tp[1] || tp[0] + "%"}</button
+                        >{tp[0] === 0 ? "Nechci přispět" : tp[0] + "%"}</button
                       >
                     {/each}
                     <div
@@ -705,8 +705,10 @@
                             on:change={selectPaymentMethod}
                             class="cursor-pointer"
                           />
-                          {pm.name}</label
-                        >
+                          {pm.name}
+                          {#if pm.id==='btcpay'}<span class="ml-4 text-xs"><i class="fas fa-heart text-red-500" /> Doporučujeme</span>{/if}
+                          {#if pm.id==='card'}<img src="/img/credit-card-logos.png" class="h-6 leading-7 inline ml-2" />{/if}
+                        </label >
                       </div>
                     {/each}
                   </div>
