@@ -53,7 +53,11 @@
   const onWordMouseMove = (d) => dispatch("mousemove", d);
 
   $: cwidth =
-    outerWidth > 1152 ? 1000 : outerWidth > 500 ? outerWidth - 100 : width - 50;
+    outerWidth > 1152
+      ? 1000
+      : outerWidth > 500
+      ? outerWidth - 100
+      : outerWidth - 50;
   $: cheight = cwidth < 800 ? 400 : cwidth < 500 ? 600 : 250;
 
   function makeLayout() {
@@ -114,7 +118,6 @@
   onMount(async () => {
     let fwidth = 0;
     setTimeout(() => {
-      show = true;
       interval = setInterval(() => {
         if (outerWidth !== fwidth) {
           drawAll();
@@ -122,6 +125,9 @@
         }
       }, 100);
     }, 0);
+    setTimeout(() => {
+      show = true;
+    }, 200);
   });
 
   onDestroy(() => {
@@ -135,7 +141,9 @@
   <div
     id="wordcloud"
     style="background-color: {backgroundColor}; width: {cwidth}px; height: {cheight}px;"
-    class="justify-end"
+    class="justify-end {show
+      ? 'opacity-100'
+      : 'opacity-0'} transition transition-all duration-500"
   />
 </div>
 

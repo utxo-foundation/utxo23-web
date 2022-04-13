@@ -73,7 +73,7 @@
       <div class="uppercase font-sm mt-1">hodin obsahu</div>
     </div>
   </div-->
-  <div class="mt-10 flex sm:justify-center overflow-auto">
+  <div class="mt-6 lg:mt-10 flex sm:justify-center overflow-auto">
     <WordCloud words={tags} on:click={wordClick} />
   </div>
 
