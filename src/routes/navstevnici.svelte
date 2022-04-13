@@ -34,10 +34,23 @@
   }
 
   const statsDef = [
-    { name: "Vlna", fn: (as) => (as.wave ? as.wave.id : "?") },
+    { name: "Vlna", fn: (as) => (!as.wave ? "?" : as.wave.id) },
     {
       name: "Zaplacených vstupenek",
-      fn: (as) => (as.wave ? as.wave.live.issued : "?"),
+      fn: (as) => (as.wave ? as.wave.live.issued : ""),
+    },
+    {
+      name: "Zaplacených vstupenek (%)",
+      fn: (as) =>
+        !as.wave
+          ? "?"
+          : Math.round(
+              as.wave.live.issued /
+                ((as.wave.live.issued +
+                  as.wave.live.waiting +
+                  as.wave.live.left) /
+                  100)
+            ) + "%",
     },
     {
       name: "Rezervovaných vstupenek",
@@ -70,7 +83,7 @@
     <div class="flex flex-wrap gap-5 uppercase mt-5 w-full mb-10">
       {#each statsDef as def}
         <div class="flex-1">
-          <div class="w-1/6">
+          <div class="w-auto">
             <div class="text-4xl font-bold">{def.fn($apiStatus)}</div>
             <div class="text-sm">{def.name}</div>
           </div>
