@@ -40,7 +40,7 @@
       fn: (as) => (as.wave ? as.wave.live.issued : ""),
     },
     {
-      name: "Zaplacených vstupenek (%)",
+      name: "Naplnění vlny (%)",
       fn: (as) =>
         !as.wave
           ? "?"
