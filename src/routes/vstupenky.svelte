@@ -445,7 +445,7 @@
 
         {#if !$apiStatus.wave}
           <div class="mt-4">
-            Není aktivní žádná prodejní vlna.<br /><br />
+            Není aktivní žádná prodejní vlna. První vlna bude spuštěna 13.4. v 13:00.<br /><br />
             Sledujte naše sociální sítě -
             <a
               href={$bundle.links.twitter}
