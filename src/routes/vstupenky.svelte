@@ -5,6 +5,8 @@
 <script>
   import { onMount, onDestroy } from "svelte";
   import { faker } from "@faker-js/faker";
+  import SvelteMarkdown from "svelte-markdown";
+  import Link from "$lib/Link.svelte";
   import {
     orderTicketForm,
     bundle,
@@ -22,6 +24,7 @@
   import { goto } from "$app/navigation";
   import { loadOrders, loadApiStatus } from "$lib/orders";
 
+  const renderers = { link: Link };
   const orderTicketFormLS = localStorage.getItem("orderTicketForm");
   let parsed = JSON.parse(orderTicketFormLS);
   if (parsed && parsed.__v === $orderTicketForm.__v) {
@@ -655,7 +658,9 @@
                                   >{ex.name} ({ex.price} Kč)</span
                                 ></label
                               >
-                              - <span class="text-sm">{ex.desc}</span>
+                              <div class="text-sm">
+                                <SvelteMarkdown source={ex.desc} {renderers} />
+                              </div>
                             </div>
                           {/each}
                         </div>
@@ -706,9 +711,14 @@
                             class="cursor-pointer"
                           />
                           {pm.name}
-                          {#if pm.id==='btcpay'}<span class="ml-4 text-xs"><i class="fas fa-heart text-red-500" /> Doporučujeme</span>{/if}
-                          {#if pm.id==='card'}<img src="/img/credit-card-logos.png" class="h-6 leading-7 inline ml-2" />{/if}
-                        </label >
+                          {#if pm.id === "btcpay"}<span class="ml-4 text-xs"
+                              ><i class="fas fa-heart text-red-500" /> Doporučujeme</span
+                            >{/if}
+                          {#if pm.id === "card"}<img
+                              src="/img/credit-card-logos.png"
+                              class="h-6 leading-7 inline ml-2"
+                            />{/if}
+                        </label>
                       </div>
                     {/each}
                   </div>
