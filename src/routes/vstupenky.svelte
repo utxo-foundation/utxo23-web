@@ -586,7 +586,7 @@
                   </div>
                   <div class="mt-2 text-sm">
                     Informace, které budou vytištěné na Vaší konferenční
-                    jmenovku. Tyto údaje jsou nepovinné a je možné je změnit
+                    jmenovku. Tyto údaje jsou nepovinné a bude možné je změnit
                     později.
                   </div>
                 </div>
