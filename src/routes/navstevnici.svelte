@@ -8,6 +8,7 @@
   import { format, formatDistanceToNow } from "date-fns";
   import { cs } from "date-fns/locale/index.js";
   import { onMount, onDestroy } from "svelte";
+  import { loadOrders, loadApiStatus } from "$lib/orders";
 
   let tickets = null;
   let lastUpdate = null;
@@ -15,9 +16,11 @@
 
   onMount(() => {
     loadTickets();
+    loadApiStatus();
 
     const interval = setInterval(() => {
       loadTickets();
+      loadApiStatus();
     }, 5000);
   });
 
@@ -34,19 +37,19 @@
     { name: "Vlna", fn: (as) => (as.wave ? as.wave.id : "?") },
     {
       name: "Zaplacených vstupenek",
-      fn: (as) => (as.wave ? as.wave.issued : "?"),
+      fn: (as) => (as.wave ? as.wave.live.issued : "?"),
     },
     {
       name: "Rezervovaných vstupenek",
-      fn: (as) => (as.wave ? as.wave.waiting : "?"),
+      fn: (as) => (as.wave ? as.wave.live.waiting : "?"),
     },
     {
       name: "Volných vstupenek",
       fn: (as) =>
         as.wave
-          ? as.wave.left +
+          ? as.wave.live.left +
             "/" +
-            (as.wave.issued + as.wave.waiting + as.wave.left)
+            (as.wave.live.issued + as.wave.live.waiting + as.wave.live.left)
           : "?",
     },
     {
@@ -63,7 +66,7 @@
 <section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-blue-web">
   <h1 class="uppercase text-2xl font-bold">Návštěvníci</h1>
 
-  {#if tickets}
+  {#if tickets && $apiStatus}
     <div class="flex flex-wrap gap-5 uppercase mt-5 w-full mb-10">
       {#each statsDef as def}
         <div class="flex-1">
