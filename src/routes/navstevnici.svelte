@@ -88,7 +88,7 @@
       {#each statsDef as def}
         <div class="flex-1">
           <div class="w-auto">
-            <div class="text-4xl font-bold">{def.fn($apiStatus)}</div>
+            <div class="text-3xl font-bold">{def.fn($apiStatus)}</div>
             <div class="text-sm">{def.name}</div>
           </div>
         </div>
