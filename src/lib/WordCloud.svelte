@@ -1,10 +1,13 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import { createEventDispatcher } from "svelte";
   import cloud from "d3-cloud";
   import { select } from "d3-selection";
   import { scaleOrdinal } from "d3-scale";
   import * as CS from "d3-scale-chromatic";
+
+  $: outerWidth = 0;
+  $: innerWidth = 0;
 
   // event dispatcher
   const dispatch = createEventDispatcher();
@@ -24,8 +27,8 @@
   };
 
   // props
-  export let words = [];
   export let width = 900;
+  export let words = [];
   export let height = 250;
   export let font = "Montserrat";
   export let maxFontSize = 40;
@@ -49,19 +52,28 @@
   const onWordMouseOut = (d) => dispatch("mouseout", d);
   const onWordMouseMove = (d) => dispatch("mousemove", d);
 
-  const layout = cloud()
-    .size([width, height])
-    .words(words)
-    .padding(padding)
-    .rotate(() => ~~(Math.random() * maxRotate) + minRotate)
-    .font(font)
-    .fontSize(
-      //(d) =>  Math.floor((d.count / maxWordCount) * maxFontSize)
-      (d) => d.count + 15
-    )
-    .on("end", draw);
+  $: cwidth =
+    outerWidth > 1152 ? 1000 : outerWidth > 500 ? outerWidth - 100 : width - 50;
+  $: cheight = cwidth < 800 ? 400 : cwidth < 500 ? 600 : 250;
+
+  function makeLayout() {
+    return cloud()
+      .size([cwidth, cheight])
+      .words(words)
+      .padding(padding)
+      .rotate(() => ~~(Math.random() * maxRotate) + minRotate)
+      .font(font)
+      .fontSize(
+        //(d) =>  Math.floor((d.count / maxWordCount) * maxFontSize)
+        (d) => d.count + 15
+      );
+  }
+
+  let layout = null;
 
   function draw(words) {
+    select("#wordcloud").selectAll("*").remove();
+
     select("#wordcloud")
       .append("svg")
       .attr("width", layout.size()[0])
@@ -91,17 +103,41 @@
       .on("mousemove", onWordMouseMove);
   }
 
-  // mount
-  onMount(async () => {
+  function drawAll() {
+    layout = makeLayout().on("end", draw);
     layout.start();
+  }
+
+  // mount
+  let show = false;
+  let interval = null;
+  onMount(async () => {
+    let fwidth = 0;
+    setTimeout(() => {
+      show = true;
+      interval = setInterval(() => {
+        if (outerWidth !== fwidth) {
+          drawAll();
+          fwidth = outerWidth;
+        }
+      }, 100);
+    }, 0);
+  });
+
+  onDestroy(() => {
+    clearTimeout(interval);
   });
 </script>
 
-<div
-  id="wordcloud"
-  style="background-color: {backgroundColor};"
-  class="justify-end"
-/>
+<svelte:window bind:innerWidth bind:outerWidth />
+
+<div class="height: {cheight}px;">
+  <div
+    id="wordcloud"
+    style="background-color: {backgroundColor}; width: {cwidth}px; height: {cheight}px;"
+    class="justify-end"
+  />
+</div>
 
 <style>
   div#wordcloud {

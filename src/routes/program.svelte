@@ -31,7 +31,6 @@
       i.count = Math.round(i.count / (max / 40));
       return i;
     });
-    console.log(arr);
     return arr;
   }
 
