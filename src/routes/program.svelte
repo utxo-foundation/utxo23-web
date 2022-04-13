@@ -77,7 +77,7 @@
     <WordCloud words={tags} on:click={wordClick} />
   </div>
 
-  <h1 class="mt-2 uppercase text-lg font-semibold">Seznam událostí</h1>
+  <h1 class="mt-6 uppercase text-lg font-semibold">Seznam událostí</h1>
   <div class="mt-4">
     {#each $bundle.spec.events.filter((e) => !e.parent) as e}
       <Event event={e} />
