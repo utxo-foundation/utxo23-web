@@ -330,7 +330,7 @@
                   <div class="w-auto">
                     <div class="no-flex">
                       <span
-                        class="px-2 py-1 bg-blue-web text-white rounded w-auto"
+                        class="px-2 py-1 bg-blue-web text-white rounded w-auto font-mono"
                         >#{ticket.id}</span
                       >
                     </div>
@@ -374,7 +374,9 @@
                   </div>
                 {/if}
                 <div class="flex flex-wrap gap-3 text-sm">
-                  <div class="px-2 py-1 bg-gray-200 rounded">#{order.id}</div>
+                  <div class="px-2 py-1 bg-gray-200 rounded text-xs font-mono">
+                    #{order.id}
+                  </div>
                   <div
                     class="my-auto uppercase {orderStatuses[order.status].color
                       ? orderStatuses[order.status].color
