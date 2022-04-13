@@ -69,6 +69,10 @@
       name: "KryptoKino vstupenek",
       fn: (as) => as.kino.issued + "/" + as.kino.total,
     },
+    {
+      name: "BTC Platby",
+      fn: (as) => tickets.filter(t => t.paymentMethod === 'btcpay').length,
+    },
   ];
 </script>
 
@@ -80,7 +84,7 @@
   <h1 class="uppercase text-2xl font-bold">Návštěvníci</h1>
 
   {#if tickets && $apiStatus}
-    <div class="flex flex-wrap gap-5 uppercase mt-5 w-full mb-10">
+    <div class="flex flex-wrap gap-5 uppercase mt-5 w-full mb-10 text-right">
       {#each statsDef as def}
         <div class="flex-1">
           <div class="w-auto">
@@ -98,6 +102,7 @@
             <th align="left">Obj.</th>
             <th align="left">Jmenovka</th>
             <th align="left">Kino?</th>
+            <th align="left">BTC?</th>
             <th align="left">Vytvořeno</th>
           </tr>
         </thead>
@@ -124,6 +129,8 @@
                     class="text-green-700"><i class="fa-solid fa-check" /></span
                   >{:else}<span class="opacity-40" />{/if}</td
               >
+              <td class="border-b"
+                  >{#if ticket.paymentMethod === 'card'}<span></span >{:else}<span><i class="fa-brands fa-bitcoin text-green-800 text-lg"></span>{/if}</td >
               <td class="border-b"
                 >{#if ticket.created}<span
                     title={ticket.created}
