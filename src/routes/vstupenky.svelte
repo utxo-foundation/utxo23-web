@@ -644,29 +644,36 @@
                             </div>
                           </div>
                         </div>
-                        <div class="uppercase text-sm font-bold mt-3">
-                          Volitelné příplatky
-                        </div>
-                        <div class="mt-1">
-                          {#each $apiStatus.config.extras as ex}
-                            <div>
-                              <label class="cursor-pointer"
-                                ><input
-                                  type="checkbox"
-                                  class="mr-0.5 cursor-pointer"
-                                  bind:checked={$orderTicketForm.tickets[i]
-                                    .extras[ex.id]}
-                                />
-                                <span class="font-semibold"
-                                  >{ex.name} ({ex.price} Kč)</span
-                                ></label
-                              >
-                              <div class="text-sm">
-                                <SvelteMarkdown source={ex.desc} {renderers} />
+                        {#if $apiStatus.kino.left > 0}
+                          <div class="uppercase text-sm font-bold mt-3">
+                            Volitelné příplatky
+                          </div>
+                          <div class="mt-1">
+                            {#each $apiStatus.config.extras as ex}
+                              <div>
+                                <label class="cursor-pointer"
+                                  ><input
+                                    type="checkbox"
+                                    class="mr-0.5 cursor-pointer"
+                                    bind:checked={$orderTicketForm.tickets[i]
+                                      .extras[ex.id]}
+                                  />
+                                  <span class="font-semibold"
+                                    >{ex.name} ({ex.price} Kč) {ex.id === "kino"
+                                      ? `zbývá ${$apiStatus.kino.left}/${$apiStatus.kino.total}`
+                                      : ""}</span
+                                  ></label
+                                >
+                                <div class="text-sm">
+                                  <SvelteMarkdown
+                                    source={ex.desc}
+                                    {renderers}
+                                  />
+                                </div>
                               </div>
-                            </div>
-                          {/each}
-                        </div>
+                            {/each}
+                          </div>
+                        {/if}
                       </div>
                     </div>
                   {/each}
