@@ -7,7 +7,6 @@
   import { bundle, userData } from "$lib/stores.js";
   import { calcDuration } from "$lib/events.js";
   import WordCloud from "$lib/WordCloud.svelte";
-  import WordCloud2 from "$lib/WordCloud2.svelte";
 
   $: tags = getTags($bundle);
   $: totalDuration = calcTotalDuration($bundle);
