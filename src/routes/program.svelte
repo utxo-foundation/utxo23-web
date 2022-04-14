@@ -7,6 +7,7 @@
   import { bundle, userData } from "$lib/stores.js";
   import { calcDuration } from "$lib/events.js";
   import WordCloud from "$lib/WordCloud.svelte";
+  import WordCloud2 from "$lib/WordCloud2.svelte";
 
   $: tags = getTags($bundle);
   $: totalDuration = calcTotalDuration($bundle);
@@ -79,7 +80,9 @@
     <WordCloud words={tags} on:click={wordClick} />
   </div>
 
-  <h1 class="mt-6 uppercase text-lg font-semibold">Seznam událostí</h1>
+  <h1 class="mt-6 uppercase text-lg font-semibold">
+    Seznam událostí ({$bundle.spec.events.length})
+  </h1>
   <div class="mt-4">
     {#each $bundle.spec.events.filter((e) => !e.parent) as e}
       <Event event={e} />

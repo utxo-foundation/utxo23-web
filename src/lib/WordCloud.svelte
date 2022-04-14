@@ -35,8 +35,10 @@
   export let minRotate = 0;
   export let maxRotate = 0;
   export let scheme = "schemeTableau10";
-  export let padding = 10;
+  export let padding = 2;
   export let backgroundColor = "#fff";
+
+  //words = words.map(w => { w.text = w.text.toUpperCase(); return w; })
 
   // count max word occurence
   const maxWordCount = words.reduce((prev, cur) =>
@@ -94,6 +96,7 @@
       .style("font-size", (d) => d.size + "px")
       .style("font-family", font)
       .style("fill", "#393F67")
+      .style("cursor", "pointer")
       //.style("fill", (_d, i) => fill(i))
       .attr("text-anchor", "middle")
       .attr(
@@ -123,11 +126,13 @@
           drawAll();
           fwidth = outerWidth;
         }
-      }, 100);
-    }, 0);
-    setTimeout(() => {
-      show = true;
+      }, 500);
     }, 100);
+    setTimeout(() => {
+      drawAll();
+      fwidth = outerWidth;
+      show = true;
+    }, 0);
   });
 
   onDestroy(() => {
@@ -143,7 +148,7 @@
     style="background-color: {backgroundColor}; width: {cwidth}px; height: {cheight}px;"
     class="justify-end {show
       ? 'opacity-100'
-      : 'opacity-0'} transition transition-all duration-500"
+      : 'opacity-0'} transition transition-all"
   />
 </div>
 
@@ -151,5 +156,8 @@
   div#wordcloud {
     width: fit-content;
     height: fit-content;
+  }
+  #wordcloud > svg > g > text {
+    cursor: pointer;
   }
 </style>
