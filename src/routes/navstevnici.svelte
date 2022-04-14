@@ -71,7 +71,7 @@
     },
     {
       name: "BTC Vstupenky",
-      fn: (as) => tickets.filter(t => t.paymentMethod === 'btcpay').length,
+      fn: (as) => tickets.filter((t) => t.paymentMethod === "btcpay").length,
     },
   ];
 </script>
@@ -130,7 +130,12 @@
                   >{:else}<span class="opacity-40" />{/if}</td
               >
               <td class="border-b"
-                  >{#if ticket.paymentMethod === 'card'}<span></span >{:else}<span><i class="fa-brands fa-bitcoin text-green-800 text-lg"></span>{/if}</td >
+                >{#if ticket.paymentMethod === "card"}<span />{:else}<span
+                    ><i
+                      class="fa-brands fa-bitcoin text-green-800 text-lg"
+                    /></span
+                  >{/if}</td
+              >
               <td class="border-b"
                 >{#if ticket.created}<span
                     title={ticket.created}
