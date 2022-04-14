@@ -49,15 +49,17 @@
   }
 </script>
 
-<svelte:head>
+o<svelte:head>
   <title>Program | UTXO.22</title>
 </svelte:head>
 
 <section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-blue-web">
   <h1 class="uppercase text-2xl font-bold">Program</h1>
   <div class="mt-2 text-sm">
-    Program stále připravujeme. Jeho konečná podoba bude zveřejněna pár týdnů
-    před konferencí.
+    <p>
+      Program stále připravujeme, aktuálně je zde vypsáno zhruba 40% obsahu.
+      Časový rozpis bude zveřejněn cca 2 týdny před konferencí.
+    </p>
   </div>
   <!--div class="mt-6 flex flex-wrap gap-3 px-4 text-center">
     <div class="flex-1">

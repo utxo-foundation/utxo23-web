@@ -127,7 +127,7 @@
     }, 0);
     setTimeout(() => {
       show = true;
-    }, 200);
+    }, 100);
   });
 
   onDestroy(() => {
