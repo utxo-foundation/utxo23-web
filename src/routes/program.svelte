@@ -49,7 +49,7 @@
   }
 </script>
 
-o<svelte:head>
+<svelte:head>
   <title>Program | UTXO.22</title>
 </svelte:head>
 
