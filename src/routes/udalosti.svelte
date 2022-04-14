@@ -96,6 +96,11 @@
         <SvelteMarkdown source={e.description} {renderers} />
       </div>
     {/if}
+    {#if e.tags && e.tags.length > 0}
+      <div class="mt-6 mb-6 text-sm">
+        Tagy: <span class="font-semibold">{e.tags.join(", ")}</span>
+      </div>
+    {/if}
     {#if e.parent}
       <div class="mt-6">
         <h2 class="text uppercase mb-4 font-semibold">Součást události:</h2>
