@@ -70,7 +70,7 @@
       fn: (as) => as.kino.issued + "/" + as.kino.total,
     },
     {
-      name: "BTC Platby",
+      name: "BTC Vstupenky",
       fn: (as) => tickets.filter(t => t.paymentMethod === 'btcpay').length,
     },
   ];
