@@ -493,9 +493,14 @@
           </div>
           {#if $apiStatus.wave.live.left <= 0}
             <div class="mt-2">
-              Aktuální vlna je vyprodaná. {#if $apiStatus.wave.live.waiting > 0}Zarezervované
-                a nezaplacené vstupenky ({$apiStatus.wave.live.waiting}) se
-                postupně vrací do prodeje.{/if}
+              {#if $apiStatus.wave.live.waiting > 0}
+                Aktuální vlna je vyprodaná. Zarezervované a nezaplacené
+                vstupenky ({$apiStatus.wave.live.waiting}) se postupně vrací do
+                prodeje.
+              {:else}
+                Aktuální vlna vstupenek je vyprodaná. Další budou k dispozici od
+                27. dubna 13:00.
+              {/if}
             </div>
           {:else if !showOrder && !forceShow}
             <div class="mt-4">
