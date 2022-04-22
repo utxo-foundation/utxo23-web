@@ -57,7 +57,7 @@
   <h1 class="uppercase text-2xl font-bold">Program</h1>
   <div class="mt-2 text-sm">
     <p>
-      Program stále připravujeme, aktuálně je zde vypsáno zhruba 40% obsahu.
+      Program stále připravujeme, aktuálně je zde vypsána jenom část obsahu.
       Časový rozpis bude zveřejněn cca 2 týdny před konferencí.
     </p>
   </div>

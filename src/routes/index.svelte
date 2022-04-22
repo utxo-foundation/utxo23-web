@@ -224,7 +224,9 @@
 {#if $bundle}
   <section class="relative mx-auto py-10 px-6 max-w-6xl">
     <div class="text-blue-web">
-      <h2 class="uppercase pt-5 text-center" id="faq">Často kladené dotazy (FAQ)</h2>
+      <h2 class="uppercase pt-5 text-center" id="faq">
+        Často kladené dotazy (FAQ)
+      </h2>
       <div class="md:columns-2 columns-1 mt-8 h-auto">
         {#each $bundle.spec.faqs as item}
           <div

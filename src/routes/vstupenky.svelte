@@ -354,8 +354,8 @@
           {/each}
         </div>
         <div class="mt-4 text-sm">
-          * Úprava údajů na vstupence bude možná od 21. dubna. Omlouváme se za
-          komplikace.
+          * Úprava údajů na vstupence bude možná od 27. dubna (společně se
+          spuštením druhé vlny). Omlouváme se za komplikace 🙏.
         </div>
       {:else}
         <div class="mt-4">Nemáte žádnou vstupenku</div>
