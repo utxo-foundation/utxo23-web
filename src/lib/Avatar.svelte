@@ -98,12 +98,19 @@
       /></a
     >
     <div class="mt-4 text-sm text-blue-web uppercase font-bold">
-      <a href="/lide?id={speaker.id}">{speaker.name}</a>
+      <a href="/lide?id={speaker.id}"
+        >{speaker.name}{#if speaker.nickname}&nbsp; ({speaker.nickname}){/if}</a
+      >
       {country}
     </div>
-    {#if speaker.bio || speaker.orgs}
+    {#if speaker.bio}
       <div class="mt-1 text-xs text-blue-web italic">
-        <SvelteMarkdown source={speaker.bio || speaker.orgs} {renderers} />
+        <SvelteMarkdown source={speaker.bio} {renderers} />
+      </div>
+    {/if}
+    {#if speaker.orgs}
+      <div class="mt-1 text-xs text-blue-web italic">
+        <SvelteMarkdown source={speaker.orgs} {renderers} />
       </div>
     {/if}
   </div>
