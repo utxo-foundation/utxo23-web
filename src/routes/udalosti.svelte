@@ -64,7 +64,7 @@
         <div class="text-sm my-auto">{duration}m</div>
       {/if}
       {#if e.track}
-        <div class="text-md my-auto">{trackRender(e.track)}</div>
+        <div class="text-md my-auto"><a href="/program?track={e.track}">{trackRender(e.track)}</a></div>
       {/if}
       {#if e.tags}
       <div class="flex text-xs gap-1 my-auto text-blue-web/60">

@@ -3,12 +3,29 @@
 
   import Avatar from "$lib/Avatar.svelte";
   import Tooltip from "$lib/Tooltip.svelte";
+  import SvelteMarkdown from "svelte-markdown";
   import EventTypeLabel from "$lib/EventTypeLabel.svelte";
   import { bundle, userData } from "$lib/stores.js";
   import { calcDuration, addFavorite } from "$lib/events.js";
 
+  import Link from "$lib/Link.svelte";
+  const renderers = { link: Link };
+
   $: e = event;
   $: duration = calcDuration(e, $bundle);
+  $: spoiler = makeSpoiler(e)
+
+  function makeSpoiler (_e) {
+    if (!_e.description) {
+      return {}
+    }
+    const parts = _e.description.split("\n\n")
+    const stripped = parts.length > 1
+    return {
+      md: parts[0], // + ` ([Zobrazit celý popis](/udalosti?id=${_e.id}))`,
+      stripped
+    }
+  }
 
   function speakersMap(arr) {
     if (!arr) return;
@@ -71,6 +88,16 @@
       {/if}
     </div>
   </div>
+  {#if e.description}
+    <div class="mt-2">
+      <SvelteMarkdown source={spoiler.md} {renderers} />
+      {#if spoiler.stripped}
+        <div class="text-sm text-blue-web/60">
+          (<a href="/udalosti?id={e.id}">Zobrazit celý popis</a>)
+        </div>
+      {/if}
+    </div>
+  {/if}
   {#if getChildrens(e).length > 0}
     <div class="mt-4 w-auto mb-2">
       <div class="flex flex-wrap gap-2" cellpadding="5">
@@ -108,4 +135,5 @@
       </div>
     </div>
   {/if}
+
 </div>

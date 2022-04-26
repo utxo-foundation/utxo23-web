@@ -112,8 +112,8 @@
 
   bundle.subscribe(bd => {
     fuse = new Fuse(bd.spec.events, {
-      includeScore: true,
-      minMatchCharLength: 1,
+      //includeScore: true,
+      //minMatchCharLength: 1,
       threshold: 0.4,
       keys: [
         { name: 'name', weight: 10 },
