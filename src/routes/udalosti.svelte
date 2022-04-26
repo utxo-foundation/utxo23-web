@@ -60,11 +60,18 @@
     </div>
     <div class="mb-6 flex flex-wrap gap-4">
       <div><EventTypeLabel event={e} size="big" /></div>
+      {#if duration}
+        <div class="text-sm my-auto">{duration}m</div>
+      {/if}
       {#if e.track}
         <div class="text-md my-auto">{trackRender(e.track)}</div>
       {/if}
-      {#if duration}
-        <div class="text-sm my-auto">{duration}m</div>
+      {#if e.tags}
+      <div class="flex text-xs gap-1 my-auto text-blue-web/60">
+        {#each e.tags as tag}
+          <div><a href="/program?tag={tag}">#{tag}</a></div>
+        {/each}
+      </div>
       {/if}
     </div>
     <div class="float-right">
@@ -94,11 +101,6 @@
     {#if e.description}
       <div class="mt-6 mb-6">
         <SvelteMarkdown source={e.description} {renderers} />
-      </div>
-    {/if}
-    {#if e.tags && e.tags.length > 0}
-      <div class="mt-6 mb-6 text-sm">
-        Tagy: <span class="font-semibold">{e.tags.join(", ")}</span>
       </div>
     {/if}
     {#if e.parent}

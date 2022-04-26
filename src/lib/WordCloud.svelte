@@ -5,6 +5,7 @@
   import { select } from "d3-selection";
   import { scaleOrdinal } from "d3-scale";
   import * as CS from "d3-scale-chromatic";
+  import { layouts } from "$lib/stores.js";
 
   $: outerWidth = 0;
   $: innerWidth = 0;
@@ -54,6 +55,8 @@
   const onWordMouseOut = (d) => dispatch("mouseout", d);
   const onWordMouseMove = (d) => dispatch("mousemove", d);
 
+  let layout = null
+
   $: cwidth =
     outerWidth > 1152
       ? 1000
@@ -62,23 +65,40 @@
       : outerWidth - 50;
   $: cheight = cwidth < 800 ? 400 : cwidth < 500 ? 600 : 250;
 
-  function makeLayout() {
-    return cloud()
-      .size([cwidth, cheight])
-      .words(words)
-      .padding(padding)
-      .rotate(() => ~~(Math.random() * maxRotate) + minRotate)
-      .font(font)
-      .fontSize(
-        //(d) =>  Math.floor((d.count / maxWordCount) * maxFontSize)
-        (d) => d.count + 15
-      );
+  async function makeLayout() {
+    const lid = [cwidth, cheight].join(':')
+    let l = null
+    await layouts.update(larr => {
+
+      console.log(Object.keys(larr))
+      if (larr && larr[lid]) {
+        console.log('making from stored layout')
+        l = larr[lid]
+
+      } else {
+
+        l = cloud()
+          .size([cwidth, cheight])
+          .words(words)
+          .padding(padding)
+          .rotate(() => ~~(Math.random() * maxRotate) + minRotate)
+          .font(font)
+          .fontSize(
+            //(d) =>  Math.floor((d.count / maxWordCount) * maxFontSize)
+            (d) => d.count + 15
+          );
+
+        larr[lid] = l
+      }
+
+      console.log(Object.keys(larr))
+      return larr
+    })
+    return l
   }
 
-  let layout = null;
-
   function draw(words) {
-    select("#wordcloud").selectAll("*").remove();
+    //select("#wordcloud").selectAll("*").remove();
 
     select("#wordcloud")
       .append("svg")
@@ -110,8 +130,8 @@
       .on("mousemove", onWordMouseMove);
   }
 
-  function drawAll() {
-    layout = makeLayout().on("end", draw);
+  async function drawAll() {
+    layout = (await makeLayout()).on("end", draw);
     layout.start();
   }
 

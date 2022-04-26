@@ -52,10 +52,31 @@
     if (tag) {
       goto(`/program?tag=${tag}`)
     }
+    return true
   }
 
   $: events = applyFilters($page, $bundle)
   $: ids = []
+  $: filters = makeFilters($page, $bundle)
+
+  function makeFilters (pg, bd) {
+    const search = pg.url.searchParams
+    let fl = []
+
+    // tags
+    if (search.get('tag')) {
+      fl.push({ type: 'tag', title: `Tag: #${search.get('tag')}` })
+    }
+    // tracks
+    if (search.get('track')) {
+      const track = bd.spec.tracks.find(t => t.id === search.get('track'))
+      if (!track) {
+        return goto('/program')
+      }
+      fl.push({ type: 'track', title: `Sekce: ${track.name}` })
+    }
+    return fl
+  }
 
   function applyFilters (pg, bd) {
     if (!pg || !bd) {
@@ -65,6 +86,9 @@
     let arr = bd.spec.events
     if (search.get('tag')) {
       arr = arr.filter(e => e.tags && e.tags.includes(search.get('tag')))
+    }
+    if (search.get('track')) {
+      arr = arr.filter(e => e.track === search.get('track'))
     }
     ids = arr.map(a => a.id)
     return arr
@@ -98,12 +122,26 @@
       <div class="uppercase font-sm mt-1">hodin obsahu</div>
     </div>
   </div-->
-  <div class="mt-6 lg:mt-10 flex sm:justify-center overflow-auto">
-    <WordCloud words={tags} on:click={wordClick} />
-  </div>
+  {#if filters.length > 0}
+    <div class="mt-6 flex flex-wrap gap-3">
+      <div class="my-auto">Filtry:</div>
+      <div class="text-sm my-auto">
+        {#each filters as filter}
+          <div class="py-1 px-2 rounded bg-blue-web/60 text-white">{filter.title}</div>
+        {/each}
+      </div>
+      <div class="ml-3 my-auto">
+        <a href="/program"><i class="fa-solid fa-xmark text-red-500 mr-1" /> Zrušit filtr</a>
+      </div>
+    </div>
+  {:else}
+    <div class="mt-6 lg:mt-10 flex sm:justify-center overflow-auto">
+      <WordCloud words={tags} on:click={wordClick} />
+    </div>
+  {/if}
 
   <h1 class="mt-6 uppercase text-lg font-semibold">
-    Seznam událostí ({ids.length})
+    Seznam událostí ({ids.length}/{$bundle.spec.events.length})
   </h1>
   <div class="mt-4">
     {#each $bundle.spec.events as e}

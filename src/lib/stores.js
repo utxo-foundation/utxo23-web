@@ -24,3 +24,6 @@ export const userDataLocal = writable({
   tickets: [],
   orders: [],
 })
+
+export const layouts = writable({ test: null })
+

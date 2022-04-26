@@ -60,12 +60,12 @@
       <div><EventTypeLabel event={e} /></div>
       {#if duration}<div class="text-xs my-auto">{duration}m</div>{/if}
       {#if e.track}
-        <div class="text-sm my-auto">{trackRender(e.track)}</div>
+        <div class="text-sm my-auto"><a href="/program?track={e.track}">{trackRender(e.track)}</a></div>
       {/if}
       {#if e.tags}
       <div class="flex text-xs gap-1 my-auto text-blue-web/60">
         {#each e.tags as tag}
-          <div>#{tag}</div>
+          <div><a href="/program?tag={tag}">#{tag}</a></div>
         {/each}
       </div>
       {/if}
