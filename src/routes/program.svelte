@@ -99,9 +99,9 @@
       }
       if (f.type === 'text') {
         const sr = fuse.search(f.key)
+        console.log(sr)
         if (sr.length > 0) {
-          const ids = sr.map(i => i.item.id)
-          arr = arr.filter(i => ids.includes(i.id))
+          arr = sr.map(sr => arr.find(i => i.id === sr.item.id))
         }
       }
     }
@@ -111,14 +111,19 @@
 
   bundle.subscribe(bd => {
     fuse = new Fuse(bd.spec.events, {
+      includeScore: true,
       minMatchCharLength: 3,
-      threshold: 0.3,
+      threshold: 0.4,
       keys: [
-        { name: 'name', weight: 1 },
-        { name: 'speakers', weight: 1 },
-        { name: 'description', weight: 2 },
-        { name: 'track', weight: 3 },
-        { name: 'tags', weight: 3 },
+        { name: 'name', weight: 10 },
+        { name: 'description', weight: 7 },
+        { name: 'speakers', weight: 5 },
+        { name: 'speakersInfo.nickname', weight: 5 },
+        { name: 'track', weight: 2 },
+        { name: 'tags', weight: 2 },
+        { name: 'speakersInfo.bio', weight: 1 },
+        { name: 'speakersInfo.orgs', weight: 1 },
+        { name: 'speakersInfo.description', weight: 1 },
       ]
     })
   })
@@ -195,11 +200,16 @@
     </div>
   </div>
   <div class="mt-4">
+    {#each ids as id}
+      <Event event={$bundle.spec.events.find(e => e.id === id)} />
+    {/each}
+  </div>
+  <!--div class="mt-4">
     {#each $bundle.spec.events as e}
       {#if ids.includes(e.id)}
         <Event event={e} />
       {/if}
     {/each}
-  </div>
+  </div-->
 </section>
 

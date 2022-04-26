@@ -7,7 +7,7 @@
   import { bundle, userData } from "$lib/stores.js";
   import { calcDuration, addFavorite } from "$lib/events.js";
 
-  const e = event;
+  $: e = event;
   $: duration = calcDuration(e, $bundle);
 
   function speakersMap(arr) {

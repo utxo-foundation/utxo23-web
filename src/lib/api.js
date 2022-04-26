@@ -21,6 +21,23 @@ class API {
         this.bundle = await resp.json()
       }
       bundle.set(this.bundle)
+
+      // add speaker info to events
+      for (const ev of this.bundle.spec.events) {
+        ev.speakersInfo = ev.speakers.map(sId => {
+          const sp = this.bundle.spec.speakers.find(s => s.id === sId)
+          if (!sp) {
+            return null
+          }
+          return {
+            name: sp.name,
+            nickname: sp.nickname,
+            bio: sp.bio,
+            orgs: sp.orgs,
+            description: sp.desc
+          }
+        })
+      }
     }
     return this.bundle
   }
