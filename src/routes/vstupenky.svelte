@@ -33,12 +33,11 @@
   }
 
   const ticketTypes = {
-    public: 'Běžná vstupenka',
-    speaker: 'Přednášející',
-    organizator: 'Organizátor',
-    host: 'Doprovod',
-  }
-  
+    public: "Běžná vstupenka",
+    speaker: "Přednášející",
+    organizator: "Organizátor",
+    host: "Doprovod",
+  };
 
   let forceShow = false;
   let loading = true;
@@ -330,8 +329,15 @@
                 class="border-l border-b border-r p-4 rounded-b-md shadow-md border-blue-web"
               >
                 <div class="flex gap-3 text-sm">
-                  {#if ticket.type === 'speaker' && ticket.link && ticket.link.id}
-                    <a href="/lide?id={ticket.link.id}"><Avatar speaker={$bundle.spec.speakers.find(s => s.id === ticket.link.id)} size="semi-small" /></a>
+                  {#if ticket.type === "speaker" && ticket.link && ticket.link.id}
+                    <a href="/lide?id={ticket.link.id}"
+                      ><Avatar
+                        speaker={$bundle.spec.speakers.find(
+                          (s) => s.id === ticket.link.id
+                        )}
+                        size="semi-small"
+                      /></a
+                    >
                   {:else}
                     <div
                       class="w-10 h-10 rounded-md"
@@ -347,7 +353,9 @@
                         >#{ticket.id}</span
                       >
                     </div>
-                        <div class="mt-1.5">{ticketTypes[ticket.type || 'public']}</div>
+                    <div class="mt-1.5">
+                      {ticketTypes[ticket.type || "public"]}
+                    </div>
                   </div>
                 </div>
                 {#if ticket.data}

@@ -4,19 +4,19 @@
 
 <script>
   import Event from "$lib/Event.svelte";
-  import { onMount, onDestroy } from 'svelte';
+  import { onMount, onDestroy } from "svelte";
   import { page } from "$app/stores";
-  import { goto } from '$app/navigation';
-  import { bundle, userData } from "$lib/stores.js";
+  import { goto } from "$app/navigation";
+  import { bundle, userData, loadInfo } from "$lib/stores.js";
   import { calcDuration } from "$lib/events.js";
   import WordCloud from "$lib/WordCloud.svelte";
-  import Fuse from 'fuse.js';
+  import Fuse from "fuse.js";
 
   $: tags = getTags($bundle);
   $: totalDuration = calcTotalDuration($bundle);
 
-  let fuse = null
-  let searchText = ''
+  let fuse = null;
+  let searchText = "";
 
   function getTags(data) {
     let res = {};
@@ -54,95 +54,104 @@
   function wordClick(e) {
     const tag = e.detail.path[0].innerHTML;
     if (tag) {
-      goto(`/program?tag=${tag}`)
+      goto(`/program?tag=${tag}`);
     }
-    return true
+    return true;
   }
 
-  $: filters = makeFilters($page, $bundle)
-  $: events = applyFilters(filters, $page, $bundle)
-  $: ids = []
+  $: filters = makeFilters($page, $bundle);
+  $: events = applyFilters(filters, $page, $bundle);
+  $: ids = [];
 
-  function makeFilters (pg, bd) {
-    const search = pg.url.searchParams
-    let fl = []
+  function makeFilters(pg, bd) {
+    const search = pg.url.searchParams;
+    let fl = [];
 
     // tags
-    if (search.get('tag')) {
-      fl.push({ type: 'tag', title: `Tag: #${search.get('tag')}`, key: search.get('tag') })
+    if (search.get("tag")) {
+      fl.push({
+        type: "tag",
+        title: `Tag: #${search.get("tag")}`,
+        key: search.get("tag"),
+      });
     }
     // tracks
-    if (search.get('track')) {
-      const track = bd.spec.tracks.find(t => t.id === search.get('track'))
+    if (search.get("track")) {
+      const track = bd.spec.tracks.find((t) => t.id === search.get("track"));
       if (!track) {
-        return goto('/program')
+        return goto("/program");
       }
-      fl.push({ type: 'track', title: `Sekce: ${track.name}`, key: track.id })
+      fl.push({ type: "track", title: `Sekce: ${track.name}`, key: track.id });
     }
     if (searchText) {
-      fl.push({ type: 'text', title: `Text: "${searchText}"`, key: searchText })
+      fl.push({
+        type: "text",
+        title: `Text: "${searchText}"`,
+        key: searchText,
+      });
     }
-    return fl
+    return fl;
   }
 
-  function applyFilters (fl, pg, bd) {
+  function applyFilters(fl, pg, bd) {
     if (!pg || !bd) {
-      return []
+      return [];
     }
-    let arr = bd.spec.events
+    let arr = bd.spec.events;
     for (const f of fl) {
-      if (f.type === 'tag') {
-        arr = arr.filter(e => e.tags && e.tags.includes(f.key))
+      if (f.type === "tag") {
+        arr = arr.filter((e) => e.tags && e.tags.includes(f.key));
       }
-      if (f.type === 'track') {
-        arr = arr.filter(e => e.track === f.key)
+      if (f.type === "track") {
+        arr = arr.filter((e) => e.track === f.key);
       }
-      if (f.type === 'text') {
-        const sr = fuse.search(f.key)
+      if (f.type === "text") {
+        const sr = fuse.search(f.key);
         if (sr.length > 0) {
-          arr = sr.map(sr => arr.find(i => i.id === sr.item.id)).filter(sr => sr)
+          arr = sr
+            .map((sr) => arr.find((i) => i.id === sr.item.id))
+            .filter((sr) => sr);
         } else {
-          arr = []
+          arr = [];
         }
       }
     }
-    ids = arr.map(a => a.id)
-    return arr
+    ids = arr.map((a) => a.id);
+    return arr;
   }
 
-  bundle.subscribe(bd => {
+  bundle.subscribe((bd) => {
     fuse = new Fuse(bd.spec.events, {
       //includeScore: true,
       //minMatchCharLength: 1,
       threshold: 0.4,
       keys: [
-        { name: 'name', weight: 10 },
-        { name: 'description', weight: 7 },
-        { name: 'speakers', weight: 5 },
-        { name: 'speakersInfo.nickname', weight: 5 },
-        { name: 'track', weight: 2 },
-        { name: 'tags', weight: 2 },
-        { name: 'speakersInfo.bio', weight: 1 },
-        { name: 'speakersInfo.orgs', weight: 1 },
-        { name: 'speakersInfo.description', weight: 1 },
-      ]
-    })
-  })
+        { name: "name", weight: 10 },
+        { name: "description", weight: 7 },
+        { name: "speakers", weight: 5 },
+        { name: "speakersInfo.nickname", weight: 5 },
+        { name: "track", weight: 2 },
+        { name: "tags", weight: 2 },
+        { name: "speakersInfo.bio", weight: 1 },
+        { name: "speakersInfo.orgs", weight: 1 },
+        { name: "speakersInfo.description", weight: 1 },
+      ],
+    });
+  });
 
   page.subscribe(() => {
-    searchText = ''
-  })
+    searchText = "";
+  });
 
-  function searchTextSubmit () {
-    filters = makeFilters($page, $bundle)
+  function searchTextSubmit() {
+    filters = makeFilters($page, $bundle);
   }
 
-  function cancelFilter () {
-    searchText = ''
-    filters = makeFilters($page, $bundle)
-    goto('/program')
+  function cancelFilter() {
+    searchText = "";
+    filters = makeFilters($page, $bundle);
+    goto("/program");
   }
-
 </script>
 
 <svelte:head>
@@ -176,14 +185,18 @@
       <div class="my-auto">Filtry:</div>
       <div class="text-sm my-auto flex gap-1">
         {#each filters as filter}
-          <div class="py-1 px-2 rounded bg-blue-web/60 text-white">{filter.title}</div>
+          <div class="py-1 px-2 rounded bg-blue-web/60 text-white">
+            {filter.title}
+          </div>
         {/each}
       </div>
       <div class="ml-3 my-auto">
-        <a href="" on:click={cancelFilter}><i class="fa-solid fa-xmark text-red-500 mr-1" /> Zrušit filtr</a>
+        <a href="" on:click={cancelFilter}
+          ><i class="fa-solid fa-xmark text-red-500 mr-1" /> Zrušit filtr</a
+        >
       </div>
     </div>
-  {:else}
+  {:else if $loadInfo.loaded}
     <div class="mt-6 lg:mt-10 flex sm:justify-center overflow-auto">
       <WordCloud words={tags} on:click={wordClick} />
     </div>
@@ -197,12 +210,19 @@
     </div>
     <div class="my-auto flex gap-2 mt-2 sm:mt-0">
       <div class="my-auto">Hledat:</div>
-      <div><input type="text" bind:value={searchText} on:input={searchTextSubmit} class="border rounded border-blue-web/30 px-1.5 py-1" /></div>
+      <div>
+        <input
+          type="text"
+          bind:value={searchText}
+          on:input={searchTextSubmit}
+          class="border rounded border-blue-web/30 px-1.5 py-1"
+        />
+      </div>
     </div>
   </div>
   <div class="mt-4">
     {#each ids as id}
-      <Event event={$bundle.spec.events.find(e => e.id === id)} />
+      <Event event={$bundle.spec.events.find((e) => e.id === id)} />
     {/each}
   </div>
   <!--div class="mt-4">
@@ -213,4 +233,3 @@
     {/each}
   </div-->
 </section>
-

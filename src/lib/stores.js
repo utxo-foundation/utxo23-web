@@ -27,3 +27,5 @@ export const userDataLocal = writable({
 
 export const layouts = writable({ test: null })
 
+export const loadInfo = writable({ loaded: false })
+

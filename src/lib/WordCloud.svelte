@@ -55,7 +55,7 @@
   const onWordMouseOut = (d) => dispatch("mouseout", d);
   const onWordMouseMove = (d) => dispatch("mousemove", d);
 
-  let layout = null
+  let layout = null;
 
   $: cwidth =
     outerWidth > 1152
@@ -66,7 +66,7 @@
   $: cheight = cwidth < 800 ? 400 : cwidth < 500 ? 600 : 250;
 
   async function makeLayout() {
-    const lid = [cwidth, cheight].join(':')
+    /*const lid = [cwidth, cheight].join(':')
     let l = null
     await layouts.update(larr => {
 
@@ -94,11 +94,21 @@
       //console.log(Object.keys(larr))
       return larr
     })
-    return l
+    return l*/
+    return cloud()
+      .size([cwidth, cheight])
+      .words(words)
+      .padding(padding)
+      .rotate(() => ~~(Math.random() * maxRotate) + minRotate)
+      .font(font)
+      .fontSize(
+        //(d) =>  Math.floor((d.count / maxWordCount) * maxFontSize)
+        (d) => d.count + 15
+      );
   }
 
   function draw(words) {
-    //select("#wordcloud").selectAll("*").remove();
+    select("#wordcloud").selectAll("*").remove();
 
     select("#wordcloud")
       .append("svg")
@@ -147,7 +157,7 @@
           fwidth = outerWidth;
         }
       }, 500);
-    }, 100);
+    }, 1);
     setTimeout(() => {
       drawAll();
       fwidth = outerWidth;
@@ -168,7 +178,7 @@
     style="background-color: {backgroundColor}; width: {cwidth}px; height: {cheight}px;"
     class="justify-end {show
       ? 'opacity-100'
-      : 'opacity-0'} transition transition-all"
+      : 'opacity-0'} transition transition-all transition-fast"
   />
 </div>
 
