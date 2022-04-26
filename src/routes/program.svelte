@@ -111,12 +111,14 @@
 
   bundle.subscribe(bd => {
     fuse = new Fuse(bd.spec.events, {
+      minMatchCharLength: 3,
+      threshold: 0.3,
       keys: [
         { name: 'name', weight: 1 },
         { name: 'speakers', weight: 1 },
+        { name: 'description', weight: 2 },
         { name: 'track', weight: 3 },
         { name: 'tags', weight: 3 },
-        { name: 'description', weight: 3 },
       ]
     })
   })
