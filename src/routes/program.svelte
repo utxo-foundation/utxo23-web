@@ -10,9 +10,13 @@
   import { bundle, userData } from "$lib/stores.js";
   import { calcDuration } from "$lib/events.js";
   import WordCloud from "$lib/WordCloud.svelte";
+  import Fuse from 'fuse.js';
 
   $: tags = getTags($bundle);
   $: totalDuration = calcTotalDuration($bundle);
+
+  let fuse = null
+  let searchText = ''
 
   function getTags(data) {
     let res = {};
@@ -55,9 +59,9 @@
     return true
   }
 
-  $: events = applyFilters($page, $bundle)
-  $: ids = []
   $: filters = makeFilters($page, $bundle)
+  $: events = applyFilters(filters, $page, $bundle)
+  $: ids = []
 
   function makeFilters (pg, bd) {
     const search = pg.url.searchParams
@@ -65,7 +69,7 @@
 
     // tags
     if (search.get('tag')) {
-      fl.push({ type: 'tag', title: `Tag: #${search.get('tag')}` })
+      fl.push({ type: 'tag', title: `Tag: #${search.get('tag')}`, key: search.get('tag') })
     }
     // tracks
     if (search.get('track')) {
@@ -73,25 +77,62 @@
       if (!track) {
         return goto('/program')
       }
-      fl.push({ type: 'track', title: `Sekce: ${track.name}` })
+      fl.push({ type: 'track', title: `Sekce: ${track.name}`, key: track.id })
+    }
+    if (searchText) {
+      fl.push({ type: 'text', title: `Text: "${searchText}"`, key: searchText })
     }
     return fl
   }
 
-  function applyFilters (pg, bd) {
+  function applyFilters (fl, pg, bd) {
     if (!pg || !bd) {
       return []
     }
-    const search = pg.url.searchParams
     let arr = bd.spec.events
-    if (search.get('tag')) {
-      arr = arr.filter(e => e.tags && e.tags.includes(search.get('tag')))
-    }
-    if (search.get('track')) {
-      arr = arr.filter(e => e.track === search.get('track'))
+    for (const f of fl) {
+      if (f.type === 'tag') {
+        arr = arr.filter(e => e.tags && e.tags.includes(f.key))
+      }
+      if (f.type === 'track') {
+        arr = arr.filter(e => e.track === f.key)
+      }
+      if (f.type === 'text') {
+        const sr = fuse.search(f.key)
+        if (sr.length > 0) {
+          const ids = sr.map(i => i.item.id)
+          arr = arr.filter(i => ids.includes(i.id))
+        }
+      }
     }
     ids = arr.map(a => a.id)
     return arr
+  }
+
+  bundle.subscribe(bd => {
+    fuse = new Fuse(bd.spec.events, {
+      keys: [
+        { name: 'name', weight: 1 },
+        { name: 'speakers', weight: 1 },
+        { name: 'track', weight: 3 },
+        { name: 'tags', weight: 3 },
+        { name: 'description', weight: 3 },
+      ]
+    })
+  })
+
+  page.subscribe(() => {
+    searchText = ''
+  })
+
+  function searchTextSubmit () {
+    filters = makeFilters($page, $bundle)
+  }
+
+  function cancelFilter () {
+    searchText = ''
+    filters = makeFilters($page, $bundle)
+    goto('/program')
   }
 
 </script>
@@ -125,13 +166,13 @@
   {#if filters.length > 0}
     <div class="mt-6 flex flex-wrap gap-3">
       <div class="my-auto">Filtry:</div>
-      <div class="text-sm my-auto">
+      <div class="text-sm my-auto flex gap-1">
         {#each filters as filter}
           <div class="py-1 px-2 rounded bg-blue-web/60 text-white">{filter.title}</div>
         {/each}
       </div>
       <div class="ml-3 my-auto">
-        <a href="/program"><i class="fa-solid fa-xmark text-red-500 mr-1" /> Zrušit filtr</a>
+        <a href="" on:click={cancelFilter}><i class="fa-solid fa-xmark text-red-500 mr-1" /> Zrušit filtr</a>
       </div>
     </div>
   {:else}
@@ -140,9 +181,17 @@
     </div>
   {/if}
 
-  <h1 class="mt-6 uppercase text-lg font-semibold">
-    Seznam událostí ({ids.length}/{$bundle.spec.events.length})
-  </h1>
+  <div class="mt-6 sm:flex">
+    <div class="my-auto flex-1">
+      <h1 class="uppercase text-lg font-semibold">
+        Seznam událostí ({ids.length}/{$bundle.spec.events.length})
+      </h1>
+    </div>
+    <div class="my-auto flex gap-2 mt-2 sm:mt-0">
+      <div class="my-auto">Hledat:</div>
+      <div><input type="text" bind:value={searchText} on:input={searchTextSubmit} class="border rounded border-blue-web/30 px-1.5 py-1" /></div>
+    </div>
+  </div>
   <div class="mt-4">
     {#each $bundle.spec.events as e}
       {#if ids.includes(e.id)}

@@ -70,9 +70,9 @@
     let l = null
     await layouts.update(larr => {
 
-      console.log(Object.keys(larr))
+      //console.log(Object.keys(larr))
       if (larr && larr[lid]) {
-        console.log('making from stored layout')
+        //console.log('making from stored layout')
         l = larr[lid]
 
       } else {
@@ -91,7 +91,7 @@
         larr[lid] = l
       }
 
-      console.log(Object.keys(larr))
+      //console.log(Object.keys(larr))
       return larr
     })
     return l
