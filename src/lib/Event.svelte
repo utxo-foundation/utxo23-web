@@ -55,12 +55,21 @@
       {/each}
     </div>
   {/if}
-  <div class="mt-2 text-sm flex flex-wrap gap-2">
-    <div><EventTypeLabel event={e} /></div>
-    {#if e.track}
-      <div class="text-sm my-auto">{trackRender(e.track)}</div>
-    {/if}
-    {#if duration}<div class="text-xs my-auto">{duration}m</div>{/if}
+  <div class="">
+    <div class="text-sm flex flex-wrap gap-3 flex-1">
+      <div><EventTypeLabel event={e} /></div>
+      {#if duration}<div class="text-xs my-auto">{duration}m</div>{/if}
+      {#if e.track}
+        <div class="text-sm my-auto">{trackRender(e.track)}</div>
+      {/if}
+      {#if e.tags}
+      <div class="flex text-xs gap-1 my-auto text-blue-web/60">
+        {#each e.tags as tag}
+          <div>#{tag}</div>
+        {/each}
+      </div>
+      {/if}
+    </div>
   </div>
   {#if getChildrens(e).length > 0}
     <div class="mt-4 w-auto mb-2">

@@ -159,9 +159,9 @@
 
 <section class="relative mx-auto py-10 px-6 max-w-6xl">
   <div class="text-blue-web lg:mt-10">
-    <div class="text-2xl uppercase font-bold">Partneři</div>
-    <div class="mt-6">Sponzoři</div>
-    <div class="mt-6 flex flex-wrap gap-8 justify-left">
+    <div class="text-2xl uppercase font-bold text-center">Partneři</div>
+    <div class="mt-6 text-center">Sponzoři</div>
+    <div class="mt-6 flex flex-wrap gap-8 justify-center">
       {#each $bundle.spec.partners.filter((p) => p.type === "sponsor") as p}
         <div class="w-28">
           <a href={p.web.url} target="_blank"
@@ -176,8 +176,8 @@
         </div>
       {/each}
     </div>
-    <div class="mt-10">Komunity</div>
-    <div class="mt-6 flex flex-wrap gap-6 justify-left">
+    <div class="mt-10 text-center">Komunity</div>
+    <div class="mt-6 flex flex-wrap gap-6 justify-center">
       {#each $bundle.spec.partners.filter((p) => p.type === "community") as p}
         <div>
           <a
@@ -197,8 +197,8 @@
         </div>
       {/each}
     </div>
-    <div class="mt-10">Mediální partneři</div>
-    <div class="mt-6 flex flex-wrap gap-4 justify-left">
+    <div class="mt-10 text-center">Mediální partneři</div>
+    <div class="mt-6 flex flex-wrap gap-4 justify-center">
       {#each $bundle.spec.partners.filter((p) => p.type === "medium") as p}
         <div>
           <a
@@ -224,7 +224,9 @@
 {#if $bundle}
   <section class="relative mx-auto py-10 px-6 max-w-6xl">
     <div class="text-blue-web">
-      <h2 class="uppercase pt-5" id="faq">Často kladené dotazy (FAQ)</h2>
+      <h2 class="uppercase pt-5 text-center" id="faq">
+        Často kladené dotazy (FAQ)
+      </h2>
       <div class="md:columns-2 columns-1 mt-8 h-auto">
         {#each $bundle.spec.faqs as item}
           <div

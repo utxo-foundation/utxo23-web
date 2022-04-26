@@ -96,7 +96,7 @@
         {#if s.linkedin}
           <div class="mt-2">
             LinkedIn: <a
-              href="https://linkedin.com/in/{s.twitter}"
+              href="https://linkedin.com/in/{s.linkedin}"
               target="_blank"
               class="font-bold">@{s.linkedin}</a
             >
