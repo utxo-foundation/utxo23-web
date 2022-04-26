@@ -23,6 +23,7 @@
   import { page } from "$app/stores";
   import { goto } from "$app/navigation";
   import { loadOrders, loadApiStatus } from "$lib/orders";
+  import Avatar from "$lib/Avatar.svelte";
 
   const renderers = { link: Link };
   const orderTicketFormLS = localStorage.getItem("orderTicketForm");
@@ -30,6 +31,14 @@
   if (parsed && parsed.__v === $orderTicketForm.__v) {
     orderTicketForm.set(parsed);
   }
+
+  const ticketTypes = {
+    public: 'Běžná vstupenka',
+    speaker: 'Přednášející',
+    organizator: 'Organizátor',
+    host: 'Doprovod',
+  }
+  
 
   let forceShow = false;
   let loading = true;
@@ -321,12 +330,16 @@
                 class="border-l border-b border-r p-4 rounded-b-md shadow-md border-blue-web"
               >
                 <div class="flex gap-3 text-sm">
-                  <div
-                    class="w-11 h-11 rounded-md"
-                    style="background-image: url({makeBlockie(
-                      ticket.avatarHash
-                    )}); background-size: 100% 100%;"
-                  />
+                  {#if ticket.type === 'speaker' && ticket.link && ticket.link.id}
+                    <a href="/lide?id={ticket.link.id}"><Avatar speaker={$bundle.spec.speakers.find(s => s.id === ticket.link.id)} size="semi-small" /></a>
+                  {:else}
+                    <div
+                      class="w-10 h-10 rounded-md"
+                      style="background-image: url({makeBlockie(
+                        ticket.avatarHash
+                      )}); background-size: 100% 100%;"
+                    />
+                  {/if}
                   <div class="w-auto">
                     <div class="no-flex">
                       <span
@@ -334,7 +347,7 @@
                         >#{ticket.id}</span
                       >
                     </div>
-                    <div class="mt-1.5">Běžná vstupenka</div>
+                        <div class="mt-1.5">{ticketTypes[ticket.type || 'public']}</div>
                   </div>
                 </div>
                 {#if ticket.data}

@@ -3,6 +3,7 @@
   export let col = "speakers";
   export let size = "normal";
   export let customSize = null;
+  export let inline = false;
 
   import SvelteMarkdown from "svelte-markdown";
   import Link from "$lib/Link.svelte";
@@ -126,7 +127,7 @@
 {/if}
 
 {#if size === "extra-small"}
-  <div class="w-6 h-6 text-center">
+  <div class="w-6 h-6 text-center {inline ? 'inline-block align-middle' : ''}">
     <a href="/lide?id={speaker.id}"
       ><img
         src={currentImg}
@@ -138,7 +139,7 @@
 {/if}
 
 {#if size === "micro"}
-  <div class="w-4 h-4 text-center">
+  <div class="w-4 h-4 text-center {inline ? 'inline-block align-middle' : ''}">
     <a href="/lide?id={speaker.id}"
       ><img
         src={currentImg}

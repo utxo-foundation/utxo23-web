@@ -4,6 +4,9 @@
 
 <script>
   import Event from "$lib/Event.svelte";
+  import { onMount, onDestroy } from 'svelte';
+  import { page } from "$app/stores";
+  import { goto } from '$app/navigation';
   import { bundle, userData } from "$lib/stores.js";
   import { calcDuration } from "$lib/events.js";
   import WordCloud from "$lib/WordCloud.svelte";
@@ -45,8 +48,28 @@
   }
 
   function wordClick(e) {
-    console.log(e.detail.path[0].innerHTML);
+    const tag = e.detail.path[0].innerHTML;
+    if (tag) {
+      goto(`/program?tag=${tag}`)
+    }
   }
+
+  $: events = applyFilters($page, $bundle)
+  $: ids = []
+
+  function applyFilters (pg, bd) {
+    if (!pg || !bd) {
+      return []
+    }
+    const search = pg.url.searchParams
+    let arr = bd.spec.events
+    if (search.get('tag')) {
+      arr = arr.filter(e => e.tags && e.tags.includes(search.get('tag')))
+    }
+    ids = arr.map(a => a.id)
+    return arr
+  }
+
 </script>
 
 <svelte:head>
@@ -80,11 +103,14 @@
   </div>
 
   <h1 class="mt-6 uppercase text-lg font-semibold">
-    Seznam událostí ({$bundle.spec.events.length})
+    Seznam událostí ({ids.length})
   </h1>
   <div class="mt-4">
-    {#each $bundle.spec.events.filter((e) => !e.parent) as e}
-      <Event event={e} />
+    {#each $bundle.spec.events as e}
+      {#if ids.includes(e.id)}
+        <Event event={e} />
+      {/if}
     {/each}
   </div>
 </section>
+

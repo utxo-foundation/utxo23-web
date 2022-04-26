@@ -31,6 +31,9 @@ class API {
       opts.body = JSON.stringify(body)
     }
     const resp = await fetch(`https://api.utxo.cz/${path}`, opts)
+    if (resp.status !== 200) {
+      return null
+    }
     return resp.json()
   }
 
