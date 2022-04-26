@@ -18,6 +18,37 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
 		%svelte.head%
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Event",
+      "name": "UTXO.22 - Otevřená kryptoměnová komunitní konference",
+      "startDate": "2022-06-04T09:00+02:00",
+      "endDate": "2025-06-05T22:00+02:00",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "location": {
+        "@type": "Place",
+        "name": "Gabriel Loci",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Holečkova 106/10",
+          "addressLocality": "Praha 5 - Smíchov",
+          "postalCode": "150 00",
+          "addressCountry": "CZ"
+        }
+      },
+      "image": [
+        "https://utxo.cz/img/banner.png"
+       ],
+      "description": "Několik českých krypto komunit se spojilo, aby daly dohromady dosud největší, transparentní a nezávislou konferenci obsahující komplexní témata ze světa kryptoměn. Konference ve dvou dnech nabídne více než 120 hodin přednášek, workshopů a dalšího obsahu pro začátečníky, středně i více pokročilé uživatele. Bude probíhat v prostorách klášterního komplexu Gabriel Loci na pražském Smíchově i živě online pro ty, kteří se nemohou účastnit osobně..",
+      "organizer": {
+        "@type": "Organization",
+        "name": "UTXO Foundation, z.s.",
+        "url": "http://utxo.foundation/"
+      }
+    }
+    </script>
 	</head>
 	<body>
 		<div class="h-full w-full">%svelte.body%</div>
