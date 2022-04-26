@@ -99,9 +99,10 @@
       }
       if (f.type === 'text') {
         const sr = fuse.search(f.key)
-        console.log(sr)
         if (sr.length > 0) {
-          arr = sr.map(sr => arr.find(i => i.id === sr.item.id))
+          arr = sr.map(sr => arr.find(i => i.id === sr.item.id)).filter(sr => sr)
+        } else {
+          arr = []
         }
       }
     }
@@ -112,7 +113,7 @@
   bundle.subscribe(bd => {
     fuse = new Fuse(bd.spec.events, {
       includeScore: true,
-      minMatchCharLength: 3,
+      minMatchCharLength: 1,
       threshold: 0.4,
       keys: [
         { name: 'name', weight: 10 },
