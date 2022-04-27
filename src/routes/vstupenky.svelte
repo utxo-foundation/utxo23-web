@@ -400,15 +400,14 @@
               >
                 {#if ticketEdit !== ticket.id}
                   <div class="utxo-ticket-edit-button float-right">
-                    <a
-                      href="#"
+                    <button
                       class="text-blue-web/60 hover:text-blue-web/100"
                       on:click={handleTicketEditShow(
                         ticket.id,
                         ticket.data,
                         ticket.orderId,
                         $userData
-                      )}><i class="fas fa-edit" /></a
+                      )}><i class="fas fa-edit" /></button
                     >
                   </div>
                 {/if}
