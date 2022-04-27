@@ -448,7 +448,7 @@
                       >{/if}
                     {#if ticket.data.org}({ticket.data.org}){/if}
                     {#if ticket.data.twitter}<a
-                        href="https://twitter.com/{ticket.data.twitter}"
+                        href="https://twitter.com/{ticket.data.twitter.replace(/^@/, '')}"
                         target="_blank"><i class="fa-brands fa-twitter" /></a
                       >{/if}
                   </div>
