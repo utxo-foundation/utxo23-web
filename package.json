@@ -1,6 +1,6 @@
 {
   "name": "utxo22-web",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
@@ -37,6 +37,7 @@
     "date-fns": "^2.28.0",
     "ethereum-blockies-base64": "^1.0.2",
     "fuse.js": "^6.5.3",
+    "lodash": "^4.17.21",
     "remove-markdown": "^0.3.0"
   }
 }

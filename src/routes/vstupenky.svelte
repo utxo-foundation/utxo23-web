@@ -7,6 +7,7 @@
   import { faker } from "@faker-js/faker";
   import SvelteMarkdown from "svelte-markdown";
   import Link from "$lib/Link.svelte";
+  import * as _ from "lodash";
   import {
     orderTicketForm,
     bundle,
@@ -308,6 +309,75 @@
     });
     loadOrders($userData);
   }
+
+  let ticketEdit = null;
+  let ticketEditSecret = null;
+  let ticketEditData = {};
+  let ticketEditProcessing = null;
+  let ticketEditError = null;
+
+  function handleTicketEditShow(
+    ticketId,
+    ticketData = {},
+    orderId = null,
+    ud = null
+  ) {
+    return () => {
+      ticketEdit = ticketId;
+      ticketEditData = _.pick(ticketData, ["name", "org", "twitter"]);
+      const tsecret = ud.tickets.find((t) =>
+        t.match(new RegExp(`^${ticketId}:`))
+      );
+      ticketEditSecret = orderId
+        ? `order:${orderId}`
+        : tsecret
+        ? `ticket:${tsecret.split(":")[1]}`
+        : "error";
+    };
+  }
+
+  async function changeEditForm() {
+    ticketEditError = false;
+  }
+
+  async function handleTicketEdit() {
+    if (!ticketEdit || ticketEditProcessing) {
+      return null;
+    }
+    ticketEditProcessing = true;
+    console.log(ticketEdit, ticketEditData);
+
+    const resp = await api.apiCall(
+      "updateTicket",
+      { method: "POST" },
+      {
+        id: ticketEdit,
+        data: ticketEditData,
+        secret: ticketEditSecret,
+      }
+    );
+    ticketEditProcessing = false;
+    if (resp.error) {
+      let msg = "";
+      if (resp.error.formErrors) {
+        switch (resp.error.formErrors[0].instancePath) {
+          case "/twitter":
+            msg = "Neplatný twitter účet";
+            break;
+          case "/name":
+            msg = "Nesprávně vyplněné jméno (max. počet znaků je 25)";
+            break;
+          case "/org":
+            msg = "Nesprávně vyplněná organizace (max. počet znaků je 25)";
+            break;
+        }
+      }
+      ticketEditError = msg || "Neznámá chyba";
+    } else {
+      ticketEdit = false;
+      await loadOrders($userData);
+    }
+  }
 </script>
 
 <svelte:head>
@@ -323,11 +393,25 @@
       {#if tickets.length > 0}
         <div class="mt-4 flex flex-wrap gap-3">
           {#each tickets as ticket}
-            <div class="w-full sm:w-80">
+            <div class="utxo-ticket w-full sm:w-80">
               <div class="h-2 bg-blue-web rounded-t-md shadow-md" />
               <div
                 class="border-l border-b border-r p-4 rounded-b-md shadow-md border-blue-web"
               >
+                {#if ticketEdit !== ticket.id}
+                  <div class="utxo-ticket-edit-button float-right">
+                    <a
+                      href="#"
+                      class="text-blue-web/60 hover:text-blue-web/100"
+                      on:click={handleTicketEditShow(
+                        ticket.id,
+                        ticket.data,
+                        ticket.orderId,
+                        $userData
+                      )}><i class="fas fa-edit" /></a
+                    >
+                  </div>
+                {/if}
                 <div class="flex gap-3 text-sm">
                   {#if ticket.type === "speaker" && ticket.link && ticket.link.id}
                     <a href="/lide?id={ticket.link.id}"
@@ -358,7 +442,7 @@
                     </div>
                   </div>
                 </div>
-                {#if ticket.data}
+                {#if ticket.data && ticketEdit !== ticket.id}
                   <div class="mt-2">
                     {#if ticket.data.name}{ticket.data.name}{:else}<span
                         class="italic">Anonym</span
@@ -370,14 +454,110 @@
                       >{/if}
                   </div>
                 {/if}
+                {#if ticketEdit === ticket.id}
+                  <div
+                    class="mt-2 border rounded border-blue-web/20 py-2 px-2 bg-blue-web-light"
+                  >
+                    <div class="text-sm uppercase font-bold">Úprava údajů</div>
+
+                    <div class="">
+                      <div class="mt-2 flex-1 w-full">
+                        <div class="uppercase text-sm">Jméno (Přezdívka)</div>
+                        <div class="mt-2">
+                          <input
+                            type="text"
+                            maxlength="25"
+                            class="border border-blue-web rounded-md p-2 w-full text-blue-web"
+                            bind:value={ticketEditData.name}
+                            on:input={changeEditForm}
+                            placeholder="Anonym"
+                          />
+                        </div>
+                      </div>
+                      <div class="mt-2 flex-1">
+                        <div class="uppercase text-sm">Organizace (Firma)</div>
+                        <div class="mt-2">
+                          <input
+                            type="text"
+                            maxlength="25"
+                            class="border border-blue-web rounded-md p-2 w-full text-blue-web"
+                            bind:value={ticketEditData.org}
+                            on:input={changeEditForm}
+                            placeholder=""
+                          />
+                        </div>
+                      </div>
+                      <div class="mt-2">
+                        <div class="uppercase text-sm">Twitter účet</div>
+                        <div class="mt-2">
+                          <input
+                            type="text"
+                            maxlength="25"
+                            class="border border-blue-web rounded-md p-2 w-full text-blue-web"
+                            bind:value={ticketEditData.twitter}
+                            on:input={changeEditForm}
+                            placeholder=""
+                          />
+                        </div>
+                      </div>
+                      <div class="mt-4 flex gap-4">
+                        <button
+                          class="{ticketEditProcessing
+                            ? 'cursor-not-allowed bg-utxo-gradient'
+                            : 'bg-blue-web hover:bg-utxo-gradient'} rounded-lg text-white px-4 py-2 inline-flex items-center leading-6 transition ease-in-out duration-150"
+                          on:click={handleTicketEdit}
+                          disabled={ticketEditProcessing}
+                        >
+                          {#if ticketEditProcessing}
+                            <svg
+                              class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                            >
+                              <circle
+                                class="opacity-25"
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="currentColor"
+                                stroke-width="4"
+                              />
+                              <path
+                                class="opacity-75"
+                                fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                              />
+                            </svg>
+                            Ukládám ..
+                          {:else}
+                            Uložit
+                          {/if}
+                        </button>
+                        {#if !ticketEditProcessing}
+                          <button
+                            class="my-auto hover:underline"
+                            on:click={() => (ticketEdit = null)}>Zrušit</button
+                          >
+                        {/if}
+                      </div>
+                      {#if ticketEditError}
+                        <div class="text-red-700 mt-3 text-sm m-1">
+                          <i class="fa-solid fa-triangle-exclamation" />
+                          {ticketEditError}
+                        </div>
+                      {/if}
+                    </div>
+                  </div>
+                {/if}
               </div>
             </div>
           {/each}
         </div>
-        <div class="mt-4 text-sm">
+        <!--div class="mt-4 text-sm">
           * Úprava údajů na vstupence bude možná od 27. dubna (společně se
           spuštením druhé vlny). Omlouváme se za komplikace 🙏.
-        </div>
+        </div-->
       {:else}
         <div class="mt-4">Nemáte žádnou vstupenku</div>
       {/if}
@@ -861,3 +1041,12 @@
     {/if}
   {/if}
 </section>
+
+<style>
+  .utxo-ticket .utxo-ticket-edit-button {
+    display: none;
+  }
+  .utxo-ticket:hover .utxo-ticket-edit-button {
+    display: block;
+  }
+</style>
