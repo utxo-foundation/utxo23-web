@@ -25,6 +25,7 @@ jobs:
       - run: npm run bump-version
       - run: npm install
       - run: npm run build
+      - run: npm run sitemaps
 
       - name: Add custom domain
         run: "touch build/CNAME && echo \"utxo.cz\" >> build/CNAME"
