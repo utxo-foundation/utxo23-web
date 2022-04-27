@@ -399,7 +399,7 @@
                 class="border-l border-b border-r p-4 rounded-b-md shadow-md border-blue-web"
               >
                 {#if ticketEdit !== ticket.id}
-                  <div class="utxo-ticket-edit-button float-right">
+                  <div class="utxo-ticket-edit-button float-right transition-all">
                     <button
                       class="text-blue-web/60 hover:text-blue-web/100"
                       on:click={handleTicketEditShow(
@@ -1043,9 +1043,9 @@
 
 <style>
   .utxo-ticket .utxo-ticket-edit-button {
-    display: none;
+    opacity: 0.3;
   }
   .utxo-ticket:hover .utxo-ticket-edit-button {
-    display: block;
+    opacity: 1;
   }
 </style>
