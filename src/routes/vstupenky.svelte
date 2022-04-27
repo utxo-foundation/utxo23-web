@@ -399,7 +399,9 @@
                 class="border-l border-b border-r p-4 rounded-b-md shadow-md border-blue-web"
               >
                 {#if ticketEdit !== ticket.id}
-                  <div class="utxo-ticket-edit-button float-right transition-all">
+                  <div
+                    class="utxo-ticket-edit-button float-right transition-all"
+                  >
                     <button
                       class="text-blue-web/60 hover:text-blue-web/100"
                       on:click={handleTicketEditShow(
@@ -448,7 +450,10 @@
                       >{/if}
                     {#if ticket.data.org}({ticket.data.org}){/if}
                     {#if ticket.data.twitter}<a
-                        href="https://twitter.com/{ticket.data.twitter.replace(/^@/, '')}"
+                        href="https://twitter.com/{ticket.data.twitter.replace(
+                          /^@/,
+                          ''
+                        )}"
                         target="_blank"><i class="fa-brands fa-twitter" /></a
                       >{/if}
                   </div>
@@ -547,6 +552,16 @@
                         </div>
                       {/if}
                     </div>
+                  </div>
+                {/if}
+                {#if ticket.type === "speaker" && ticketEdit !== ticket.id}
+                  <div class="mt-4">
+                    <a
+                      href="https://docs.utxo.cz/pro-prednasejici"
+                      target="_blank"
+                      class="underline hover:no-underline"
+                      >Informace pro přednášející</a
+                    >
                   </div>
                 {/if}
               </div>
