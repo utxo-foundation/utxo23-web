@@ -43,7 +43,7 @@
 
 <svelte:head>
   <title
-    >UTXO.22 - 4-5. červen 2022 {$bundle
+    >UTXO.22 {$bundle
       ? "- " + $bundle.description
       : ""}</title
   >
