@@ -1,6 +1,6 @@
 <script>
   import { page } from "$app/stores";
-  import { bundle, userData, userDataLocal } from "$lib/stores";
+  import { bundle, userData, userDataLocal, apiStatus } from "$lib/stores";
   import SocialButtons from "$lib/SocialButtons.svelte";
   import Countdown from "$lib/Countdown.svelte";
 
@@ -113,14 +113,22 @@
             <div class="">Gabriel Loci, Praha</div>
           </div>
         </div>
-        <div class="mt-10 text-left">
-          <div class="">
-            <a
-              href="/vstupenky"
-              class="rounded-3xl bg-utxo-gradient uppercase text-sm py-4 px-10 hover:text-base hover:font-bold transition-all"
-              >Koupit vstupenky</a
-            >
+        <div class="flex mt-10 gap-4 flex-wrap">
+          <div class="text-left">
+            <div class="">
+              <a
+                href="/vstupenky"
+                class="rounded-3xl bg-utxo-gradient uppercase text-sm py-4 px-10 hover:text-base hover:font-bold transition-all"
+                >Koupit vstupenky</a
+              >
+            </div>
           </div>
+          {#if $apiStatus && $apiStatus.wave}
+            <div class="my-auto sm:mt-0 mt-2 sm:ml-0 ml-2 italic opacity-50">
+              Zbývá <span class="font-bold">{$apiStatus.wave.live.left}</span>
+              vstupenek (za {$apiStatus.wave.price} Kč)
+            </div>
+          {/if}
         </div>
         <div class="mt-8 ml-3 lg:ml-6 text-left flex m-auto">
           <a

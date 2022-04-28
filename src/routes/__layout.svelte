@@ -4,15 +4,33 @@
   import "../app.css";
   import api from "$lib/api.js";
   import { page } from "$app/stores";
-  import { userData, userDataLocal, apiStatus, loadInfo } from "$lib/stores";
+  import {
+    userData,
+    userDataLocal,
+    apiStatus,
+    loadInfo,
+    bundle,
+  } from "$lib/stores";
   import { loadOrders, loadApiStatus } from "$lib/orders";
   import { onMount, onDestroy } from "svelte";
 
-  let bundle = null;
   let uds = null;
 
+  let int1 = null;
+
+  async function baseLoad() {
+    api.loadBundle($page.url.hostname === "localhost");
+
+    await loadApiStatus();
+    loadOrders($userData);
+  }
+
   onMount(async () => {
-    bundle = await api.loadBundle($page.url.hostname === "localhost");
+    baseLoad();
+
+    int1 = setInterval(() => {
+      baseLoad();
+    }, 60 * 2000);
 
     const userDataLS = localStorage.getItem("userData");
     if (userDataLS) {
@@ -26,19 +44,17 @@
     setTimeout(() => {
       loadInfo.set({ loaded: true });
     }, 300);
-
-    await loadApiStatus();
-    await loadOrders($userData);
   });
 
   onDestroy(() => {
     //userData.unsubscribe(uds)
+    clearInterval(int1);
   });
 
   // load orders
 </script>
 
-{#if bundle}
+{#if $bundle}
   <div class="layout min-h-screen bg-gray-900">
     <div class="inset-0 bg-white">
       <Header />

@@ -112,7 +112,7 @@
       </div>
     </div>
     {#if s.desc}
-      <div class="mt-6">
+      <div class="mt-6 utxo-markdown">
         <SvelteMarkdown source={s.desc} {renderers} />
       </div>
     {/if}
