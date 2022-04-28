@@ -155,7 +155,7 @@
   </div>
 </section>
 
-<section class="relative mx-auto py-10 px-6">
+<section class="mx-auto py-10 px-6 max-w-auto overflow-hidden">
   <div class="text-blue-web lg:mt-10">
     <div class="text-2xl uppercase font-bold text-center">Partneři</div>
     <div class="mt-6 text-center">Sponzoři</div>
@@ -178,7 +178,7 @@
     <div class="mt-6 flex flex-wrap gap-6 justify-center">
       {#each $bundle.spec.partners.filter((p) => p.type === "community") as p}
         <div>
-          <SvelteTooltip tip={p.name}>
+          <SvelteTooltip tip={p.name} bottom="true">
             <a
               href={p.web
                 ? p.web.url
@@ -201,7 +201,7 @@
     <div class="mt-6 flex flex-wrap gap-4 justify-center">
       {#each $bundle.spec.partners.filter((p) => p.type === "medium") as p}
         <div>
-          <SvelteTooltip tip={p.name}>
+          <SvelteTooltip tip={p.name} bottom="true">
             <a
               href={p.web
                 ? p.web.url
