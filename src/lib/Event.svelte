@@ -82,7 +82,9 @@
         </div>
       {/if}
       {#if e.tags}
-        <div class="flex text-xs gap-1 my-auto text-blue-web/60">
+        <div
+          class="flex flex-wrap text-xs gap-1 my-auto text-blue-web/60 whitespace-nowrap"
+        >
           {#each e.tags as tag}
             <div><a href="/program?tag={tag}">#{tag}</a></div>
           {/each}
@@ -91,7 +93,7 @@
     </div>
   </div>
   {#if e.description}
-    <div class="mt-2">
+    <div class="mt-2 overflow-hidden">
       <SvelteMarkdown source={spoiler.md} {renderers} />
       {#if spoiler.stripped}
         <div class="text-sm text-blue-web/60">
