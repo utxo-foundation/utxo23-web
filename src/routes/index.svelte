@@ -75,7 +75,7 @@
       {/each}
     </div>
     {#if $userData.hpTrack === "top"}
-      <div class="relative cursor-pointer mb-10">
+      <div class="relative cursor-pointer mb-10 max-w-screen-2xl mx-auto">
         <div
           class="absolute inset-0 bg-gradient-to-b from-transparent to-white flex"
           on:click={handleShowFull}
