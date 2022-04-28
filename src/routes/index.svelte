@@ -45,8 +45,8 @@
   <title>UTXO.22 {$bundle ? "- " + $bundle.description : ""}</title>
 </svelte:head>
 
-<section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl">
-  {#if $bundle}
+{#if $bundle}
+  <section class="relative mx-auto pt-6 sm:pt-10 px-6 max-w-6xl">
     <div
       class="flex flex-wrap gap-1.5 sm:gap-3 text-xs uppercase font-bold text-blue-web justify-left"
     >
@@ -63,7 +63,8 @@
         </div>
       {/each}
     </div>
-
+  </section>
+  <section class="pb-6 sm:-pb-10 mx-auto sm:px-2 lg:px-6 2xl:px-16">
     <div class="flex flex-wrap gap-6 mt-6 sm:mt-14 justify-center">
       {#each $bundle.spec.speakers as speaker}
         {#if ($userData.hpTrack === "top" && speaker.lead === true) || $userData.hpTrack !== "top"}
@@ -89,8 +90,8 @@
         </div>
       </div>
     {/if}
-  {/if}
-</section>
+  </section>
+{/if}
 
 <section class="bg-utxo-gradient">
   <div class="relative mx-auto py-6 px-6 max-w-6xl">
@@ -153,7 +154,7 @@
   </div>
 </section>
 
-<section class="relative mx-auto py-10 px-6 max-w-6xl">
+<section class="relative mx-auto py-10 px-6">
   <div class="text-blue-web lg:mt-10">
     <div class="text-2xl uppercase font-bold text-center">Partneři</div>
     <div class="mt-6 text-center">Sponzoři</div>
