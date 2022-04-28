@@ -7,6 +7,7 @@
   import Avatar from "$lib/Avatar.svelte";
   import SvelteMarkdown from "svelte-markdown";
   import Link from "$lib/Link.svelte";
+  import SvelteTooltip from "$lib/SvelteTooltip.svelte";
   const renderers = { link: Link };
 
   let onlyLead = true;
@@ -160,13 +161,13 @@
     <div class="mt-6 text-center">Sponzoři</div>
     <div class="mt-6 flex flex-wrap gap-8 justify-center">
       {#each $bundle.spec.partners.filter((p) => p.type === "sponsor") as p}
-        <div class="w-28">
+        <div class="w-32">
           <a href={p.web.url} target="_blank"
             ><Avatar
               speaker={p}
               col="partners"
               size="custom"
-              customSize="w-24 shadow-xl"
+              customSize="w-28 shadow-xl"
             /></a
           >
           <div class="text-center text-sm uppercase font-bold">{p.name}</div>
@@ -177,20 +178,22 @@
     <div class="mt-6 flex flex-wrap gap-6 justify-center">
       {#each $bundle.spec.partners.filter((p) => p.type === "community") as p}
         <div>
-          <a
-            href={p.web
-              ? p.web.url
-              : p.twitter
-              ? `https://twitter.com/${p.twitter}`
-              : ""}
-            target="_blank"
-            ><Avatar
-              speaker={p}
-              col="partners"
-              size="custom"
-              customSize="w-20 shadow-lg"
-            /></a
-          >
+          <SvelteTooltip tip={p.name}>
+            <a
+              href={p.web
+                ? p.web.url
+                : p.twitter
+                ? `https://twitter.com/${p.twitter}`
+                : ""}
+              target="_blank"
+              ><Avatar
+                speaker={p}
+                col="partners"
+                size="custom"
+                customSize="w-20 shadow-lg"
+              /></a
+            >
+          </SvelteTooltip>
         </div>
       {/each}
     </div>
@@ -198,20 +201,22 @@
     <div class="mt-6 flex flex-wrap gap-4 justify-center">
       {#each $bundle.spec.partners.filter((p) => p.type === "medium") as p}
         <div>
-          <a
-            href={p.web
-              ? p.web.url
-              : p.twitter
-              ? `https://twitter.com/${p.twitter}`
-              : ""}
-            target="_blank"
-            ><Avatar
-              speaker={p}
-              col="partners"
-              size="custom"
-              customSize="w-16 shadow-lg"
-            /></a
-          >
+          <SvelteTooltip tip={p.name}>
+            <a
+              href={p.web
+                ? p.web.url
+                : p.twitter
+                ? `https://twitter.com/${p.twitter}`
+                : ""}
+              target="_blank"
+              ><Avatar
+                speaker={p}
+                col="partners"
+                size="custom"
+                customSize="w-16 shadow-lg"
+              /></a
+            >
+          </SvelteTooltip>
         </div>
       {/each}
     </div>
