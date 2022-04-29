@@ -29,6 +29,9 @@
     if (link.type === "speaker") {
       return $bundle.spec.speakers.find((s) => s.id === link.id);
     }
+    if (link.type === "partner") {
+      return $bundle.spec.partners.find((s) => s.id === link.id);
+    }
     return null;
   }
 
@@ -43,7 +46,12 @@
     if (!claim) {
       goto("/");
     }
-    if ($bundle && claim.link && claim.link.type === "speaker") {
+    if (
+      $bundle &&
+      claim.type === "speaker" &&
+      claim.link &&
+      claim.link.type === "speaker"
+    ) {
       const sp = $bundle.spec.speakers.find((s) => s.id === claim.link.id);
       if (sp) {
         form.name = sp.name || "";
@@ -53,11 +61,39 @@
     }
   });
 
-  const linkTypes = {
+  const ticketTypes = {
     speaker: {
       title: "Přednášející",
+      hostTitle: "Host přednášejícího",
+      col: "speakers",
     },
+    organizator: {
+      title: "Organizátor",
+      hostTitle: "Host organizátora",
+      col: "speakers",
+    },
+    partner: { title: "Partner", hostTitle: "Host partnera", col: "partners" },
+    host: { title: "Host" },
   };
+
+  function makeTicketTypeInfo(c) {
+    if (!c) {
+      return null;
+    }
+    const out = { title: null, col: null };
+    if (c.type === "host") {
+      const tt = ticketTypes[c.link.type];
+      out.title = tt.hostTitle;
+      out.col = tt.col;
+    } else {
+      const tt = ticketTypes[c.type];
+      out.title = tt.title;
+      out.col = tt.col;
+    }
+    return out;
+  }
+
+  $: ticketTypeInfo = makeTicketTypeInfo(claim);
 
   function processErrors(error) {
     if (typeof error === "string") {
@@ -146,10 +182,15 @@
           <div class="mt-6">
             <div class="uppercase text-sm font-bold">Typ vstupenky</div>
             <div class="mt-2">
-              <span class="">{linkTypes[claim.link.type].title}</span>
+              <span class="">{ticketTypeInfo ? ticketTypeInfo.title : ""}</span>
               {#if target}
-                - <Avatar speaker={target} size="extra-small" inline="true" />
-                <a href="/lide?id={target.id}">{target.name}</a>
+                (<Avatar
+                  speaker={target}
+                  size="extra-small"
+                  inline="true"
+                  col={ticketTypeInfo.col}
+                />
+                <a href="/lide?id={target.id}">{target.name}</a>)
               {/if}
             </div>
           </div>
@@ -192,7 +233,9 @@
                           maxlength="25"
                           class="border border-blue-web rounded-md p-2 w-full text-blue-web"
                           bind:value={form.name}
-                          placeholder={faker.name.findName()}
+                          placeholder={claim.type !== "speaker"
+                            ? faker.name.findName()
+                            : ""}
                         />
                       </div>
                     </div>
@@ -204,7 +247,9 @@
                           maxlength="25"
                           class="border border-blue-web rounded-md p-2 w-full text-blue-web"
                           bind:value={form.org}
-                          placeholder={faker.company.companyName()}
+                          placeholder={claim.type !== "speaker"
+                            ? faker.company.companyName()
+                            : ""}
                         />
                       </div>
                     </div>
@@ -216,7 +261,9 @@
                           maxlength="25"
                           class="border border-blue-web rounded-md p-2 w-full text-blue-web"
                           bind:value={form.twitter}
-                          placeholder="@{faker.internet.userName()}"
+                          placeholder={claim.type !== "speaker"
+                            ? faker.internet.userName()
+                            : ""}
                         />
                       </div>
                     </div>
