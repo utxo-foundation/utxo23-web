@@ -37,7 +37,9 @@
     public: "Běžná vstupenka",
     speaker: "Přednášející",
     organizator: "Organizátor",
-    host: "Doprovod",
+    staff: "Obsluha",
+    partner: "Partner",
+    host: "Host",
   };
 
   let forceShow = false;
@@ -414,7 +416,7 @@
                   </div>
                 {/if}
                 <div class="flex gap-3 text-sm">
-                  {#if ticket.type === "speaker" && ticket.link && ticket.link.id}
+                  {#if (ticket.type === "speaker" || ticket.type === "organizator") && ticket.link && ticket.link.id}
                     <a href="/lide?id={ticket.link.id}"
                       ><Avatar
                         speaker={$bundle.spec.speakers.find(
