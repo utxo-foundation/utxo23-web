@@ -28,10 +28,11 @@
       return null;
     }
     if (type === "all") {
-      return data.length;
+      return `${data.filter((i) => i.claimed).length}/${data.length}`;
     }
     const res = data.filter((i) => i.type === type);
-    return res ? res.length : null;
+    const claimed = res.filter((i) => i.claimed);
+    return res ? `${claimed.length}/${res.length}` : null;
   }
 
   async function loadData() {
