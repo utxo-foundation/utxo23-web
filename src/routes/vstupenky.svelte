@@ -284,6 +284,11 @@
       icon: "fa-solid fa-clock",
       color: "text-gray-600",
     },
+    refunded: {
+      name: "Refundovaná",
+      icon: "fa-solid fa-arrow-rotate-left",
+      color: "text-orange-600",
+    },
   };
 
   async function orderActionHandler(id, action) {
