@@ -416,7 +416,7 @@
                   </div>
                 {/if}
                 <div class="flex gap-3 text-sm">
-                  {#if (ticket.type === "speaker" || ticket.type === "organizator") && ticket.link && ticket.link.id}
+                  {#if (ticket.type === "speaker" || ticket.type === "organizator") && ticket.link && ticket.link.id && ticket.link.type === "speaker"}
                     <a href="/lide?id={ticket.link.id}"
                       ><Avatar
                         speaker={$bundle.spec.speakers.find(

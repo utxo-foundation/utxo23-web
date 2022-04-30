@@ -49,12 +49,18 @@
     const map = {
       speaker: { col: "speakers", url: "/lide?id=" },
       partner: { col: "partners", suffix: "partner" },
+      team: { col: "team", withoutAvatar: true },
     };
     const ltype = map[link.type];
     if (!ltype) {
       return null;
     }
-    const item = $bundle.spec[ltype.col].find((i) => i.id === link.id);
+    let item = null;
+    if (link.type === "team") {
+      item = $bundle.spec.team.persons[link.id];
+    } else {
+      item = $bundle.spec[ltype.col].find((i) => i.id === link.id);
+    }
     if (!item) {
       return "not exists!";
     }
@@ -63,6 +69,7 @@
       url: ltype.url ? ltype.url + link.id : null,
       col: ltype.col,
       suffix: ltype.suffix,
+      withoutAvatar: ltype.withoutAvatar,
     };
   }
 
@@ -157,18 +164,22 @@
                   ? "hover:bg-blue-500/10"
                   : "bg-yellow-400/20 hover:bg-yello-600/20"}
               >
-                <td class="border-b font-bold">{ticketTypes[claim.type].title}</td>
+                <td class="border-b font-bold"
+                  >{ticketTypes[claim.type].title}</td
+                >
                 <td class="border-b">
                   <a href={claim.linkInfo.url}>
-                    <div class="inline-block align-middle">
-                      <Avatar
-                        speaker={$bundle.spec[claim.linkInfo.col].find(
-                          (i) => i.id === claim.link.id
-                        )}
-                        col={claim.linkInfo.col}
-                        size="extra-small"
-                      />
-                    </div>
+                    {#if !claim.linkInfo.withoutAvatar}
+                      <div class="inline-block align-middle">
+                        <Avatar
+                          speaker={$bundle.spec[claim.linkInfo.col].find(
+                            (i) => i.id === claim.link.id
+                          )}
+                          col={claim.linkInfo.col}
+                          size="extra-small"
+                        />
+                      </div>
+                    {/if}
                     {claim.linkInfo.title}
                     {#if claim.linkInfo.suffix}&nbsp;({claim.linkInfo
                         .suffix}){/if}

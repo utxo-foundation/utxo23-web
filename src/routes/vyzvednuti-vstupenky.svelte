@@ -32,6 +32,9 @@
     if (link.type === "partner") {
       return $bundle.spec.partners.find((s) => s.id === link.id);
     }
+    if (link.type === "team") {
+      return $bundle.spec.team.persons[link.id];
+    }
     return null;
   }
 
@@ -184,13 +187,12 @@
             <div class="mt-2">
               <span class="">{ticketTypeInfo ? ticketTypeInfo.title : ""}</span>
               {#if target}
-                (<Avatar
-                  speaker={target}
-                  size="extra-small"
-                  inline="true"
-                  col={ticketTypeInfo.col}
-                />
-                <a href="/lide?id={target.id}">{target.name}</a>)
+                ({#if target.photos}<Avatar
+                    speaker={target}
+                    size="extra-small"
+                    inline="true"
+                    col={ticketTypeInfo.col}
+                  />{/if}<a href="/lide?id={target.id}">{target.name}</a>)
               {/if}
             </div>
           </div>
