@@ -67,7 +67,7 @@
       {#each speakersMap(e.speakers) as s}
         <div class="flex gap-1.5">
           <Avatar speaker={s} size="extra-small" />
-          <div class="m-auto"><a href="/lide?id={s.id}">{s.name}</a></div>
+          <div class="m-auto"><a href="/lide?id={s.id}">{s.name}{#if s.nickname}&nbsp;({s.nickname}){/if}</a></div>
         </div>
       {/each}
     </div>
@@ -129,7 +129,7 @@
                 {#each speakersMap(pe.speakers) as s}
                   <div class="flex gap-1">
                     <Avatar speaker={s} size="micro" />
-                    <div><a href="/lide?id={s.id}">{s.name}</a></div>
+                    <div><a href="/lide?id={s.id}">{s.name}{#if s.nickname}&nbsp;({s.nickname}){/if}</a></div>
                   </div>
                 {/each}
               {/if}
