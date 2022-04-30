@@ -6,6 +6,7 @@
   import { bundle } from "$lib/stores.js";
   import { onMount, onDestroy } from "svelte";
   import { format, formatDistanceToNow } from "date-fns";
+  import Avatar from "$lib/Avatar.svelte";
   import api from "$lib/api.js";
 
   let lastUpdate = null;
@@ -18,6 +19,34 @@
 
   function fdate(d) {
     return format(new Date(d), "d.M HH:mm");
+  }
+
+  function linkInfo(link) {
+    const map = {
+      speaker: { col: "speakers", url: "/lide?id=" },
+      partner: { col: "partners", suffix: "partner" },
+    };
+    const ltype = map[link.type];
+    if (!ltype) {
+      return null;
+    }
+    const item = $bundle.spec[ltype.col].find((i) => i.id === link.id);
+    if (!item) {
+      return "not exists!";
+    }
+    return {
+      title: item.name,
+      url: ltype.url ? ltype.url + link.id : null,
+      col: ltype.col,
+      suffix: ltype.suffix,
+    };
+  }
+
+  function claimsMap(arr) {
+    for (const i of arr) {
+      i.linkInfo = linkInfo(i.link);
+    }
+    return arr;
   }
 
   onMount(() => {
@@ -42,23 +71,56 @@
           <tr class="text-xs uppercase text-blue-web/80">
             <th align="left">Typ</th>
             <th align="left">Odkaz</th>
-            <th align="left">Vytvořeno</th>
             <th align="left">Vyzvednuto</th>
+            <th align="left">Jmenovka</th>
           </tr>
         </thead>
         <tbody>
-          {#each data as claim}
+          {#each claimsMap(data) as claim}
             <tr
               class={claim.claimed
                 ? "hover:bg-blue-500/10"
                 : "bg-yellow-400/20 hover:bg-yello-600/20"}
             >
               <td class="border-b font-bold">{claim.type}</td>
-              <td class="border-b">{claim.link.type}:{claim.link.id}</td>
-              <td class="border-b">{fdate(claim.created)}</td>
               <td class="border-b">
-                {#if claim.claimed}{fdate(claim.claimedOn)} |
-                  <code>{claim.ticketId}</code>{:else}-{/if}
+                <a href={claim.linkInfo.url}>
+                  <div class="inline-block align-middle">
+                    <Avatar
+                      speaker={$bundle.spec[claim.linkInfo.col].find(
+                        (i) => i.id === claim.link.id
+                      )}
+                      col={claim.linkInfo.col}
+                      size="extra-small"
+                    />
+                  </div>
+                  {claim.linkInfo.title}
+                  {#if claim.linkInfo.suffix}&nbsp;({claim.linkInfo
+                      .suffix}){/if}
+                </a>
+              </td>
+              <td class="border-b">
+                {#if claim.claimed}
+                  <code>{claim.ticketId}</code> ({fdate(
+                    claim.claimedOn
+                  )}){:else}-{/if}
+              </td>
+              <td class="border-b">
+                {#if claim.claimed && claim.ticketData}
+                  {#if claim.ticketData.name}
+                    {claim.ticketData.name}
+                  {:else}
+                    <span class="italic">Anonym</span>
+                  {/if}
+                  {#if claim.ticketData.org}
+                    &nbsp;({claim.ticketData.org})
+                  {/if}
+                  {#if claim.ticketData.twitter}
+                    &nbsp;<a href="https://twitter/{claim.ticketData.twitter}"
+                      ><i class="fa-brands fa-twitter" /></a
+                    >
+                  {/if}
+                {/if}
               </td>
             </tr>
           {/each}
