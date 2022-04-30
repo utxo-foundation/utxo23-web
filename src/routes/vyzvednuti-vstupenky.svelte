@@ -162,7 +162,7 @@
 </script>
 
 <svelte:head>
-  <title>Přebrání vstupenky | {$bundle ? $bundle.name : "UTXO.22"}</title>
+  <title>Vyzvednutí vstupenky | {$bundle ? $bundle.name : "UTXO.22"}</title>
 </svelte:head>
 
 <section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-blue-web">
