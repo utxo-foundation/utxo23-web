@@ -11,9 +11,12 @@
 
   let lastUpdate = null;
   let data = null;
+  let speakersWithoutTicket = null;
 
   async function loadData() {
     data = await api.apiCall("claims");
+    speakersWithoutTicket = speakersWithoutTicketGen()
+
     lastUpdate = new Date();
   }
 
@@ -49,6 +52,19 @@
     return arr;
   }
 
+  function speakersWithoutTicketGen () {
+    if (!data) {
+      return null
+    }
+    const wt = []
+    $bundle.spec.speakers.forEach(sp => {
+      if (!data.find(i => i.link.type === 'speaker' && i.link.id === sp.id)) {
+        wt.push(sp)
+      }
+    })
+    return wt
+  }
+
   onMount(() => {
     loadData();
   });
@@ -65,7 +81,18 @@
       Celkem: {data.length}, vyzvednuto: {data.filter((x) => x.claimed)
         .length}/{data.length}
     </div>
-    <div class="mt-4">
+    {#if speakersWithoutTicket}
+      <div class="mt-10">
+        <h2 class="text-lg font-semibold uppercase">Přednášející bez kódu ({speakersWithoutTicket.length})</h2>
+        <div class="flex gap-4 flex-wrap mt-4">
+        {#each speakersWithoutTicket as sp}
+          <div><a href="/lide?id={sp.id}"><div class="inline-block align-middle"><Avatar speaker={sp} size="extra-small" /></div>&nbsp;{sp.name}</a></div>
+        {/each}
+        </div>
+      </div>
+    {/if}
+    <div class="mt-10">
+      <h2 class="text-lg font-semibold uppercase">Seznam všech speciálních vstupenek ({data.length})</h2>
       <table class="table-auto mt-6 w-full" cellpadding="6">
         <thead>
           <tr class="text-xs uppercase text-blue-web/80">
@@ -131,3 +158,4 @@
     <div>Načítám ..</div>
   {/if}
 </section>
+<section class="h-20"></section>
