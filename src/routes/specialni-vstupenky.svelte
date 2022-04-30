@@ -203,8 +203,12 @@
                       &nbsp;({claim.ticketData.org})
                     {/if}
                     {#if claim.ticketData.twitter}
-                      &nbsp;<a href="https://twitter/{claim.ticketData.twitter}"
-                        ><i class="fa-brands fa-twitter" /></a
+                      &nbsp;<a
+                        href="https://twitter.com/{claim.ticketData.twitter.replace(
+                          /^@/,
+                          ''
+                        )}"
+                        target="_blank"><i class="fa-brands fa-twitter" /></a
                       >
                     {/if}
                   {/if}
