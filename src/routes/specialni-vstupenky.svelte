@@ -14,7 +14,7 @@
   let speakersWithoutTicket = null;
   let selectedType = "all";
 
-  $: ticketTypes = {
+  const ticketTypes = {
     all: { title: "Vše" },
     organizator: { title: "Organizátor" },
     speaker: { title: "Přednášející" },
@@ -157,7 +157,7 @@
                   ? "hover:bg-blue-500/10"
                   : "bg-yellow-400/20 hover:bg-yello-600/20"}
               >
-                <td class="border-b font-bold">{claim.type}</td>
+                <td class="border-b font-bold">{ticketTypes[claim.type].title}</td>
                 <td class="border-b">
                   <a href={claim.linkInfo.url}>
                     <div class="inline-block align-middle">
