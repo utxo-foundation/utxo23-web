@@ -31,3 +31,23 @@
   margin-right: 0;
   padding-left: 40px;
 }
+
+.utxo-markdown h2 {
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.75rem;
+  font-weight: 600;
+  padding-bottom: 0.5em;
+}
+
+.utxo-markdown h3 {
+  font-size: 1rem; /* 16px */
+  line-height: 1.5rem; /* 24px */
+  font-weight: 600;
+  line-height: 1.75rem;
+  padding-bottom: 0.5em;
+}
+
+.utxo-markdown hr {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
