@@ -40,7 +40,7 @@
   }
 
   if (!speakerImg) {
-    speakerImg = "/img/twitter-avatar.png";
+    speakerImg = "/img/default-avatar.png";
   }
 
   function getFlagEmoji(countryCode) {
