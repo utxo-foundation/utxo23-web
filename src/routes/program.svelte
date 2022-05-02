@@ -130,6 +130,7 @@
         { name: "description", weight: 7 },
         { name: "speakers", weight: 5 },
         { name: "speakersInfo.nickname", weight: 5 },
+        { name: "speakersInfo.twitter", weight: 4 },
         { name: "track", weight: 2 },
         { name: "tags", weight: 2 },
         { name: "speakersInfo.bio", weight: 1 },
