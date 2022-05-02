@@ -18,7 +18,7 @@
   const priority = ["web:svg", "web:webp", "web:png", "web:jpg", "twitter:jpg"];
 
   $: photos = getPhotos(speaker);
-  $: speakerImg = photos[0];
+  $: speakerImg = photos[0] || "/img/default-avatar.png";
   $: speakerImgAlt = photos[1];
 
   function getPhotos(sp) {
@@ -37,10 +37,6 @@
       }
     }
     return output;
-  }
-
-  if (!speakerImg) {
-    speakerImg = "/img/default-avatar.png";
   }
 
   function getFlagEmoji(countryCode) {
