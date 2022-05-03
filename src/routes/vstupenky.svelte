@@ -768,7 +768,11 @@
                         sobotu večer
                       </div>
                       <div class="mb-2">
-                        • unikátní <a href="https://poap.xyz/" target="_blank" title="Proof of Attendance Protocol">POAP</a> odznak na památku (k dispozici po konferenci)
+                        • unikátní <a
+                          href="https://poap.xyz/"
+                          target="_blank"
+                          title="Proof of Attendance Protocol">POAP</a
+                        > odznak na památku (k dispozici po konferenci)
                       </div>
                     </div>
                   </div>

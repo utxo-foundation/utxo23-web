@@ -109,7 +109,13 @@
         <tbody>
           {#each tickets as ticket}
             <tr
-              class={["speaker", "host", "partner", "organizator", "staff"].includes(ticket.type)
+              class={[
+                "speaker",
+                "host",
+                "partner",
+                "organizator",
+                "staff",
+              ].includes(ticket.type)
                 ? "bg-green-400/20 hover:bg-green-600/20"
                 : ticket.id
                 ? "hover:bg-blue-500/10"
