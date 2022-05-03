@@ -12,6 +12,10 @@
   }
 }
 
+.utxo-markdown p {
+  padding-bottom: 1em;
+}
+
 .utxo-markdown ul {
   display: block;
   list-style-type: disc;
