@@ -170,7 +170,7 @@
                 >
                 <td class="border-b">
                   <a href={claim.linkInfo.url}>
-                    {#if !claim.linkInfo.withoutAvatar}
+                    {#if !claim.linkInfo.withoutAvatar && $bundle.spec[claim.linkInfo.col]}
                       <div class="inline-block align-middle">
                         <Avatar
                           speaker={$bundle.spec[claim.linkInfo.col].find(
