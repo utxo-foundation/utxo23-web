@@ -6,12 +6,13 @@
     panel: { title: "Panelová debata", style: "bg-custom-red text-white" },
     talk: { title: "Přednáška", style: "bg-custom-green text-white" },
     workshop: { title: "Workshop", style: "bg-custom-blue text-white" },
-    other: { title: "Ostatní", style: "bg-custom-yellow" },
     lightning: { title: "Blesková přednáška", style: "bg-pink-400" },
     "lightning-series": {
       title: "Pásmo bleskových přednášek",
       style: "bg-pink-400",
     },
+    campfire: { title: "Campfire", style: "bg-purple-500" },
+    other: { title: "Ostatní", style: "bg-custom-yellow" },
   };
 
   $: current = config[event.type];

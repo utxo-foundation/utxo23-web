@@ -163,9 +163,10 @@
   <h1 class="uppercase text-2xl font-bold">Program</h1>
   <div class="mt-2 text-sm">
     <p>
-      Program <a href="/changelog" class="underline hover:no-underline">stále připravujeme</a>, aktuálně je zde
-      vypsána jenom část obsahu. Časový rozpis bude zveřejněn cca 2 týdny před
-      konferencí.
+      Program <a href="/changelog" class="underline hover:no-underline"
+        >stále připravujeme</a
+      >, aktuálně je zde vypsána jenom část obsahu. Časový rozpis bude zveřejněn
+      cca 2 týdny před konferencí.
     </p>
   </div>
   <!--div class="mt-6 flex flex-wrap gap-3 px-4 text-center">
