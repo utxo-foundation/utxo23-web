@@ -17,9 +17,9 @@
       .filter(i => i.stage === stageId)
   }
 
-  function dateSlots (pl, dt, bundle) {
-    let time = new Date(`${dt}T09:00`)
-    const endTime = new Date(`${dt}T22:00`)
+  function dateSlots (pl, period, bundle) {
+    let time = period.start
+    const endTime = period.end
     const arr = []
     const rowspans = {}
 
@@ -52,6 +52,21 @@
     return event.speakers.map(sp => {
       return bundle.spec.speakers.find(s => s.id === sp).name
     }).join(', ')
+  }
+
+  function scheduleTimes (bundle) {
+    return bundle.scheduleTimes.map(item => {
+      const [ dayNumber, times ] = item.split('/')
+      const [ start, end ] = times.split('-')
+      const date = bundle.dates[dayNumber-1]
+      return {
+        date,
+        period: {
+          start: new Date(`${date}T${start}`),
+          end: new Date(`${date}T${end}`)
+        }
+      }
+    })
   }
 
   function findEvent (bundle, eventId) {
@@ -105,9 +120,9 @@
 </section>
 <section class="relative mx-auto pb-6 sm:pb-10 px-6 text-blue-web overflow-scroll">
   {#if $bundle}
-    {#each $bundle.dates as date}
+    {#each scheduleTimes($bundle) as st}
       <div class="mt-4">
-        <h2 class="uppercase text-xl font-bold">{date}</h2>
+        <h2 class="uppercase text-xl font-bold">{st.date}</h2>
         <table width="100%" class="table">
           <thead>
             <tr>
@@ -118,7 +133,7 @@
             </tr>
           </thead>
           <tbody>
-            {#each dateSlots(plan, date, $bundle) as ds}
+            {#each dateSlots(plan, st.period, $bundle) as ds}
             <tr>
               <th valign="top" class="pr-2 pt-1 text-sm" height="70">{ds.title}</th>
               {#each $bundle.spec.stages as stage}
