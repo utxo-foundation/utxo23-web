@@ -6,7 +6,8 @@
 <script>
 
   import { bundle, userData, loadInfo } from "$lib/stores.js";
-  import { format, formatDistanceToNow, compareAsc } from "date-fns"
+  import { format, compareAsc } from "date-fns"
+  import { cs } from "date-fns/locale/index.js";
 
   let planNumber = 0
   $: plan = $bundle ? $bundle.spec['schedule-candidates'][planNumber] : null
@@ -48,10 +49,15 @@
     return arr
   }
 
-  function showSpeakers (bundle, event) {
-    return event.speakers.map(sp => {
-      return bundle.spec.speakers.find(s => s.id === sp).name
-    }).join(', ')
+  function showSpeakers (bundle, ev) {
+    return ev.speakers.map(sp => bundle.spec.speakers.find(s => s.id === sp).name).join(', ')
+  }
+
+  function showEventDetail (bundle, ev) {
+    if (ev.type === 'lightning-series') {
+      return bundle.spec.events.filter(e => e.parent === ev.id).map(e => `${e.name} (${showSpeakers(bundle, e)})`).join(', ')
+    }
+    return showSpeakers(bundle, ev)
   }
 
   function scheduleTimes (bundle) {
@@ -76,24 +82,22 @@
     }
     switch (ev.type) {
       case 'panel':
-        ev.color = 'bg-orange-500/20'
+        ev.color = 'bg-orange-400/20 hover:bg-orange-400/40'
         break
       case 'talk':
-        ev.color = 'bg-custom-green/20'
+        ev.color = 'bg-custom-green/20 hover:bg-custom-green/40'
         break
       case 'workshop':
-        ev.color = 'bg-custom-blue/20'
+        ev.color = 'bg-custom-blue/20 hover:bg-custom-blue/40'
         break
       case 'campfire':
-        ev.color = 'bg-purple-500/20'
+        ev.color = 'bg-purple-400/20 hover:bg-purple-400/40'
         break
       case 'lightning-series':
-        ev.color = 'bg-yellow-400/20'
-        break
-      case 'other':
+        ev.color = 'bg-yellow-400/20 hover:bg-yellow-400/40'
         break
       default:
-        ev.color = 'bg-gray-100'
+        ev.color = 'bg-white hover:bg-gray-500/10'
     }
     return ev
   }
@@ -118,17 +122,25 @@
   {/if}
   <div class="mt-4">Current plan: {planNumber}</div>
 </section>
-<section class="relative mx-auto pb-6 sm:pb-10 px-6 text-blue-web overflow-scroll">
+<section class="relative mx-auto pb-6 sm:pb-10 px-6 text-blue-web">
   {#if $bundle}
+    <div class="font-semibold uppercase mb-1">Kategorie</div>
+    <!--div class="flex gap-2 flex-wrap">
+      {#each $bundle.spec.tracks as et}
+        <div class="m-1"><label><input type="checkbox" /> {et.shortname || et.name}</label></div>
+      {/each}
+    </div-->
     {#each scheduleTimes($bundle) as st}
-      <div class="mt-4">
-        <h2 class="uppercase text-xl font-bold">{st.date}</h2>
-        <table width="100%" class="table">
-          <thead>
+      <div class="mt-4 mb-10">
+        <div class="max-w-6xl mx-auto px-6 mb-4">
+          <h2 class="uppercase text-xl font-bold">{format(new Date(st.date), 'iiii d.M.y', { locale: cs })}</h2>
+        </div>
+        <table width="100%" class="table table-auto">
+          <thead class="">
             <tr>
               <th></th>
               {#each $bundle.spec.stages as stage}
-                <th>{stage.id}</th>
+                <th class="text-md py-1.5 px-1">{stage.name}</th>
               {/each}
             </tr>
           </thead>
@@ -143,16 +155,17 @@
                   {#each [[ds.stages[stage.id], findEvent($bundle, ds.stages[stage.id].event)]] as [si, event]}
                     <td class="text-sm h-full {event.color} border border-blue-web/50" valign="top" rowspan={ds.stages[stage.id].span}>
                       <div class="px-2 py-1 mb-1 mt-1">
-                        <div class="text-xs">{format(new Date(si.period.start), 'HH:mm')}-{format(new Date(si.period.end), 'HH:mm')} [{event.track}]</div>
+                        <div class="text-xs">{format(new Date(si.period.start), 'HH:mm')}-{format(new Date(si.period.end), 'HH:mm')} {#if event.track}[{event.track}]{/if}</div>
                         <div class="font-semibold mt-1"><a href="/udalosti?id={event.id}">{event.name}</a></div>
                         <div class="text-xs mt-1">
-                          {showSpeakers($bundle, event)}
+                          {showEventDetail($bundle, event)}
                         </div>
                       </div>
                     </td>
                   {/each}
                 {/if}
               {/each}
+              <!--th valign="top" class="pl-2 pt-1 text-sm" height="70">{ds.title}</th-->
             </tr>
             {/each}
           </tbody>
