@@ -29,3 +29,7 @@ export const layouts = writable({ test: null })
 
 export const loadInfo = writable({ loaded: false })
 
+export const schedulePref = writable({
+  stages: [],
+  tracks: []
+});
