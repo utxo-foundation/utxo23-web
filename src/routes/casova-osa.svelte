@@ -169,10 +169,10 @@
       </div>
       <div class="relative">
         <div class="mt-4 mb-10 overflow-scroll sm:overflow-clip">
-          <table width="100%" class="table table-auto relative">
+          <table width="100%" class="table table-auto xl:table-fixed relative">
             <thead class="">
               <tr>
-                <th></th>
+                <th class="xl:w-16"></th>
                 {#each $bundle.spec.stages as stage}
                   {#if $schedulePref && $schedulePref.stages.includes(stage.id)}
                     <th class="text-md py-1.5 px-1 sticky top-0 bg-white">{stage.name}</th>
@@ -183,7 +183,7 @@
             <tbody>
               {#each dateSlots(plan, st.period, $bundle, $schedulePref) as ds}
               <tr class="bg-gray-100">
-                <th valign="top" class="pl-2 pr-2 pt-1 text-sm sticky left-0 bg-white" height="125">{ds.title}</th>
+                <th valign="top" class="w-auto pl-2 pr-2 pt-1 text-sm sticky left-0 bg-white" height="110">{ds.title}</th>
                 {#each $bundle.spec.stages as stage}
                   {#if $schedulePref && $schedulePref.stages.includes(stage.id)}
                     {#if ds.stages[stage.id] === undefined}
@@ -197,7 +197,7 @@
                             <div class="text-xs mt-1">
                               {showEventDetail($bundle, event)}
                             </div>
-                            <div class="text-xs mt-2 opacity-50">
+                            <div class="text-xs mt-2 text-blue-web/50">
                               {event.tags.map(t => `#${t}`).join(', ')}
                             </div>
                           </div>
