@@ -192,10 +192,13 @@
                       {#each [[ds.stages[stage.id], findEvent($bundle, ds.stages[stage.id].event)]] as [si, event]}
                         <td class="text-sm h-full {event.color} {eventTrackClasses($bundle, event, $schedulePref.tracks)}" valign="top" rowspan={ds.stages[stage.id].span}>
                           <div class="px-2 py-1 mb-1 mt-1">
-                            <div class="text-xs">{format(new Date(si.period.start), 'HH:mm')}-{format(new Date(si.period.end), 'HH:mm')} {#if event.track}[{event.track}]{/if}</div>
+                            <div class="text-xs">{format(new Date(si.period.start), 'HH:mm')}-{format(new Date(si.period.end), 'HH:mm')} {#if event.track}[{#each [$bundle.spec.tracks.find(t => t.id === event.track)] as track}{track.shortname || track.name}{/each}]{/if}</div>
                             <div class="font-semibold mt-1"><a href="/udalosti?id={event.id}">{event.name}</a></div>
                             <div class="text-xs mt-1">
                               {showEventDetail($bundle, event)}
+                            </div>
+                            <div class="text-xs mt-2 opacity-50">
+                              {event.tags.map(t => `#${t}`).join(', ')}
                             </div>
                           </div>
                         </td>
