@@ -21,7 +21,7 @@
     ? [
         { name: "Hlavní přednášející (" + leadSpeakersCount + ")", id: "top" },
         { name: "Vše", id: null },
-      ].concat(currentBundle.spec.tracks)
+    ].concat(currentBundle.spec.tracks.filter(t => t.hidden === undefined || t.hidden !== true))
     : null;
 
   function changeTrack(tId) {

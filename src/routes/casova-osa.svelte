@@ -135,7 +135,7 @@
     <div class="flex flex-wrap gap-1"> 
       <select class="border border-blue-web rounded-md p-1.5 text-blue-web bg-white" bind:value={planNumber}>
         {#each $bundle.spec['schedule-candidates'] as p, i}
-          <option value={i}>plan-{i} [{[ 'score', 'thc:themeCrossing', 'tgc:tagsCrossing' ].map(key => { const [title,rkey] = key.split(':'); return `${title}:${Math.round(p.metrics[rkey || title]*1000)/1000}` }).join(', ')}]</option>
+          <option value={i}>#{i} [{[ 'score', 'thc:themeCrossing', 'tgc:tagsCrossing' ].map(key => { const [title,rkey] = key.split(':'); return `${title}:${Math.round(p.metrics[rkey || title]*1000)/1000}` }).join(', ')}]</option>
         {/each}
       </select>
     </div>
