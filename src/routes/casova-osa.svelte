@@ -141,7 +141,7 @@
     </div>
   {/if}
 </section>
-<section class="relative mx-auto pb-6 sm:pb-10 px-6 text-blue-web">
+<section class="relative mx-auto pb-6 sm:pb-10 px-0 text-blue-web">
   {#if $bundle}
     <div class="max-w-6xl mx-auto px-6 mb-10">
       <div class="">
@@ -168,7 +168,7 @@
         <h2 class="uppercase text-xl font-bold">{format(new Date(st.date), 'iiii d.M.y', { locale: cs })}</h2>
       </div>
       <div class="relative">
-        <div class="mt-4 mb-10">
+        <div class="mt-4 mb-10 overflow-scroll sm:overflow-clip">
           <table width="100%" class="table table-auto relative">
             <thead class="">
               <tr>
@@ -183,7 +183,7 @@
             <tbody>
               {#each dateSlots(plan, st.period, $bundle, $schedulePref) as ds}
               <tr class="bg-gray-100">
-                <th valign="top" class="pr-2 pt-1 text-sm sticky left-0 bg-white" height="125">{ds.title}</th>
+                <th valign="top" class="pl-2 pr-2 pt-1 text-sm sticky left-0 bg-white" height="125">{ds.title}</th>
                 {#each $bundle.spec.stages as stage}
                   {#if $schedulePref && $schedulePref.stages.includes(stage.id)}
                     {#if ds.stages[stage.id] === undefined}
