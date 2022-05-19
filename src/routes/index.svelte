@@ -21,7 +21,11 @@
     ? [
         { name: "Hlavní přednášející (" + leadSpeakersCount + ")", id: "top" },
         { name: "Vše", id: null },
-    ].concat(currentBundle.spec.tracks.filter(t => t.hidden === undefined || t.hidden !== true))
+      ].concat(
+        currentBundle.spec.tracks.filter(
+          (t) => t.hidden === undefined || t.hidden !== true
+        )
+      )
     : null;
 
   function changeTrack(tId) {
@@ -41,8 +45,8 @@
     });
   }
 
-  function statsIcon (ico = 'fa-regular fa-calendar') {
-    return `<i class="${ico} inline-block align-baseline pr-1.5 sm:pr-2.5 text-blue-web/40"></i>`
+  function statsIcon(ico = "fa-regular fa-calendar") {
+    return `<i class="${ico} inline-block align-baseline pr-1.5 sm:pr-2.5 text-blue-web/40"></i>`;
   }
 </script>
 
@@ -54,10 +58,21 @@
   {#if $apiStatus}
     <section class="bg-blue-web-light">
       <div class="pb-4 pt-4 lg:pt-4 lg:pb-4 mx-auto sm:px-2 lg:px-6 2xl:px-16">
-        <div class="text-center text-xl sm:text-xl lg:text-2xl text-blue-web px-8 flex flex-wrap gap-4 lg:gap-8 justify-center">
-          <div>{@html statsIcon('fa-solid fa-user-check')} <b>{$bundle.spec.speakers.length}</b> přednášejících</div>
-          <div>{@html statsIcon('fa-regular fa-calendar')} <b>{$bundle.spec.events.length}</b> událostí</div>
-          <div>{@html statsIcon('fa-solid fa-users')} <b>{$apiStatus.global.tickets}</b> návstěvníků</div>
+        <div
+          class="text-center text-xl sm:text-xl lg:text-2xl text-blue-web px-8 flex flex-wrap gap-4 lg:gap-8 justify-center"
+        >
+          <div>
+            {@html statsIcon("fa-solid fa-user-check")}
+            <b>{$bundle.spec.speakers.length}</b> přednášejících
+          </div>
+          <div>
+            {@html statsIcon("fa-regular fa-calendar")}
+            <b>{$bundle.spec.events.length}</b> událostí
+          </div>
+          <div>
+            {@html statsIcon("fa-solid fa-users")}
+            <b>{$apiStatus.global.tickets}</b> návstěvníků
+          </div>
         </div>
       </div>
     </section>
