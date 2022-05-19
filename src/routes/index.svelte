@@ -41,7 +41,9 @@
     });
   }
 
-  let separator = '<i class="fa-solid fa-angle-right text-lg align-middle px-4"></i>'
+  function statsIcon (ico = 'fa-regular fa-calendar') {
+    return `<i class="${ico} inline-block align-baseline pr-1.5 sm:pr-2.5 text-blue-web/40"></i>`
+  }
 </script>
 
 <svelte:head>
@@ -51,11 +53,11 @@
 {#if $bundle}
   {#if $apiStatus}
     <section class="bg-blue-web-light">
-      <div class="pb-2 pt-2 lg:pt-4 lg:pb-4 mx-auto sm:px-2 lg:px-6 2xl:px-16">
-        <div class="text-center text-xl sm:text-xl lg:text-2xl font-semibold text-blue-web px-8">
-          {$bundle.spec.speakers.length}&nbsp;přednášejících {@html separator}
-          {$bundle.spec.events.length}&nbsp;události {@html separator}
-          {$apiStatus.global.tickets}&nbsp;návstěvníků
+      <div class="pb-4 pt-4 lg:pt-4 lg:pb-4 mx-auto sm:px-2 lg:px-6 2xl:px-16">
+        <div class="text-center text-xl sm:text-xl lg:text-2xl text-blue-web px-8 flex flex-wrap gap-4 lg:gap-8 justify-center">
+          <div>{@html statsIcon('fa-solid fa-user-check')} <b>{$bundle.spec.speakers.length}</b> přednášejících</div>
+          <div>{@html statsIcon('fa-regular fa-calendar')} <b>{$bundle.spec.events.length}</b> událostí</div>
+          <div>{@html statsIcon('fa-solid fa-users')} <b>{$apiStatus.global.tickets}</b> návstěvníků</div>
         </div>
       </div>
     </section>
