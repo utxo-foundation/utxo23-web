@@ -94,7 +94,7 @@
           <div class="flex gap-2">
             <Avatar speaker={s} size="semi-small" />
             <div class="m-auto">
-              <a href="/lide?id={s.id}" class="text-xl">{s.name}</a>
+              <a href="/lide?id={s.id}" class="text-xl">{s.name} {#if s.nickname} ({s.nickname}){/if}</a>
             </div>
           </div>
         {/each}

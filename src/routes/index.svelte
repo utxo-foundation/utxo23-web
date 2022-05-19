@@ -3,7 +3,7 @@
 </script>
 
 <script>
-  import { bundle, userData } from "$lib/stores.js";
+  import { bundle, userData, apiStatus } from "$lib/stores.js";
   import Avatar from "$lib/Avatar.svelte";
   import SvelteMarkdown from "svelte-markdown";
   import Link from "$lib/Link.svelte";
@@ -40,6 +40,8 @@
       return ud;
     });
   }
+
+  let separator = '<i class="fa-solid fa-angle-right text-lg align-middle px-4"></i>'
 </script>
 
 <svelte:head>
@@ -47,6 +49,17 @@
 </svelte:head>
 
 {#if $bundle}
+  {#if $apiStatus}
+    <section class="bg-blue-web-light">
+      <div class="pb-2 pt-2 lg:pt-4 lg:pb-4 mx-auto sm:px-2 lg:px-6 2xl:px-16">
+        <div class="text-center text-xl sm:text-xl lg:text-2xl font-semibold text-blue-web px-8">
+          {$bundle.spec.speakers.length}&nbsp;přednášejících {@html separator}
+          {$bundle.spec.events.length}&nbsp;události {@html separator}
+          {$apiStatus.global.tickets}&nbsp;návstěvníků
+        </div>
+      </div>
+    </section>
+  {/if}
   <section class="relative mx-auto pt-6 sm:pt-10 px-6 max-w-6xl">
     <div
       class="flex flex-wrap gap-1.5 sm:gap-3 text-xs uppercase font-bold text-blue-web justify-left"

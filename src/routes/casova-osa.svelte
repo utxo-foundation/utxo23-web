@@ -6,7 +6,7 @@
 <script>
 
   import { onMount, onDestroy } from "svelte";
-  import { format, compareAsc } from "date-fns"
+  import { format, compareAsc, compareDesc } from "date-fns"
   import { bundle, userData, loadInfo, schedulePref } from "$lib/stores.js";
   import { cs } from "date-fns/locale/index.js";
 
@@ -29,6 +29,18 @@
       .filter(i => i.stage === stageId)
   }
 
+  function findSegment (bundle, stage, period) {
+    for (const st of stage.times) {
+      const p = parsePeriod(bundle, st)
+      if (compareAsc(period.start, p.period.end) !== -1 && compareDesc(period.end, p.period.start) !== 1) {
+        continue
+      }
+      return p
+    }
+
+    return null
+  }
+
   function dateSlots (pl, period, bundle, schedulePref = null) {
     let time = period.start
     const endTime = period.end
@@ -46,8 +58,9 @@
         if (schedulePref && !schedulePref.stages.includes(stage.id)) {
           continue
         }
-        const si = pl.schedule.find(pi => (new Date(pi.period.start).getTime() === new Date(time).getTime()) && pi.stage === stage.id)
+        let si = pl.schedule.find(pi => (new Date(pi.period.start).getTime() === new Date(time).getTime()) && pi.stage === stage.id)
         stages[stage.id] = si
+
         if (si) {
           const span = Math.floor((new Date(si.period.end).getTime() - new Date(si.period.start).getTime())/(1000 * 60) / 30)
           si.span = span
@@ -63,28 +76,35 @@
   }
 
   function showSpeakers (bundle, ev) {
-    return ev.speakers.map(sp => bundle.spec.speakers.find(s => s.id === sp).name).join(', ')
+    return ev.speakers.map(sId => {
+      const sp = bundle.spec.speakers.find(s => s.id === sId)
+      return sp.name + (sp.nickname ? ` (${sp.nickname})` : '')
+    }).join(', ')
   }
 
   function showEventDetail (bundle, ev) {
     if (ev.type === 'lightning-series') {
-      return bundle.spec.events.filter(e => e.parent === ev.id).map(e => `${e.name} (${showSpeakers(bundle, e)})`).join(', ')
+      return bundle.spec.events.filter(e => e.parent === ev.id).map(e => `<span class="font-semibold"><a href="/udalosti?id=${e.id}">${e.name}</a></span> - ${showSpeakers(bundle, e) || 'TBD'}`).join('<br>')
     }
     return showSpeakers(bundle, ev)
   }
 
+  function parsePeriod (bundle, str) {
+    const [ dayNumber, times ] = str.split('/')
+    const [ start, end ] = times.split('-')
+    const date = bundle.dates[dayNumber-1]
+    return {
+      date,
+      period: {
+        start: new Date(`${date}T${start}`),
+        end: new Date(`${date}T${end}`)
+      }
+    }
+  }
+
   function scheduleTimes (bundle) {
     return bundle.scheduleTimes.map(item => {
-      const [ dayNumber, times ] = item.split('/')
-      const [ start, end ] = times.split('-')
-      const date = bundle.dates[dayNumber-1]
-      return {
-        date,
-        period: {
-          start: new Date(`${date}T${start}`),
-          end: new Date(`${date}T${end}`)
-        }
-      }
+      return parsePeriod(bundle, item)
     })
   }
 
@@ -195,7 +215,7 @@
                             <div class="text-xs">{format(new Date(si.period.start), 'HH:mm')}-{format(new Date(si.period.end), 'HH:mm')} {#if event.track}[{#each [$bundle.spec.tracks.find(t => t.id === event.track)] as track}{track.shortname || track.name}{/each}]{/if}</div>
                             <div class="font-semibold mt-1"><a href="/udalosti?id={event.id}">{event.name}</a></div>
                             <div class="text-xs mt-1">
-                              {showEventDetail($bundle, event)}
+                              {@html showEventDetail($bundle, event)}
                             </div>
                             <div class="text-xs mt-2 text-blue-web/50">
                               {event.tags.map(t => `#${t}`).join(', ')}
