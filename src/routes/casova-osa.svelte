@@ -137,6 +137,7 @@
   function findEvent(bundle, eventId) {
     const ev = bundle.spec.events.find((ev) => ev.id === eventId);
     if (!ev) {
+      console.log(`Event not found: ${eventId}`);
       return null;
     }
     switch (ev.type) {

@@ -182,6 +182,8 @@
                       </div>
                     {/if}
                     {claim.linkInfo.title}
+                    {#if !claim.linkInfo.title}{claim.link.type}:{claim.link
+                        .id}{/if}
                     {#if claim.linkInfo.suffix}&nbsp;({claim.linkInfo
                         .suffix}){/if}
                   </a>

@@ -17,12 +17,34 @@
   let uds = null;
 
   let int1 = null;
+  let apiLoadRetry = 0;
+  let apiOffline = false;
+
+  async function apiLoad() {
+    try {
+      await loadApiStatus();
+      await loadOrders($userData);
+    } catch (e) {
+      if (apiLoadRetry > 5) {
+        console.log("Too much retries, shutdown..");
+        apiOffline = true;
+        return null;
+      }
+      console.log(`API cannot be accessed .. retrying [#${apiLoadRetry}] ..`);
+      apiLoadRetry = apiLoadRetry + 1;
+      setTimeout(() => apiLoad(), 250);
+      return null;
+    }
+
+    apiLoadRetry = 0;
+    return true;
+  }
 
   async function baseLoad() {
     api.loadBundle($page.url.hostname === "localhost");
+    await apiLoad();
 
-    await loadApiStatus();
-    loadOrders($userData);
+    return true;
   }
 
   onMount(async () => {
