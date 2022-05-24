@@ -157,7 +157,7 @@
         ev.color = "bg-yellow-400/20 hover:bg-yellow-400/40";
         break;
       default:
-        ev.color = "bg-white hover:bg-gray-500/10";
+        ev.color = "bg-utxo-gradient text-white";
     }
     return ev;
   }
@@ -273,9 +273,10 @@
                 <th class="xl:w-16" />
                 {#each $bundle.spec.stages as stage}
                   {#if $schedulePref && $schedulePref.stages.includes(stage.id)}
-                    <th class="text-md py-1.5 px-1 sticky top-0 bg-white"
-                      >{stage.name}</th
-                    >
+                    <th class="text-md py-1.5 px-1 sticky top-0 bg-white align-bottom">
+                        <div class="text-xs font-normal text-blue-web/60 mb-2.5">{stage.capacity.seat} <i class="fa-solid fa-chair"></i> + {stage.capacity.stand} <i class="fa-solid fa-person"></div>
+                        <div>{stage.name}</div>
+                    </th>
                   {/if}
                 {/each}
               </tr>
@@ -295,7 +296,7 @@
                       {:else if ds.stages[stage.id] !== null}
                         {#each [[ds.stages[stage.id], findEvent($bundle, ds.stages[stage.id].event)]] as [si, event]}
                           <td
-                            class="text-sm h-full {event.color} {eventTrackClasses(
+                            class="text-sm h-full transition-all {event.color} {eventTrackClasses(
                               $bundle,
                               event,
                               $schedulePref.tracks
