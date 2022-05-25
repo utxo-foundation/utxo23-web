@@ -134,6 +134,14 @@
     return "border border-blue-web/50";
   }
 
+  function activeStages (bundle, stages, day, pl) {
+    return stages.filter(stage => {
+      const dt = format(new Date(day), 'yyyy-MM-dd')
+      return Boolean(pl.schedule.filter(i => i.stage === stage.id).find(i => i.date === dt)
+      )
+    })
+  }
+
   function findEvent(bundle, eventId) {
     const ev = bundle.spec.events.find((ev) => ev.id === eventId);
     if (!ev) {
@@ -157,7 +165,7 @@
         ev.color = "bg-yellow-400/20 hover:bg-yellow-400/40";
         break;
       default:
-        ev.color = "bg-utxo-gradient text-white";
+        ev.color = "bg-rose-400/20 hover:bg-rose-400/40";
     }
     return ev;
   }
@@ -180,7 +188,7 @@
       >
         {#each $bundle.spec["schedule-candidates"] as p, i}
           <option value={i}
-            >#{i} [{["score", "thc:themeCrossing", "tgc:tagsCrossing"]
+            >#{i} [{["score", "thc:themeCrossing", "tgc:tagsCrossing", "exd:exclusivityDev"]
               .map((key) => {
                 const [title, rkey] = key.split(":");
                 return `${title}:${
@@ -271,7 +279,7 @@
             <thead class="">
               <tr>
                 <th class="xl:w-16" />
-                {#each $bundle.spec.stages as stage}
+                {#each activeStages($bundle, $bundle.spec.stages, st.date, plan) as stage}
                   {#if $schedulePref && $schedulePref.stages.includes(stage.id)}
                     <th class="text-md py-1.5 px-1 sticky top-0 bg-white align-bottom">
                         <div class="text-xs font-normal text-blue-web/60 mb-2.5">{stage.capacity.seat} <i class="fa-solid fa-chair"></i> + {stage.capacity.stand} <i class="fa-solid fa-person"></div>
@@ -289,7 +297,7 @@
                     class="w-auto pl-2 pr-2 pt-1 text-sm sticky left-0 bg-white"
                     height="110">{ds.title}</th
                   >
-                  {#each $bundle.spec.stages as stage}
+                  {#each activeStages($bundle, $bundle.spec.stages, st.date, plan) as stage}
                     {#if $schedulePref && $schedulePref.stages.includes(stage.id)}
                       {#if ds.stages[stage.id] === undefined}
                         <td />
@@ -309,7 +317,7 @@
                                 {format(
                                   new Date(si.period.start),
                                   "HH:mm"
-                                )}-{format(new Date(si.period.end), "HH:mm")}
+                                )}-{format(new Date(si.period.end), "HH:mm")} <span class="opacity-70">#{si.id}</span>
                                 {#if event.track}[{#each [$bundle.spec.tracks.find((t) => t.id === event.track)] as track}{track.shortname ||
                                       track.name}{/each}]{/if}
                               </div>
