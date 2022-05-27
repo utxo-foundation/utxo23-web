@@ -6,9 +6,10 @@
   import { onMount, onDestroy } from "svelte";
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
-  import { format, compareAsc, compareDesc, addDays } from "date-fns";
+  import { format, compareAsc, compareDesc } from "date-fns";
   import { bundle, userData, loadInfo, schedulePref } from "$lib/stores.js";
   import { cs } from "date-fns/locale/index.js";
+  import { parsePeriod } from '$lib/periods.js';
   import SvelteMarkdown from "svelte-markdown";
   const renderers = { link: Link };
   import Link from "$lib/Link.svelte";
@@ -179,22 +180,6 @@
         .join("<br>");
     }
     return showSpeakers(bundle, ev);
-  }
-
-  function parsePeriod(bundle, str) {
-    const [dayNumber, times, name] = str.split("/");
-    const [start, end] = times.split("-");
-    const date = bundle.dates[dayNumber - 1];
-
-    const endDate = end > start ? date : format(addDays(new Date(date), 1), 'yyyy-MM-dd')
-    return {
-      date,
-      name,
-      period: {
-        start: new Date(`${date}T${start}`),
-        end: new Date(`${endDate}T${end}`),
-      },
-    };
   }
 
   function scheduleTimes(bundle, filter = false) {

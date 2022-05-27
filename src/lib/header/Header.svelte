@@ -13,7 +13,7 @@
 </script>
 
 <header
-  class="relative bg-center bg-cover bg-[url('/img/bg-header.jpg')] bg-no-repeat bg-blue-web"
+  class="relative bg-center bg-cover {$page.url.pathname !== '/tv' ? "bg-[url('/img/bg-header.jpg')]" : ''} bg-no-repeat bg-blue-web-bg"
 >
   <!--		<li class:active={$page.url.pathname === '/'}><a sveltekit:prefetch href="/">Home</a></li> -->
   <div>
@@ -22,7 +22,7 @@
     >
       <div class="">
         <div class="lg:flex lg:flex-wrap lg:space-x-10">
-          {#if !["/", "/tv"].includes($page.url.pathname)}
+          {#if !["/","/tv"].includes($page.url.pathname)}
             <div
               class="block justify-start lg:flex-1 my-auto text-center pb-3 lg:pb-0 pt-3 lg:pt-0"
             >
@@ -36,30 +36,54 @@
                 >
               </div>
             </div>
-          {:else}
-            <div class="lg:flex-1" />
+          {:else if $page.url.pathname === '/tv'}
+            <div
+              class="block justify-start lg:flex-1 my-auto text-center pb-3 lg:pb-0 pt-3 lg:pt-0"
+            >
+              <div class="w-40 lg:w-32 inline-block lg:block">
+                <a href="/tv"
+                  ><img
+                    src="/img/utxo-tv.svg"
+                    class="w-full"
+                    alt="UTXO.TV"
+                  /></a
+                >
+              </div>
+            </div>
           {/if}
           <div
             class="flex lg:space-x-10 uppercase text-sm font-bold text-white flex-wrap gap-3"
           >
+            {#if $page.url.pathname === '/tv'}
+            <a
+              sveltekit:prefetch
+              href="/"
+              class="m-auto hover:text-[#E16A61] "
+              class:text-blue-400={$page.url.pathname === "/"}>O konferenci</a
+            >
+            {:else}
             <a
               sveltekit:prefetch
               href="/"
               class="m-auto hover:text-[#E16A61] "
               class:text-blue-400={$page.url.pathname === "/"}>Úvod</a
             >
+            {/if}
+            {#if $page.url.pathname !== '/tv'}
             <a
               sveltekit:prefetch
               href="/tv"
               class="m-auto hover:text-[#E16A61] text-custom-green"
               class:text-blue-400={$page.url.pathname === "/tv"}><i class="fa-solid fa-video mr-1.5"></i> Livestreamy</a
             >
+            {/if}
             <a
               sveltekit:prefetch
               href="/program"
               class="m-auto hover:text-[#E16A61]"
               class:text-blue-400={$page.url.pathname === "/program"}>Program</a
             >
+            {#if $page.url.pathname !== '/tv'}
             <a
               sveltekit:prefetch
               href="/mapa"
@@ -84,6 +108,7 @@
                     .tickets.length}){/if}
               </div></a
             >
+            {/if}
           </div>
           {#if $page.url.pathname === '/'}
             <div

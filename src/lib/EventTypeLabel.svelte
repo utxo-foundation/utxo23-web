@@ -21,7 +21,7 @@
   $: current = config[event.type];
 </script>
 
-<div class="flex {size === 'big' ? 'h-6 text-sm' : 'h-5 text-xs'}">
+<div class="inline-block {size === 'big' ? 'h-6 text-sm' : 'h-5 text-xs'} font-normal">
   <div
     class="{size === 'big'
       ? 'px-2 py-0.5'

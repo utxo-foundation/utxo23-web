@@ -40,6 +40,7 @@
     "fuse.js": "^6.5.3",
     "lodash": "^4.17.21",
     "remove-markdown": "^0.3.0",
+    "svelte-scrolling": "^1.1.1",
     "svelte-youtube": "^0.0.2"
   }
 }
