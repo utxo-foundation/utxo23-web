@@ -317,7 +317,7 @@
                                 {format(
                                   new Date(si.period.start),
                                   "HH:mm"
-                                )}-{format(new Date(si.period.end), "HH:mm")} <span class="opacity-70">#{si.id}</span>
+                                )}-{format(new Date(si.period.end), "HH:mm")} <span class="opacity-70">@{si.id}</span>
                                 {#if event.track}[{#each [$bundle.spec.tracks.find((t) => t.id === event.track)] as track}{track.shortname ||
                                       track.name}{/each}]{/if}
                               </div>
