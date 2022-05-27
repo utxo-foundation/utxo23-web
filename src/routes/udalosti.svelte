@@ -21,7 +21,7 @@
   $: id = getId($page.url.search);
   $: e = $bundle ? $bundle.spec.events.find((ev) => ev.id === id) : null;
   $: duration = e ? calcDuration(e, $bundle) : null;
-  $: childrens = $bundle.spec.events.filter((i) => i.parent === e.id);
+  $: childrens = e ? $bundle.spec.events.filter((i) => i.parent === e.id) : []
 
   function getId(search) {
     const searchParams = new URLSearchParams(search);

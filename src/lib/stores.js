@@ -30,6 +30,9 @@ export const layouts = writable({ test: null })
 export const loadInfo = writable({ loaded: false })
 
 export const schedulePref = writable({
-  stages: [],
-  tracks: []
+  stage: null,
+  track: null,
+  time: null,
+  tracks: [],
+  showDescriptions: false
 });

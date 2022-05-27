@@ -22,7 +22,7 @@
     >
       <div class="">
         <div class="lg:flex lg:flex-wrap lg:space-x-10">
-          {#if $page.url.pathname !== "/"}
+          {#if !["/", "/tv"].includes($page.url.pathname)}
             <div
               class="block justify-start lg:flex-1 my-auto text-center pb-3 lg:pb-0 pt-3 lg:pt-0"
             >
@@ -40,38 +40,58 @@
             <div class="lg:flex-1" />
           {/if}
           <div
-            class="flex lg:space-x-10 uppercase text-sm font-bold text-white"
+            class="flex lg:space-x-10 uppercase text-sm font-bold text-white flex-wrap gap-3"
           >
             <a
               sveltekit:prefetch
               href="/"
-              class="lg:w-auto w-1/3 m-auto hover:text-[#E16A61]"
-              class:text-blue-400={$page.url.pathname === "/"}>O konferenci</a
+              class="m-auto hover:text-[#E16A61] "
+              class:text-blue-400={$page.url.pathname === "/"}>Úvod</a
+            >
+            <a
+              sveltekit:prefetch
+              href="/tv"
+              class="m-auto hover:text-[#E16A61] text-custom-green"
+              class:text-blue-400={$page.url.pathname === "/tv"}><i class="fa-solid fa-video mr-1.5"></i> Livestreamy</a
             >
             <a
               sveltekit:prefetch
               href="/program"
-              class="lg:w-auto w-1/3 m-auto hover:text-[#E16A61]"
+              class="m-auto hover:text-[#E16A61]"
               class:text-blue-400={$page.url.pathname === "/program"}>Program</a
             >
             <a
               sveltekit:prefetch
+              href="/mapa"
+              class="m-auto hover:text-[#E16A61]"
+              class:text-blue-400={$page.url.pathname === "/mapa"}>Mapa</a
+            >
+            <a
+              sveltekit:prefetch
+              href="/prakticke"
+              class="m-auto hover:text-[#E16A61]"
+              class:text-blue-400={$page.url.pathname === "/prakticke"}>Praktické</a
+            >
+            <a
+              sveltekit:prefetch
               href="/vstupenky"
-              class="lg:w-auto w-1/3 m-auto border-solid border border-[#E16A61] rounded-full {$page
+              class="m-auto border-solid border border-[#E16A61] rounded-full {$page
                 .url.pathname === '/vstupenky'
                 ? 'border-0 bg-utxo-gradient m-px'
                 : 'hover:border-0 hover:bg-utxo-gradient hover:p-px'}"
-              ><div class="py-2 px-1 lg:px-8">
+              ><div class="py-1.5 px-2 lg:px-6">
                 Vstupenky{#if $userDataLocal.tickets && $userDataLocal.tickets.length > 0}&nbsp;({$userDataLocal
                     .tickets.length}){/if}
               </div></a
             >
           </div>
-          <div
-            class="hidden lg:block my-auto lg:flex-1 lg:pt-0 pt-4 lg:justify-end justify-center"
-          >
-            <SocialButtons />
-          </div>
+          {#if $page.url.pathname === '/'}
+            <div
+              class="hidden lg:block my-auto lg:flex-1 lg:pt-0 pt-4 lg:justify-end justify-center"
+            >
+              <SocialButtons />
+            </div>
+          {/if}
         </div>
       </div>
     </nav>
@@ -81,7 +101,7 @@
       class="relative mx-auto lg:px-6 px-4 pt-4 sm:pt-6 sm:pb-6 pb-2 max-w-6xl text-left text-white"
     >
       <div class="pl-2 sm:pl-6 lg:pl-10">
-        <div class="uppercase font-semibold text-md lg:text-lg lg:w-1/3">
+        <div class="uppercase font-semibold text-md lg:text-lg lg:w-1/3 text-white/70">
           Otevřená komunitní kryptoměnová konference
         </div>
         <div class="mt-6">

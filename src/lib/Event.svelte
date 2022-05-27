@@ -78,7 +78,7 @@
   {/if}
   <div class="">
     <div class="text-sm flex flex-wrap gap-3 flex-1">
-      <div><EventTypeLabel event={e} /></div>
+      <div class="opacity-80"><EventTypeLabel event={e} /></div>
       {#if duration}<div class="text-xs my-auto">{duration}m</div>{/if}
       {#if e.track}
         <div class="text-sm my-auto">
