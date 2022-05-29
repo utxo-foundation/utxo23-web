@@ -949,10 +949,11 @@
                 <div class="mt-8">
                   <div class="uppercase text-sm font-bold">Platební metoda</div>
                   <div class="mt-2">
-                    {#if !$apiStatus.config.paymentMethods.find(pm => pm.id === 'btcpay')}
+                    {#if $apiStatus.config.paymentMethods.find(pm => pm.id === 'btcpay') && ($apiStatus.config.paymentMethods.find(pm => pm.id === 'btcpay').hidden = true)}
                       <div class="mb-4 text-sm">Platba pomocí BTC není dočasně k dispozici, zkuste to prosím později. Omlouváme se :(</div>
                     {/if}
                     {#each $apiStatus.config.paymentMethods as pm}
+                      {#if !pm.hidden}
                       <div class="mb-2">
                         <label class="cursor-pointer"
                           ><input
@@ -973,6 +974,7 @@
                             />{/if}
                         </label>
                       </div>
+                      {/if}
                     {/each}
                   </div>
                 </div>
