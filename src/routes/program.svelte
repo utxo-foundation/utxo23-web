@@ -280,7 +280,7 @@
 </svelte:head>
 
 <section
-  class="relative mx-auto pt-6 sm:pt-10 pb-6 px-6 max-w-6xl text-blue-web"
+  class="relative mx-auto pt-6 sm:pt-10 pb-6 px-6 max-w-6xl text-blue-web print:hidden"
 >
   <div class="mb-6">
     {#if $bundle}
@@ -292,7 +292,7 @@
         >
           {#each $bundle.spec["schedule-candidates"] as p, i}
             <option value={i}
-              >#{i} [{["score", "thc:themeCrossing", "tgc:tagsCrossing", "exd:exclusivityDev"]
+                    >#{i} | {p.hash.substring(0,8)} [{["score", "thc:themeCrossing", "tgc:tagsCrossing", "exd:exclusivityDev"]
                 .map((key) => {
                   const [title, rkey] = key.split(":");
                   return `${title}:${
@@ -388,7 +388,7 @@
 <section class="relative mx-auto pb-6 sm:pb-10 px-0 text-blue-web">
   {#if $bundle}
     {#each scheduleTimes($bundle, $schedulePref.time) as st}
-      <div class="max-w-6xl mx-auto px-6 mb-4">
+      <div class="max-w-6xl mx-auto px-6 mb-4 print:max-w-full">
         <h2 class="uppercase text-xl font-bold">
           {#if st.name}
             {st.name}
@@ -419,7 +419,7 @@
                   <th
                     valign="top"
                     class="w-auto pl-2 pr-2 pt-1 text-sm left-0 bg-white"
-                    height="40">{ds.title}</th
+                    height="60">{ds.title}</th
                   >
                   {#each activeStages($bundle, $bundle.spec.stages, st, plan) as stage}
                     {#if $schedulePref && ($schedulePref.stage === stage.id || $schedulePref.stage === 'all')}

@@ -13,7 +13,7 @@
 </script>
 
 <header
-  class="relative bg-center bg-cover {$page.url.pathname !== '/tv' ? "bg-[url('/img/bg-header.jpg')]" : ''} bg-no-repeat bg-blue-web-bg"
+  class="relative bg-center bg-cover {$page.url.pathname !== '/tv' ? "bg-[url('/img/bg-header.jpg')]" : ''} bg-no-repeat bg-blue-web-bg print:hidden"
 >
   <!--		<li class:active={$page.url.pathname === '/'}><a sveltekit:prefetch href="/">Home</a></li> -->
   <div>

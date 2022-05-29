@@ -189,7 +189,7 @@
             <div>
               <YouTube videoId={stageStatus[stage.id].stream.name} class="bg-blue-web-bg/60" id="player-{stage.id}" options={Object.assign({}, YToptions)} bind:player={stagePlayers[stage.id]} on:play={() => youtubePlayed(stage.id)} />
             </div>
-            <div class="pr-2">
+            <div class="pr-2 w-full">
               {#each [stageStatus[stage.id]] as ss}
                 <div>
                   {#if ss.current}

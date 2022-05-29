@@ -77,7 +77,7 @@
 </script>
 
 {#if $bundle}
-  <div class="layout min-h-screen bg-gray-900">
+  <div class="layout min-h-screen bg-gray-900 print:bg-white">
     <div class="inset-0 bg-white">
       <Header />
 
