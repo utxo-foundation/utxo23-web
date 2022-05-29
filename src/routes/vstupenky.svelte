@@ -637,7 +637,9 @@
                     Platební metoda: <span class="font-bold"
                       >{$apiStatus.config.paymentMethods.find(
                         (pm) => pm.id === order.paymentMethod
-                      ).shortname}</span
+                      ) ? $apiStatus.config.paymentMethods.find(
+                        (pm) => pm.id === order.paymentMethod
+                      ).shortname : 'null (?)'}</span
                     >
                   </div>
                 </div>
