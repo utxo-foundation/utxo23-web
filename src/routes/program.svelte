@@ -374,7 +374,7 @@
         </h2>
       </div>
       <div class="relative">
-        <div class="mt-4 mb-10 overflow-scroll sm:overflow-clip">
+        <div class="mt-4 mb-10 h-screen sm:h-auto overflow-scroll sm:overflow-clip">
           <table width="100%" class="table table-auto xl:table-fixed relative">
             <thead class="">
               <tr>
