@@ -384,7 +384,7 @@
           {/if}
         </h2>
         <div class="inline-block ml-2 text-sm font-normal my-auto print:hidden"><a href="https://pub.utxo.cz/22/pdf/{st.code}.pdf" target="_blank" class=""><i class="fa-regular fa-file-pdf"></i> PDF</a></div>
-        <div class="flex-1 text-right hidden sm:block float-right text-blue-web/80">Generováno: {format(new Date($bundle.time), 'd.M.y H:mm')}</div>
+        <div class="flex-1 text-right hidden sm:block float-right text-blue-web/50">Zdrojová data: {format(new Date($bundle.time), 'd.M.y H:mm')}</div>
       </div>
       <div class="relative">
         <div class="mt-4 mb-10 h-screen sm:h-auto overflow-scroll sm:overflow-clip">
