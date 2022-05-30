@@ -1,5 +1,6 @@
 <script>
   export let event;
+  export let hideDate = false;
 
   import Avatar from "$lib/Avatar.svelte";
   import Tooltip from "$lib/Tooltip.svelte";
@@ -83,8 +84,8 @@
   <div class="">
     <div class="text-sm flex flex-wrap gap-3 flex-1">
       <div class="opacity-80"><EventTypeLabel event={e} /></div>
-      {#if schedule}
-        <EventSchedule item={schedule} event={e} bundle={$bundle} />
+      {#if schedule && !hideDate}
+        <EventSchedule item={schedule} e={e} bundle={$bundle} />
       {/if}
       {#if duration}<div class="text-xs my-auto">{duration}m</div>{/if}
       {#if e.track}

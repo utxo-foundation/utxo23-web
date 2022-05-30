@@ -1,6 +1,6 @@
 <script>
   import { formatCET } from "$lib/utils.js";
-  import { cs } from "date-fns/locale/index.js";
+  import { parse } from "date-fns";
 
   export let item;
   export let e;
@@ -9,8 +9,9 @@
   $: stage = bundle
     ? bundle.spec.stages.find((s) => s.id === item.stage)
     : null;
-  const start = new Date(item.period.start);
-  const end = new Date(item.period.end);
+
+  const start = typeof(item.period.start) === 'string' ? new Date(item.period.start) : item.period.start
+  const end = typeof(item.period.end) === 'string' ? new Date(item.period.end) : item.period.end
 </script>
 
 <div class="font-semibold">
