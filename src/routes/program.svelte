@@ -541,6 +541,9 @@
         </div>
       </div>
     {/each}
+    <div class="print:hidden italic max-w-6xl mx-auto px-6 mb-4 print:max-w-full break-before-page flex gap-3">
+      Všechny časy jsou lokální - středoevropské časové pásmo CET (+02:00). Všechny události jsou v češtině nebo slovenštině, pokud není uvedeno jinak.
+    </div>
   {:else}
     Načítám ..
   {/if}
