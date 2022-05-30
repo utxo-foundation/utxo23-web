@@ -10,6 +10,7 @@
   import { formatCET } from '$lib/utils.js';
   import { bundle, userData, loadInfo, schedulePref } from "$lib/stores.js";
   import { parsePeriod } from "$lib/periods.js";
+  import { cs } from "date-fns/locale/index.js"
   import SvelteMarkdown from "svelte-markdown";
   import SvelteTooltip from "$lib/SvelteTooltip.svelte";
   const renderers = { link: Link };
@@ -432,7 +433,7 @@
               <tr>
                 <th
                   class="xl:w-16 top-0 sticky bg-white uppercase text-sm px-0.5 text-custom-blue"
-                  >{formatCET(new Date(st.date), "iiiiii")}<br
+                  >{formatCET(new Date(st.date), "iiiiii", { locale: cs })}<br
                   />{formatCET(new Date(st.date), "d.M.")}</th
                 >
                 {#each activeStages($bundle, $bundle.spec.stages, st, plan) as stage}
