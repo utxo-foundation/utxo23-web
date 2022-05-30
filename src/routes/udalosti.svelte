@@ -15,6 +15,7 @@
   import SvelteMarkdown from "svelte-markdown";
   import Link from "$lib/Link.svelte";
   import Paragraph from "$lib/Paragraph.svelte";
+  import EventSchedule from '$lib/EventSchedule.svelte';
 
   const renderers = { link: Link, paragraph: Paragraph };
 
@@ -22,6 +23,8 @@
   $: e = $bundle ? $bundle.spec.events.find((ev) => ev.id === id) : null;
   $: duration = e ? calcDuration(e, $bundle) : null;
   $: childrens = e ? $bundle.spec.events.filter((i) => i.parent === e.id) : []
+
+  $: schedule = $bundle ? $bundle.spec.schedule.find(s => s.event === id) : null
 
   function getId(search) {
     const searchParams = new URLSearchParams(search);
@@ -60,6 +63,9 @@
     </div>
     <div class="mb-6 flex flex-wrap gap-4">
       <div><EventTypeLabel event={e} size="big" /></div>
+      {#if schedule}
+        <EventSchedule item={schedule} event={e} bundle={$bundle} />
+      {/if}
       {#if duration}
         <div class="text-sm my-auto">{duration}m</div>
       {/if}

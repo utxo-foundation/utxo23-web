@@ -50,6 +50,8 @@
                 >
               </div>
             </div>
+          {:else}
+            <div class="flex-1" />
           {/if}
           <div
             class="flex lg:space-x-10 uppercase text-sm font-bold text-white flex-wrap gap-3"
@@ -70,12 +72,12 @@
             >
             {/if}
             {#if $page.url.pathname !== '/tv'}
-            <a
+            <!--a
               sveltekit:prefetch
               href="/tv"
               class="m-auto hover:text-[#E16A61] text-custom-green"
               class:text-blue-400={$page.url.pathname === "/tv"}><i class="fa-solid fa-video mr-1.5"></i> Livestreamy</a
-            >
+            -->
             {/if}
             <a
               sveltekit:prefetch
@@ -84,18 +86,18 @@
               class:text-blue-400={$page.url.pathname === "/program"}>Program</a
             >
             {#if $page.url.pathname !== '/tv'}
-            <a
+            <!--a
               sveltekit:prefetch
               href="/mapa"
               class="m-auto hover:text-[#E16A61]"
               class:text-blue-400={$page.url.pathname === "/mapa"}>Mapa</a
-            >
-            <a
+            -->
+            <!--a
               sveltekit:prefetch
               href="/prakticke"
               class="m-auto hover:text-[#E16A61]"
               class:text-blue-400={$page.url.pathname === "/prakticke"}>Praktické</a
-            >
+            -->
             <a
               sveltekit:prefetch
               href="/vstupenky"

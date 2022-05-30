@@ -163,9 +163,8 @@
   <h1 class="uppercase text-2xl font-bold"><a href="/program">Program</a> → Seznam událostí</h1>
   <div class="mt-2">
     <p>
-      Program <a href="/changelog" class="underline hover:no-underline"
-        >stále připravujeme</a
-      >. Aktuálně finišujeme jeho přípravu a <span class="font-semibold">nejpozději ráno v pondělí 30. května zde najdete konkrétní časové rozpisy jednotlivých sálů</span>. Těšíme se na vás! 🙏❤️ - <span class="italic">UTXO.22 organizační team</span>
+      <a href="/program" class="underline hover:no-underline">Časový rozpis (program)</a>
+      | <a href="/changelog" class="underline hover:no-underline">Changelog</a>
     </p>
   </div>
   <!--div class="mt-6 flex flex-wrap gap-3 px-4 text-center">
@@ -183,10 +182,10 @@
     </div>
   </div-->
 
-  <div class="mt-6 bg-custom-green/30 rounded-lg px-4 py-3">
+  <!--div class="mt-6 bg-custom-green/30 rounded-lg px-4 py-3">
     <span class="font-semibold">🔥 Chcete kryptokomunitě něco říct? prezentovat svůj projekt nebo nápad? nebo snad prodiskutovat nějaké krypto téma? Každopádně potkat nové lidi?</span> Uspořádejte <a href="https://docs.utxo.cz/hlavni-program/formaty-programu#campfire-taborovy-ohen" target="_blank" class="font-semibold">Campfire session</a>! Jde o náš nový formát, kterým chceme dát možnost doplnit obsah na UTXO.22 i široké komunitě.<br/>
     Detaily o Campfire formátu a přihlášku naleznete <a href="https://docs.google.com/forms/d/e/1FAIpQLScYh21d2z3sVDXyE9b15HxG0fabTiW5jJ8qJlAJT_w_j4v23w/viewform?usp=sf_link" target="_blank" class="underline hover:no-underline">na tomto odkazu</a>.
-  </div>
+  </div-->
 
   {#if filters.length > 0}
     <div class="mt-6 flex flex-wrap gap-3">

@@ -45,7 +45,7 @@
   }
 
   bundle.subscribe(_bundle => {
-    events = _bundle.spec['schedule-candidates'][0].schedule
+    events = _bundle.spec.schedule
     cachedBundle = _bundle
     genStatus(cachedBundle)
   })

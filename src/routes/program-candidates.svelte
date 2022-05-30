@@ -18,7 +18,7 @@
   let stagesArr = null
 
   let planNumber = 0;
-  $: plan = $bundle ? $bundle.spec.schedule : null;
+  $: plan = $bundle ? $bundle.spec["schedule-candidates"][planNumber] : null;
 
   const params = {
     time: { key: 'time' },
@@ -132,7 +132,7 @@
         if (schedulePref && (schedulePref.stage !== stage.id && schedulePref.stage !== 'all')) {
           continue;
         }
-        let si = pl.find(
+        let si = pl.schedule.find(
           (pi) =>
             new Date(pi.period.start).getTime() === new Date(time).getTime() &&
             pi.stage === stage.id
@@ -214,7 +214,7 @@
 
   function activeStages (bundle, stages, st, pl) {
     return stages.filter(stage => {
-      return Boolean(pl.filter(i => i.stage === stage.id).find(i => isPeriodOverlap(st.period, i.period))
+      return Boolean(pl.schedule.filter(i => i.stage === stage.id).find(i => isPeriodOverlap(st.period, i.period))
 
       )
     })
@@ -282,6 +282,30 @@
 <section
   class="relative mx-auto pt-6 sm:pt-10 pb-6 px-6 max-w-6xl text-blue-web print:hidden"
 >
+  <div class="mb-6">
+    {#if $bundle}
+      <div class="font-semibold uppercase mb-1">Plán (řešení)</div>
+      <div class="flex flex-wrap gap-1">
+        <select
+          class="border border-blue-web rounded-md p-1.5 text-blue-web bg-white"
+          bind:value={planNumber}
+        >
+          {#each $bundle.spec["schedule-candidates"] as p, i}
+            <option value={i}
+                    >#{i} | {p.hash.substring(0,8)} [{["score", "thc:themeCrossing", "tgc:tagsCrossing", "exd:exclusivityDev"]
+                .map((key) => {
+                  const [title, rkey] = key.split(":");
+                  return `${title}:${
+                    Math.round(p.metrics[rkey || title] * 1000) / 1000
+                  }`;
+                })
+                .join(", ")}]</option
+            >
+          {/each}
+        </select>
+      </div>
+    {/if}
+  </div>
   <h1 class="uppercase text-2xl font-bold mb-2">Program</h1>
   <div class="mb-4">
     <a href="/seznam-udalosti" class="underline hover:no-underline">Seznam všech událostí</a>

@@ -5,6 +5,7 @@
   import Tooltip from "$lib/Tooltip.svelte";
   import SvelteMarkdown from "svelte-markdown";
   import EventTypeLabel from "$lib/EventTypeLabel.svelte";
+  import EventSchedule from '$lib/EventSchedule.svelte';
   import { bundle, userData } from "$lib/stores.js";
   import { calcDuration, addFavorite } from "$lib/events.js";
 
@@ -14,6 +15,7 @@
   $: e = event;
   $: duration = calcDuration(e, $bundle);
   $: spoiler = makeSpoiler(e);
+  $: schedule = $bundle ? $bundle.spec.schedule.find(s => s.event === e.id) : null
 
   function makeSpoiler(_e) {
     if (!_e.description) {
@@ -79,6 +81,9 @@
   <div class="">
     <div class="text-sm flex flex-wrap gap-3 flex-1">
       <div class="opacity-80"><EventTypeLabel event={e} /></div>
+      {#if schedule}
+        <EventSchedule item={schedule} event={e} bundle={$bundle} />
+      {/if}
       {#if duration}<div class="text-xs my-auto">{duration}m</div>{/if}
       {#if e.track}
         <div class="text-sm my-auto">

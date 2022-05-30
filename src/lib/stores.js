@@ -7,7 +7,7 @@ export const orderTicketForm = writable({
   count: 1,
   email: '',
   tickets: [],
-  paymentMethod: 'btcpay',
+  paymentMethod: 'card',
   tipPercent: 10,
   tipCustom: '',
   __v: 2
