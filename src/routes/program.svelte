@@ -186,6 +186,17 @@
     let arr = bundle.scheduleTimes.map((item, i) => {
       const out = parsePeriod(bundle, item);
       out.id = String(i)
+      switch (i) {
+        case 0:
+          out.code = 'sobota';
+          break
+        case 1:
+          out.code = 'sobota-party';
+          break
+        case 2:
+          out.code = 'nedele';
+          break
+      }
       return out
     });
 
@@ -364,8 +375,7 @@
 <section class="relative mx-auto pb-6 sm:pb-10 px-0 text-blue-web">
   {#if $bundle}
     {#each scheduleTimes($bundle, $schedulePref.time) as st}
-      <div class="max-w-6xl mx-auto px-6 mb-4 print:max-w-full break-before-page">
-        <div class="hidden sm:visible float-right text-blue-web/80">Generováno: {format(new Date($bundle.time), 'd.M.y H:mm')}</div>
+      <div class="max-w-6xl mx-auto px-6 mb-4 print:max-w-full break-before-page flex gap-3">
         <h2 class="uppercase text-xl font-bold">
           {#if st.name}
             {st.name}
@@ -373,6 +383,8 @@
             {format(new Date(st.date), "iiii d.M.y", { locale: cs })}
           {/if}
         </h2>
+        <div class="inline-block ml-2 text-sm font-normal my-auto print:hidden"><a href="https://pub.utxo.cz/22/pdf/{st.code}.pdf" target="_blank" class=""><i class="fa-regular fa-file-pdf"></i> PDF</a></div>
+        <div class="flex-1 text-right hidden sm:block float-right text-blue-web/80">Generováno: {format(new Date($bundle.time), 'd.M.y H:mm')}</div>
       </div>
       <div class="relative">
         <div class="mt-4 mb-10 h-screen sm:h-auto overflow-scroll sm:overflow-clip">
