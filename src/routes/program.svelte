@@ -283,8 +283,8 @@
   class="relative mx-auto pt-6 sm:pt-10 pb-6 px-6 max-w-6xl text-blue-web print:hidden"
 >
   <h1 class="uppercase text-2xl font-bold mb-2">Program</h1>
-  <div class="mb-4">
-    <a href="/seznam-udalosti" class="underline hover:no-underline">Seznam všech událostí</a>
+  <div class="mb-4 utxo-program-head">
+    <a href="/seznam-udalosti">Seznam všech událostí</a>, PDF: <a href="https://pub.utxo.cz/22/pdf/sobota.pdf" target="_blank">sobota</a>, <a href="https://pub.utxo.cz/22/pdf/sobota-party.pdf" target="_blank">sobota (party)</a>, <a href="https://pub.utxo.cz/22/pdf/nedele.pdf" target="_blank">neděle</a>
   </div>
   <div>
     {#if $bundle}
@@ -292,7 +292,7 @@
         <div class="flex gap-1 flex-wrap">
           <div class="font-semibold uppercase my-auto mx-3">Den</div>
           {#each allScheduleTimes($bundle) as st}
-            <button class="{($schedulePref.time === st.id) ? 'bg-utxo-gradient text-white' : 'text-blue-web bg-blue-web-light hover:text-[#E16A61] hover:bg-[#E16A61]/20'} font-bold py-2 px-4 rounded-full"
+            <button class="{($schedulePref.time === st.id) ? 'bg-utxo-gradient text-white' : 'text-blue-web bg-blue-web-light hover:text-[#E16A61] hover:bg-[#E16A61]/20'} font-semibold py-1 px-2 sm:py-2 sm:px-4 rounded-full"
                     on:click={() => $schedulePref.time = st.id}
               >{st.name}</button>
           {/each}
@@ -302,7 +302,7 @@
         <div class="flex gap-1 flex-wrap">
           <div class="font-semibold uppercase my-auto mx-3">Sál</div>
           {#each allStages($bundle) as et}
-            <button class="{($schedulePref.stage === et.id) ? 'bg-utxo-gradient text-white' : 'text-blue-web bg-blue-web-light hover:text-[#E16A61] hover:bg-[#E16A61]/20'} font-bold py-1.5 px-3 rounded-full text-sm"
+            <button class="{($schedulePref.stage === et.id) ? 'bg-utxo-gradient text-white' : 'text-blue-web bg-blue-web-light hover:text-[#E16A61] hover:bg-[#E16A61]/20'} font-semibold py-1 px-2 rounded-full text-sm"
                     on:click={() => $schedulePref.stage = et.id}
               >{et.name}</button>
             <!--div class="u-choose-div m-0.5">
@@ -364,7 +364,8 @@
 <section class="relative mx-auto pb-6 sm:pb-10 px-0 text-blue-web">
   {#if $bundle}
     {#each scheduleTimes($bundle, $schedulePref.time) as st}
-      <div class="max-w-6xl mx-auto px-6 mb-4 print:max-w-full">
+      <div class="max-w-6xl mx-auto px-6 mb-4 print:max-w-full break-before-page">
+        <div class="hidden sm:visible float-right text-blue-web/80">Generováno: {format(new Date($bundle.time), 'd.M.y H:mm')}</div>
         <h2 class="uppercase text-xl font-bold">
           {#if st.name}
             {st.name}
@@ -421,7 +422,7 @@
                                 {#if event.track}[{#each [$bundle.spec.tracks.find((t) => t.id === event.track)] as track}{track.shortname ||
                                       track.name}{/each}]{/if}
                               </div>
-                              <div class="font-semibold mt-1">
+                              <div class="font-bold mt-1">
                                 <a href="/udalosti?id={event.id}" class="hover:underline"
                                   >{event.name}</a
                                 >
@@ -464,4 +465,10 @@
 </section>
 
 <style>
+  .utxo-program-head a {
+    text-decoration: underline;
+  }
+  .utxo-program-head a:hover {
+    text-decoration: none;
+  }
 </style>
