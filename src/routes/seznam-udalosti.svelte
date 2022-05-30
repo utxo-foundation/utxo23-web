@@ -106,13 +106,23 @@
         arr = arr.filter((e) => e.track === f.key);
       }
       if (f.type === "text") {
-        const sr = fuse.search(f.key);
-        if (sr.length > 0) {
-          arr = sr
-            .map((sr) => arr.find((i) => i.id === sr.item.id))
-            .filter((sr) => sr);
+        if (f.key.substring(0,1) === '@') {
+          const schedule = bd.spec.schedule.find(e => e.id === f.key.substring(1))
+          if (schedule) {
+            const ev = bd.spec.events.find(e => e.id === schedule.event)
+            arr = [ev];
+          } else {
+            arr = [];
+          }
         } else {
-          arr = [];
+          const sr = fuse.search(f.key);
+          if (sr.length > 0) {
+            arr = sr
+              .map((sr) => arr.find((i) => i.id === sr.item.id))
+              .filter((sr) => sr);
+          } else {
+            arr = [];
+          }
         }
       }
     }
@@ -126,6 +136,7 @@
       //minMatchCharLength: 1,
       threshold: 0.4,
       keys: [
+        { name: "scheduleId", weight: 20 },
         { name: "name", weight: 10 },
         { name: "description", weight: 7 },
         { name: "speakers", weight: 5 },

@@ -37,6 +37,10 @@ class API {
             description: sp.desc
           }
         })
+        const schedule = this.bundle.schedule.find(s => s.event === ev.id)
+        if (schedule) {
+          ev.scheduleId = '@' + schedule.id
+        }
       }
     }
     return this.bundle
