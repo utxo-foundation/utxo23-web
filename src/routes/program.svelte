@@ -421,7 +421,7 @@
         <div
           class="flex-1 text-right hidden sm:block float-right text-blue-web/50"
         >
-          Zdrojová data: {formatCET(new Date($bundle.time), "d.M.y H:mm")}
+          Poslední aktualizace: {formatCET(new Date($bundle.time), "d.M.y H:mm")}
         </div>
       </div>
       <div class="relative">
