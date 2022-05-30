@@ -1,5 +1,5 @@
 <script>
-  import { format, formatDistanceToNow } from "date-fns";
+  import { formatCET } from "$lib/utils.js";
   import { cs } from "date-fns/locale/index.js";
 
   export let item;
@@ -14,6 +14,6 @@
 </script>
 
 <div class="font-semibold">
-  {format(start, "yyyy-MM-dd") === "2022-06-04" ? "SO" : "NE"}
-  {format(start, "HH:mm")}-{format(end, "HH:mm")} ({stage ? stage.name : "n/a"})
+  {formatCET(start, "yyyy-MM-dd") === "2022-06-04" ? "SO" : "NE"}
+  {formatCET(start, "HH:mm")}-{formatCET(end, "HH:mm")} ({stage ? stage.name : "n/a"})
 </div>

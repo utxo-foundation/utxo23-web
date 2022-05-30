@@ -7,6 +7,7 @@
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import { format, compareAsc, compareDesc } from "date-fns";
+  import { formatCET } from '$lib/utils.js';
   import { bundle, userData, loadInfo, schedulePref } from "$lib/stores.js";
   import { cs } from "date-fns/locale/index.js";
   import { parsePeriod } from "$lib/periods.js";
@@ -165,7 +166,7 @@
           }
         }
       }
-      arr.push({ title: format(time, "HH:mm"), stages });
+      arr.push({ title: formatCET(time, "HH:mm"), stages });
       time = new Date(time.getTime() + 30 * 60 * 1000);
     }
     return arr;
@@ -407,7 +408,7 @@
           {#if st.name}
             {st.name}
           {:else}
-            {format(new Date(st.date), "iiii d.M.y", { locale: cs })}
+            {formatCET(new Date(st.date), "iiii d.M.y", { locale: cs })}
           {/if}
         </h2>
         <div class="inline-block ml-2 text-sm font-normal my-auto print:hidden">
@@ -420,7 +421,7 @@
         <div
           class="flex-1 text-right hidden sm:block float-right text-blue-web/50"
         >
-          Zdrojová data: {format(new Date($bundle.time), "d.M.y H:mm")}
+          Zdrojová data: {formatCET(new Date($bundle.time), "d.M.y H:mm")}
         </div>
       </div>
       <div class="relative">
@@ -432,8 +433,8 @@
               <tr>
                 <th
                   class="xl:w-16 top-0 sticky bg-white uppercase text-sm px-0.5 text-custom-blue"
-                  >{format(new Date(st.date), "iiiiii", { locale: cs })}<br
-                  />{format(new Date(st.date), "d.M.")}</th
+                  >{formatCET(new Date(st.date), "iiiiii", { locale: cs })}<br
+                  />{formatCET(new Date(st.date), "d.M.")}</th
                 >
                 {#each activeStages($bundle, $bundle.spec.stages, st, plan) as stage}
                   {#if $schedulePref && ($schedulePref.stage === stage.id || $schedulePref.stage === "all")}
@@ -487,10 +488,10 @@
                           >
                             <div class="px-2 py-1 mb-1 mt-1">
                               <div class="text-xs">
-                                {format(
+                                {formatCET(
                                   new Date(si.period.start),
                                   "HH:mm"
-                                )}-{format(new Date(si.period.end), "HH:mm")}
+                                )}-{formatCET(new Date(si.period.end), "HH:mm")}
                                 <span class="text-blue-web/80">@{si.id}</span>
                                 {#if event.track}[{#each [$bundle.spec.tracks.find((t) => t.id === event.track)] as track}{track.shortname ||
                                       track.name}{/each}]{/if}

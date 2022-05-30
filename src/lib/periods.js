@@ -1,5 +1,7 @@
 import { format, addDays } from "date-fns";
 
+const TZoffset = new Date().getTimezoneOffset()
+
 export function parsePeriod(bundle, str) {
     const [dayNumber, times, name] = str.split("/");
     const [start, end] = times.split("-");
@@ -10,8 +12,8 @@ export function parsePeriod(bundle, str) {
       date,
       name,
       period: {
-        start: new Date(`${date}T${start}`),
-        end: new Date(`${endDate}T${end}`),
+        start: new Date(`${date}T${start}+02:00`),
+        end: new Date(`${endDate}T${end}+02:00`),
       },
     };
   }
