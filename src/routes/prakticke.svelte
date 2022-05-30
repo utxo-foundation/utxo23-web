@@ -18,9 +18,13 @@
   <h1 class="uppercase text-2xl font-bold">Praktické informace</h1>
 
   {#if bundle}
-    {#each $bundle.spec['practical-info'] as item}
+    {#each $bundle.spec["practical-info"] as item}
       <div class="mt-8">
-        <div><a id={item.id} href="#{item.id}"><h2 class="text-xl uppercase font-bold">{item.name}</h2></div>
+        <div>
+          <a id={item.id} href="#{item.id}"
+            ><h2 class="text-xl uppercase font-bold">{item.name}</h2></a
+          >
+        </div>
         <div class="mt-4">
           <SvelteMarkdown source={item.text} {renderers} />
         </div>

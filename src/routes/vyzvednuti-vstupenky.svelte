@@ -77,7 +77,7 @@
     },
     partner: { title: "Partner", hostTitle: "Host partnera", col: "partners" },
     host: { title: "Host" },
-    team: { title: "Team", hostTitle: "Host organizátora" }
+    team: { title: "Team", hostTitle: "Host organizátora" },
   };
 
   function makeTicketTypeInfo(c) {

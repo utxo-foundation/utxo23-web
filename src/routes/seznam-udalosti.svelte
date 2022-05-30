@@ -160,10 +160,14 @@
 </svelte:head>
 
 <section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-blue-web">
-  <h1 class="uppercase text-2xl font-bold"><a href="/program">Program</a> → Seznam událostí</h1>
+  <h1 class="uppercase text-2xl font-bold">
+    <a href="/program">Program</a> → Seznam událostí
+  </h1>
   <div class="mt-2">
     <p>
-      <a href="/program" class="underline hover:no-underline">Časový rozpis (program)</a>
+      <a href="/program" class="underline hover:no-underline"
+        >Časový rozpis (program)</a
+      >
       | <a href="/changelog" class="underline hover:no-underline">Changelog</a>
     </p>
   </div>

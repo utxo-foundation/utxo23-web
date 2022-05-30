@@ -15,18 +15,18 @@
 </script>
 
 <script>
-  import { onMount } from 'svelte';
-  import { createEventDispatcher } from 'svelte';
-  import YoutubePlayer from 'youtube-player';
+  import { onMount } from "svelte";
+  import { createEventDispatcher } from "svelte";
+  import YoutubePlayer from "youtube-player";
 
   export { className as class }; // HTML class names for container element (optional)
   export let id = undefined; // HTML element ID for player (optional)
-  export let videoId;        // Youtube video ID (required)
+  export let videoId; // Youtube video ID (required)
   export let options = undefined; // YouTube player options (optional)
 
-  let className;             // HTML class names for container element
-  let playerElem;            // player DOM element reference
-  export let player;                // player API instance
+  let className; // HTML class names for container element
+  let playerElem; // player DOM element reference
+  export let player; // player API instance
 
   // Create and tear down player as component mounts or unmounts
   onMount(() => createPlayer());
@@ -38,11 +38,11 @@
     player = YoutubePlayer(playerElem, options);
 
     // Register event handlers
-    player.on('ready', onPlayerReady);
-    player.on('error', onPlayerError);
-    player.on('stateChange', onPlayerStateChange);
-    player.on('playbackRateChange', onPlayerPlaybackRateChange);
-    player.on('playbackQualityChange', onPlayerPlaybackQualityChange);
+    player.on("ready", onPlayerReady);
+    player.on("error", onPlayerError);
+    player.on("stateChange", onPlayerStateChange);
+    player.on("playbackRateChange", onPlayerPlaybackRateChange);
+    player.on("playbackQualityChange", onPlayerPlaybackQualityChange);
 
     // Tear down player when done
     return () => player.destroy();
@@ -64,7 +64,7 @@
   // -------------------------------------------
   // Event handling
   // -------------------------------------------
-	const dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher();
 
   /**
    * https://developers.google.com/youtube/iframe_api_reference#onReady
@@ -73,7 +73,7 @@
    *   @param {Object} target - player object
    */
   function onPlayerReady(event) {
-    dispatch('ready', event);
+    dispatch("ready", event);
 
     // Start playing
     play(videoId);
@@ -87,7 +87,7 @@
    *   @param {Object} target - player object
    */
   function onPlayerError(event) {
-    dispatch('error', event);
+    dispatch("error", event);
   }
 
   /**
@@ -98,19 +98,19 @@
    *   @param {Object} target - actual YT player
    */
   function onPlayerStateChange(event) {
-    dispatch('stateChange', event)
+    dispatch("stateChange", event);
 
     switch (event.data) {
       case PlayerState.ENDED:
-        dispatch('end', event);
+        dispatch("end", event);
         break;
 
       case PlayerState.PLAYING:
-        dispatch('play', event);
+        dispatch("play", event);
         break;
 
       case PlayerState.PAUSED:
-        dispatch('pause', event);
+        dispatch("pause", event);
         break;
 
       default:
@@ -125,7 +125,7 @@
    *   @param {Object} target - actual YT player
    */
   function onPlayerPlaybackRateChange(event) {
-    dispatch('playbackRateChange', event);
+    dispatch("playbackRateChange", event);
   }
 
   /**
@@ -136,10 +136,10 @@
    *   @param {Object} target - actual YT player
    */
   function onPlayerPlaybackQualityChange(event) {
-    dispatch('playbackQualityChange', event);
+    dispatch("playbackQualityChange", event);
   }
 </script>
 
 <div class={className}>
-  <div id={id} bind:this={playerElem}></div>
+  <div {id} bind:this={playerElem} />
 </div>

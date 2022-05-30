@@ -637,9 +637,11 @@
                     Platební metoda: <span class="font-bold"
                       >{$apiStatus.config.paymentMethods.find(
                         (pm) => pm.id === order.paymentMethod
-                      ) ? $apiStatus.config.paymentMethods.find(
-                        (pm) => pm.id === order.paymentMethod
-                      ).shortname : 'null (?)'}</span
+                      )
+                        ? $apiStatus.config.paymentMethods.find(
+                            (pm) => pm.id === order.paymentMethod
+                          ).shortname
+                        : "null (?)"}</span
                     >
                   </div>
                 </div>
@@ -949,31 +951,34 @@
                 <div class="mt-8">
                   <div class="uppercase text-sm font-bold">Platební metoda</div>
                   <div class="mt-2">
-                    {#if $apiStatus.config.paymentMethods.find(pm => pm.id === 'btcpay') && ($apiStatus.config.paymentMethods.find(pm => pm.id === 'btcpay').hidden = true)}
-                      <div class="mb-4 text-sm">Platba pomocí BTC není dočasně k dispozici, zkuste to prosím později. Omlouváme se :(</div>
+                    {#if $apiStatus.config.paymentMethods.find((pm) => pm.id === "btcpay") && ($apiStatus.config.paymentMethods.find((pm) => pm.id === "btcpay").hidden = true)}
+                      <div class="mb-4 text-sm">
+                        Platba pomocí BTC není dočasně k dispozici, zkuste to
+                        prosím později. Omlouváme se :(
+                      </div>
                     {/if}
                     {#each $apiStatus.config.paymentMethods as pm}
                       {#if !pm.hidden}
-                      <div class="mb-2">
-                        <label class="cursor-pointer"
-                          ><input
-                            checked={$orderTicketForm.paymentMethod === pm.id}
-                            name="paymentMethod"
-                            value={pm.id}
-                            type="radio"
-                            on:change={selectPaymentMethod}
-                            class="cursor-pointer"
-                          />
-                          {pm.name}
-                          {#if pm.id === "btcpay"}<span class="ml-4 text-xs"
-                              ><i class="fas fa-heart text-red-500" /> Doporučujeme</span
-                            >{/if}
-                          {#if pm.id === "card"}<img
-                              src="/img/credit-card-logos.png"
-                              class="h-6 leading-7 inline ml-2"
-                            />{/if}
-                        </label>
-                      </div>
+                        <div class="mb-2">
+                          <label class="cursor-pointer"
+                            ><input
+                              checked={$orderTicketForm.paymentMethod === pm.id}
+                              name="paymentMethod"
+                              value={pm.id}
+                              type="radio"
+                              on:change={selectPaymentMethod}
+                              class="cursor-pointer"
+                            />
+                            {pm.name}
+                            {#if pm.id === "btcpay"}<span class="ml-4 text-xs"
+                                ><i class="fas fa-heart text-red-500" /> Doporučujeme</span
+                              >{/if}
+                            {#if pm.id === "card"}<img
+                                src="/img/credit-card-logos.png"
+                                class="h-6 leading-7 inline ml-2"
+                              />{/if}
+                          </label>
+                        </div>
                       {/if}
                     {/each}
                   </div>

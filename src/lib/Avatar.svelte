@@ -115,7 +115,11 @@
 
 {#if size === "small"}
   <div class="w-16 h-16 text-center">
-    <img src={currentImg} class="w-16 h-16 rounded-full m-auto" alt={speaker.name} />
+    <img
+      src={currentImg}
+      class="w-16 h-16 rounded-full m-auto"
+      alt={speaker.name}
+    />
   </div>
 {/if}
 

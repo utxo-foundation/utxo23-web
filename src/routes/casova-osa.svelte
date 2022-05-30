@@ -134,12 +134,15 @@
     return "border border-blue-web/50";
   }
 
-  function activeStages (bundle, stages, day, pl) {
-    return stages.filter(stage => {
-      const dt = format(new Date(day), 'yyyy-MM-dd')
-      return Boolean(pl.schedule.filter(i => i.stage === stage.id).find(i => i.date === dt)
-      )
-    })
+  function activeStages(bundle, stages, day, pl) {
+    return stages.filter((stage) => {
+      const dt = format(new Date(day), "yyyy-MM-dd");
+      return Boolean(
+        pl.schedule
+          .filter((i) => i.stage === stage.id)
+          .find((i) => i.date === dt)
+      );
+    });
   }
 
   function findEvent(bundle, eventId) {
@@ -188,7 +191,12 @@
       >
         {#each $bundle.spec["schedule-candidates"] as p, i}
           <option value={i}
-            >#{i} [{["score", "thc:themeCrossing", "tgc:tagsCrossing", "exd:exclusivityDev"]
+            >#{i} [{[
+              "score",
+              "thc:themeCrossing",
+              "tgc:tagsCrossing",
+              "exd:exclusivityDev",
+            ]
               .map((key) => {
                 const [title, rkey] = key.split(":");
                 return `${title}:${
@@ -281,9 +289,14 @@
                 <th class="xl:w-16" />
                 {#each activeStages($bundle, $bundle.spec.stages, st.date, plan) as stage}
                   {#if $schedulePref && $schedulePref.stages.includes(stage.id)}
-                    <th class="text-md py-1.5 px-1 sticky top-0 bg-white align-bottom">
-                        <div class="text-xs font-normal text-blue-web/60 mb-2.5">{stage.capacity.seat} <i class="fa-solid fa-chair"></i> + {stage.capacity.stand} <i class="fa-solid fa-person"></div>
-                        <div>{stage.name}</div>
+                    <th
+                      class="text-md py-1.5 px-1 sticky top-0 bg-white align-bottom"
+                    >
+                      <div class="text-xs font-normal text-blue-web/60 mb-2.5">
+                        {stage.capacity.seat} <i class="fa-solid fa-chair" /> + {stage
+                          .capacity.stand} <i class="fa-solid fa-person" />
+                      </div>
+                      <div>{stage.name}</div>
                     </th>
                   {/if}
                 {/each}
@@ -317,7 +330,8 @@
                                 {format(
                                   new Date(si.period.start),
                                   "HH:mm"
-                                )}-{format(new Date(si.period.end), "HH:mm")} <span class="opacity-70">@{si.id}</span>
+                                )}-{format(new Date(si.period.end), "HH:mm")}
+                                <span class="opacity-70">@{si.id}</span>
                                 {#if event.track}[{#each [$bundle.spec.tracks.find((t) => t.id === event.track)] as track}{track.shortname ||
                                       track.name}{/each}]{/if}
                               </div>

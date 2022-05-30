@@ -9,90 +9,98 @@
   import { format, compareAsc, compareDesc } from "date-fns";
   import { bundle, userData, loadInfo, schedulePref } from "$lib/stores.js";
   import { cs } from "date-fns/locale/index.js";
-  import { parsePeriod } from '$lib/periods.js';
+  import { parsePeriod } from "$lib/periods.js";
   import SvelteMarkdown from "svelte-markdown";
   const renderers = { link: Link };
   import Link from "$lib/Link.svelte";
 
-  let scheduleTimesArr = null
-  let stagesArr = null
+  let scheduleTimesArr = null;
+  let stagesArr = null;
 
   let planNumber = 0;
   $: plan = $bundle ? $bundle.spec["schedule-candidates"][planNumber] : null;
 
   const params = {
-    time: { key: 'time' },
-    stage: { key: 'stage' },
-    desc: { key: 'showDescriptions', type: 'boolean' }
-  }
+    time: { key: "time" },
+    stage: { key: "stage" },
+    desc: { key: "showDescriptions", type: "boolean" },
+  };
 
+  let subs = [];
 
-  let subs = []
-
-  subs.push(page.subscribe(() => {
-
-    schedulePref.update(sp => {
-      for (const upk of Object.keys(params)) {
-        const up = params[upk]
-        const _sp = $page.url.searchParams.get(upk)
-        if (up.type === 'boolean') {
-          if (_sp !== undefined) {
-            sp[up.key] = Boolean(_sp)
+  subs.push(
+    page.subscribe(() => {
+      schedulePref.update((sp) => {
+        for (const upk of Object.keys(params)) {
+          const up = params[upk];
+          const _sp = $page.url.searchParams.get(upk);
+          if (up.type === "boolean") {
+            if (_sp !== undefined) {
+              sp[up.key] = Boolean(_sp);
+            }
+          } else {
+            sp[up.key] = _sp ? _sp : "all";
           }
-        } else {
-          sp[up.key] = _sp ? _sp : 'all'
         }
-      }
-      return sp
+        return sp;
+      });
     })
-  }))
+  );
 
   onMount(async () => {
-    
     const bsub = bundle.subscribe((bundle) => {
-
-      scheduleTimesArr = scheduleTimes(bundle)
-      stagesArr = bundle.spec.stages
+      scheduleTimesArr = scheduleTimes(bundle);
+      stagesArr = bundle.spec.stages;
       const pref = {};
       //pref.stages = bundle.spec.stages.map((s) => s.id);
       //pref.tracks = bundle.spec.tracks.map((s) => s.id);
       //pref.times = scheduleTimesArr.map((s) => s.id);
       //schedulePref.set(pref);
     });
-    subs.push(bsub)
+    subs.push(bsub);
 
-    const pref = {}
-    let schedulePrefInicialized = null
+    const pref = {};
+    let schedulePrefInicialized = null;
 
     const spsub = schedulePref.subscribe((sp) => {
-      const updates = []
-      updates.push([ 'time', sp.time === 'all' ? undefined : sp.time ])
-      updates.push([ 'stage', sp.stage === 'all' ? undefined : sp.stage ])
-      updates.push([ 'desc', sp.showDescriptions === null || sp.showDescriptions === false || sp.showDescriptions === undefined ? undefined : true ])
+      const updates = [];
+      updates.push(["time", sp.time === "all" ? undefined : sp.time]);
+      updates.push(["stage", sp.stage === "all" ? undefined : sp.stage]);
+      updates.push([
+        "desc",
+        sp.showDescriptions === null ||
+        sp.showDescriptions === false ||
+        sp.showDescriptions === undefined
+          ? undefined
+          : true,
+      ]);
 
-      let target = '?'
+      let target = "?";
       if (updates.length > 0) {
         for (const up of updates) {
-          if (up[1] === undefined && $page.url.searchParams.get(up[0]) !== undefined) {
-            $page.url.searchParams.delete(up[0])
+          if (
+            up[1] === undefined &&
+            $page.url.searchParams.get(up[0]) !== undefined
+          ) {
+            $page.url.searchParams.delete(up[0]);
           } else {
-            $page.url.searchParams.set(up[0], up[1])
+            $page.url.searchParams.set(up[0], up[1]);
           }
         }
-        target = `?${$page.url.searchParams.toString()}`
+        target = `?${$page.url.searchParams.toString()}`;
       }
       goto(target);
 
-      return false
-    })
-    subs.push(spsub)
+      return false;
+    });
+    subs.push(spsub);
   });
 
   onDestroy(() => {
     for (const unsub of subs) {
-      unsub()
+      unsub();
     }
-  })
+  });
 
   function filterDateStage(arr, date, stageId) {
     return arr
@@ -129,7 +137,11 @@
           rowspans[stage.id]--;
           continue;
         }
-        if (schedulePref && (schedulePref.stage !== stage.id && schedulePref.stage !== 'all')) {
+        if (
+          schedulePref &&
+          schedulePref.stage !== stage.id &&
+          schedulePref.stage !== "all"
+        ) {
           continue;
         }
         let si = pl.schedule.find(
@@ -185,15 +197,15 @@
   function scheduleTimes(bundle, filter = false) {
     let arr = bundle.scheduleTimes.map((item, i) => {
       const out = parsePeriod(bundle, item);
-      out.id = String(i)
-      return out
+      out.id = String(i);
+      return out;
     });
 
     if (filter) {
-      arr = arr.filter(st => st.id === filter || filter === 'all')
+      arr = arr.filter((st) => st.id === filter || filter === "all");
     }
 
-    return arr
+    return arr;
   }
 
   function eventTrackClasses(bundle, ev, selectedTracks) {
@@ -203,35 +215,32 @@
     return "border border-blue-web/50";
   }
 
-   function isPeriodOverlap(x, y) {
-     const xstart = new Date(x.start)
-     const xend = new Date(x.end)
-     const ystart = new Date(y.start)
-     const yend = new Date(y.end)
-     return (xstart.getTime() < yend.getTime() &&
-       xend.getTime() > ystart.getTime());
+  function isPeriodOverlap(x, y) {
+    const xstart = new Date(x.start);
+    const xend = new Date(x.end);
+    const ystart = new Date(y.start);
+    const yend = new Date(y.end);
+    return (
+      xstart.getTime() < yend.getTime() && xend.getTime() > ystart.getTime()
+    );
   }
 
-  function activeStages (bundle, stages, st, pl) {
-    return stages.filter(stage => {
-      return Boolean(pl.schedule.filter(i => i.stage === stage.id).find(i => isPeriodOverlap(st.period, i.period))
-
-      )
-    })
+  function activeStages(bundle, stages, st, pl) {
+    return stages.filter((stage) => {
+      return Boolean(
+        pl.schedule
+          .filter((i) => i.stage === stage.id)
+          .find((i) => isPeriodOverlap(st.period, i.period))
+      );
+    });
   }
 
-  function allScheduleTimes (bundle) {
-    return [
-      { id: 'all', name: 'Všechny dny' },
-      ...scheduleTimes(bundle)
-    ]
+  function allScheduleTimes(bundle) {
+    return [{ id: "all", name: "Všechny dny" }, ...scheduleTimes(bundle)];
   }
 
-  function allStages (bundle) {
-    return [
-      { id: 'all', name: 'Všechny sály' },
-      ...bundle.spec.stages
-    ]
+  function allStages(bundle) {
+    return [{ id: "all", name: "Všechny sály" }, ...bundle.spec.stages];
   }
 
   function makeSpoiler(_e) {
@@ -292,7 +301,12 @@
         >
           {#each $bundle.spec["schedule-candidates"] as p, i}
             <option value={i}
-                    >#{i} | {p.hash.substring(0,8)} [{["score", "thc:themeCrossing", "tgc:tagsCrossing", "exd:exclusivityDev"]
+              >#{i} | {p.hash.substring(0, 8)} [{[
+                "score",
+                "thc:themeCrossing",
+                "tgc:tagsCrossing",
+                "exd:exclusivityDev",
+              ]
                 .map((key) => {
                   const [title, rkey] = key.split(":");
                   return `${title}:${
@@ -308,7 +322,9 @@
   </div>
   <h1 class="uppercase text-2xl font-bold mb-2">Program</h1>
   <div class="mb-4">
-    <a href="/seznam-udalosti" class="underline hover:no-underline">Seznam všech událostí</a>
+    <a href="/seznam-udalosti" class="underline hover:no-underline"
+      >Seznam všech událostí</a
+    >
   </div>
   <div>
     {#if $bundle}
@@ -316,9 +332,12 @@
         <div class="flex gap-1 flex-wrap">
           <div class="font-semibold uppercase my-auto mx-3">Den</div>
           {#each allScheduleTimes($bundle) as st}
-            <button class="{($schedulePref.time === st.id) ? 'bg-utxo-gradient text-white' : 'text-blue-web bg-blue-web-light hover:text-[#E16A61] hover:bg-[#E16A61]/20'} font-bold py-2 px-4 rounded-full"
-                    on:click={() => $schedulePref.time = st.id}
-              >{st.name}</button>
+            <button
+              class="{$schedulePref.time === st.id
+                ? 'bg-utxo-gradient text-white'
+                : 'text-blue-web bg-blue-web-light hover:text-[#E16A61] hover:bg-[#E16A61]/20'} font-bold py-2 px-4 rounded-full"
+              on:click={() => ($schedulePref.time = st.id)}>{st.name}</button
+            >
           {/each}
         </div>
       </div>
@@ -326,9 +345,12 @@
         <div class="flex gap-1 flex-wrap">
           <div class="font-semibold uppercase my-auto mx-3">Sál</div>
           {#each allStages($bundle) as et}
-            <button class="{($schedulePref.stage === et.id) ? 'bg-utxo-gradient text-white' : 'text-blue-web bg-blue-web-light hover:text-[#E16A61] hover:bg-[#E16A61]/20'} font-bold py-1.5 px-3 rounded-full text-sm"
-                    on:click={() => $schedulePref.stage = et.id}
-              >{et.name}</button>
+            <button
+              class="{$schedulePref.stage === et.id
+                ? 'bg-utxo-gradient text-white'
+                : 'text-blue-web bg-blue-web-light hover:text-[#E16A61] hover:bg-[#E16A61]/20'} font-bold py-1.5 px-3 rounded-full text-sm"
+              on:click={() => ($schedulePref.stage = et.id)}>{et.name}</button
+            >
             <!--div class="u-choose-div m-0.5">
               <label class="cursor-pointer"
                 ><input
@@ -347,7 +369,12 @@
         </div>
       </div>
       <div class="mb-4">
-        <label><input type="checkbox" bind:checked={$schedulePref.showDescriptions} /> Zobrazit popisy</label>
+        <label
+          ><input
+            type="checkbox"
+            bind:checked={$schedulePref.showDescriptions}
+          /> Zobrazit popisy</label
+        >
       </div>
 
       <!--div class="mb-4">
@@ -383,7 +410,6 @@
       </div-->
     {/if}
   </div>
-
 </section>
 <section class="relative mx-auto pb-6 sm:pb-10 px-0 text-blue-web">
   {#if $bundle}
@@ -402,12 +428,21 @@
           <table width="100%" class="table table-auto xl:table-fixed relative">
             <thead class="">
               <tr>
-                <th class="xl:w-16 top-0 sticky bg-white uppercase text-sm px-0.5 text-custom-blue">{format(new Date(st.date), "iiiiii", { locale: cs })}<br />{format(new Date(st.date), "d.M.")}</th>
+                <th
+                  class="xl:w-16 top-0 sticky bg-white uppercase text-sm px-0.5 text-custom-blue"
+                  >{format(new Date(st.date), "iiiiii", { locale: cs })}<br
+                  />{format(new Date(st.date), "d.M.")}</th
+                >
                 {#each activeStages($bundle, $bundle.spec.stages, st, plan) as stage}
-                  {#if $schedulePref && ($schedulePref.stage === stage.id || $schedulePref.stage === 'all')}
-                    <th class="text-md py-1.5 px-1 sticky top-0 bg-white align-bottom">
-                        <div class="text-xs font-normal text-blue-web/60 mb-2.5">{stage.capacity.seat} <i class="fa-solid fa-chair"></i> + {stage.capacity.stand} <i class="fa-solid fa-person"></div>
-                        <div>{stage.name}</div>
+                  {#if $schedulePref && ($schedulePref.stage === stage.id || $schedulePref.stage === "all")}
+                    <th
+                      class="text-md py-1.5 px-1 sticky top-0 bg-white align-bottom"
+                    >
+                      <div class="text-xs font-normal text-blue-web/60 mb-2.5">
+                        {stage.capacity.seat} <i class="fa-solid fa-chair" /> + {stage
+                          .capacity.stand} <i class="fa-solid fa-person" />
+                      </div>
+                      <div>{stage.name}</div>
                     </th>
                   {/if}
                 {/each}
@@ -422,7 +457,7 @@
                     height="60">{ds.title}</th
                   >
                   {#each activeStages($bundle, $bundle.spec.stages, st, plan) as stage}
-                    {#if $schedulePref && ($schedulePref.stage === stage.id || $schedulePref.stage === 'all')}
+                    {#if $schedulePref && ($schedulePref.stage === stage.id || $schedulePref.stage === "all")}
                       {#if ds.stages[stage.id] === undefined}
                         <td />
                       {:else if ds.stages[stage.id] !== null}
@@ -441,13 +476,15 @@
                                 {format(
                                   new Date(si.period.start),
                                   "HH:mm"
-                                )}-{format(new Date(si.period.end), "HH:mm")} <span class="text-blue-web/80">@{si.id}</span>
+                                )}-{format(new Date(si.period.end), "HH:mm")}
+                                <span class="text-blue-web/80">@{si.id}</span>
                                 {#if event.track}[{#each [$bundle.spec.tracks.find((t) => t.id === event.track)] as track}{track.shortname ||
                                       track.name}{/each}]{/if}
                               </div>
                               <div class="font-semibold mt-1">
-                                <a href="/udalosti?id={event.id}" class="hover:underline"
-                                  >{event.name}</a
+                                <a
+                                  href="/udalosti?id={event.id}"
+                                  class="hover:underline">{event.name}</a
                                 >
                               </div>
                               <div class="text-xs mt-1">
@@ -458,11 +495,18 @@
                               </div>
                               {#if event.description && $schedulePref.showDescriptions}
                                 {#each [makeSpoiler(event)] as spoiler}
-                                  <div class="mt-2 overflow-hidden text-sm text-blue-web/90">
-                                    <SvelteMarkdown source={spoiler.md} {renderers} />
+                                  <div
+                                    class="mt-2 overflow-hidden text-sm text-blue-web/90"
+                                  >
+                                    <SvelteMarkdown
+                                      source={spoiler.md}
+                                      {renderers}
+                                    />
                                     {#if spoiler.stripped}
                                       <div class="text-xs text-blue-web/60">
-                                        (<a href="/udalosti?id={event.id}">Zobrazit celý popis</a>)
+                                        (<a href="/udalosti?id={event.id}"
+                                          >Zobrazit celý popis</a
+                                        >)
                                       </div>
                                     {/if}
                                   </div>

@@ -3,7 +3,7 @@
   export let size = null;
   export let black = false;
 
-  const textColor = black ? 'text-black' : 'text-white'
+  const textColor = black ? "text-black" : "text-white";
 
   const config = {
     panel: { title: "Panelová debata", style: "bg-orange-400" },
@@ -21,7 +21,11 @@
   $: current = config[event.type];
 </script>
 
-<div class="inline-block {size === 'big' ? 'h-6 text-sm' : 'h-5 text-xs'} font-normal">
+<div
+  class="inline-block {size === 'big'
+    ? 'h-6 text-sm'
+    : 'h-5 text-xs'} font-normal"
+>
   <div
     class="{size === 'big'
       ? 'px-2 py-0.5'
