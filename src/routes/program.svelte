@@ -9,7 +9,6 @@
   import { format, compareAsc, compareDesc } from "date-fns";
   import { formatCET } from '$lib/utils.js';
   import { bundle, userData, loadInfo, schedulePref } from "$lib/stores.js";
-  import { cs } from "date-fns/locale/index.js";
   import { parsePeriod } from "$lib/periods.js";
   import SvelteMarkdown from "svelte-markdown";
   import SvelteTooltip from "$lib/SvelteTooltip.svelte";
@@ -408,7 +407,7 @@
           {#if st.name}
             {st.name}
           {:else}
-            {formatCET(new Date(st.date), "iiii d.M.y", { locale: cs })}
+            {formatCET(new Date(st.date), "iiii d.M.y")}
           {/if}
         </h2>
         <div class="inline-block ml-2 text-sm font-normal my-auto print:hidden">
@@ -433,7 +432,7 @@
               <tr>
                 <th
                   class="xl:w-16 top-0 sticky bg-white uppercase text-sm px-0.5 text-custom-blue"
-                  >{formatCET(new Date(st.date), "iiiiii", { locale: cs })}<br
+                  >{formatCET(new Date(st.date), "iiiiii")}<br
                   />{formatCET(new Date(st.date), "d.M.")}</th
                 >
                 {#each activeStages($bundle, $bundle.spec.stages, st, plan) as stage}

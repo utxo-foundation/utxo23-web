@@ -232,8 +232,8 @@
     </div>
   </div>
   <div class="mt-4">
-    {#each ids as id}
-      <Event event={$bundle.spec.events.find((e) => e.id === id)} hideDate="true" />
+    {#each ids.map(id => $bundle.spec.events.find(e => e.id === id)) as ev}
+      <Event event={ev} />
     {/each}
   </div>
   <!--div class="mt-4">
