@@ -11,4 +11,4 @@
   const end = new Date(item.period.end)
 </script>
 
-<div class="font-semibold">{format(start, 'iiiii', { locale: cs }).toUpperCase()} {format(start, 'HH:mm')}-{format(end, 'HH:mm')} ({stage ? stage.name : 'n/a'})</div>
+<div class="font-semibold">{format(start, 'iiiiii', { locale: cs }).toUpperCase()} {format(start, 'HH:mm')}-{format(end, 'HH:mm')} ({stage ? stage.name : 'n/a'})</div>
