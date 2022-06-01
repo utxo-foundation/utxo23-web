@@ -8,6 +8,7 @@
   import SvelteMarkdown from "svelte-markdown";
   import Link from "$lib/Link.svelte";
   import * as _ from "lodash";
+  import QRCode from "$lib/QRCode.svelte";
   import {
     orderTicketForm,
     bundle,
@@ -385,6 +386,8 @@
       await loadOrders($userData);
     }
   }
+
+  let qrVisible = null;
 </script>
 
 <svelte:head>
@@ -571,6 +574,27 @@
                     >
                   </div>
                 {/if}
+                <div class="mt-2">
+                  {#if qrVisible === ticket.id}
+                    <div class="mt-2">
+                      <QRCode value="{ticket.id}:xxxxx" />
+                      <div class="mt-2">
+                        <a
+                          href="#"
+                          class="underline hover:no-underline"
+                          on:click={() => (qrVisible = null)}>Schovat QR kód</a
+                        >
+                      </div>
+                    </div>
+                  {:else}
+                    <a
+                      href="#"
+                      class="underline hover:no-underline"
+                      on:click={() => (qrVisible = ticket.id)}
+                      >Zobrazit QR kód</a
+                    >
+                  {/if}
+                </div>
               </div>
             </div>
           {/each}
