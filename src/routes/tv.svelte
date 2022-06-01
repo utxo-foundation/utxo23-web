@@ -3,12 +3,13 @@
 </script>
 
 <script>
-  import { onMount, onDestroy } from "svelte";
+  import { onMount, onDestroy, afterUpdate } from "svelte";
   import { bundle, userData } from "$lib/stores.js";
   import { format, formatDistanceToNow } from "date-fns";
   import { formatCET } from "$lib/utils.js";
   import { parsePeriod } from "$lib/periods.js";
   import EventTypeLabel from "$lib/EventTypeLabel.svelte";
+  import TVScheduleDesc from "$lib/TVScheduleDesc.svelte";
   import Avatar from "$lib/Avatar.svelte";
   import YouTube from "$lib/YouTube.svelte";
   import SvelteMarkdown from "svelte-markdown";
@@ -16,11 +17,35 @@
   import { scrollTo, scrollRef, scrollTop } from "svelte-scrolling";
   const renderers = { link: Link };
 
-  const YToptions = {
+  const maxSingleWidth = 700;
+
+  let loading = true;
+  let clientWidth = 0;
+  let _clientWidth = 0;
+  $: width =
+    clientWidth <= maxSingleWidth ? clientWidth : Math.round(clientWidth / 2);
+
+  $: YToptions = {
+    height: (width / 16) * 9,
+    width: width,
     playerVars: {
       autoplay: 0,
     },
   };
+
+  afterUpdate(async () => {
+    if (clientWidth > 0 && loading) {
+      loading = false;
+      _clientWidth = clientWidth;
+    }
+    if (clientWidth !== _clientWidth) {
+      loading = true;
+      setTimeout(() => {
+        loading = false;
+      }, 1000);
+    }
+  });
+
   const stageStatus = {};
   const stagePlayers = {};
   let events = [];
@@ -100,9 +125,8 @@
 
     const stages = _bundle.spec.stages;
     for (const stage of stages.filter((s) => s.livestream)) {
-      let nextEvents = [
-        ...globalNextEvents.filter((e) => e.stage === stage.id),
-      ];
+      let allEvents = globalNextEvents.filter((e) => e.stage === stage.id);
+      let nextEvents = [...allEvents];
       let current = null;
       if (
         nextEvents.length > 0 &&
@@ -111,6 +135,8 @@
         current = nextEvents[0];
         nextEvents = nextEvents.slice(1);
       }
+
+      let breakType = "break";
 
       const allStreams = stage.streams.map((st) => parsePeriod(_bundle, st));
       const nextStreams = allStreams.filter(
@@ -131,6 +157,13 @@
         currentPercentage = elapsed / (duration / 100);
       }
 
+      if (!current && nextEvents[0] && allEvents[0].id === nextEvents[0].id) {
+        breakType = "beforeStart";
+      }
+      if (!current && nextEvents.length === 0) {
+        breakType = "afterEnd";
+      }
+
       const day = formatCET(
         new Date(nextStreams[0].period.start),
         "yyyy-MM-dd"
@@ -147,9 +180,10 @@
         next: extendEvents(nextEvents.slice(0, 2), _bundle),
         stream: nextStreams[0],
         scheduleLink,
+        breakType,
       };
     }
-    console.log(stageStatus);
+    //console.log(stageStatus);
   }
 
   function makeSpoiler(_e) {
@@ -177,10 +211,13 @@
       >
         {#each $bundle.spec.stages.filter((s) => s.livestream) as stage, i}
           <div
-            class="w-full md:w-1/3 lg:w-1/4 px-6 py-4 bg-blue-web-bg/70 hover:bg-blue-web-bg rounded-2xl text-center cursor-pointer transition-all shadow-xl"
-            use:scrollTo={stage.id}
-            on:click={() => startStream(stage.id)}
+            class="w-full md:w-1/3 lg:w-1/4 px-6 py-4 bg-blue-web-bg/70 rounded-2xl text-center  transition-all shadow-xl"
           >
+            <!--
+            hover:bg-blue-web-bg 
+            on:click={() => startStream(stage.id)}
+            use:scrollTo={stage.id}
+          -->
             <div class="uppercase font-semibold text-white text-lg">
               <i class="fa-solid fa-video mr-1 text-white/50" />
               {stage.name}
@@ -215,12 +252,9 @@
                     {ss.current._event.name}
                   </div>
                 {:else}
-                  <span class="italic"
-                    >☕ Přestávka {#if ss.next[0]}do {formatCET(
-                        new Date(ss.next[0].period.start),
-                        "HH:mm"
-                      )}{/if}</span
-                  >
+                  <span class="italic">
+                    <TVScheduleDesc {ss} />
+                  </span>
                 {/if}
               {/each}
             </div>
@@ -228,7 +262,7 @@
         {/each}
       </div>
     </div>
-    <section class="relative mx-auto lg:py-6 px-6 text-white">
+    <section class="relative mx-auto lg:py-6 px-2 lg:px-6 text-white">
       {#each $bundle.spec.stages.filter((s) => s.livestream) as stage, i}
         <div
           id={stage.id}
@@ -249,17 +283,28 @@
               >
             </div>
           </div>
-          <div class="flex gap-6 mt-4 flex-wrap xl:flex-nowrap">
-            <div use:scrollRef={stage.id}>
-              <YouTube
-                videoId={stageStatus[stage.id].stream.name}
-                class="bg-blue-web-bg/60"
-                id="player-{stage.id}"
-                options={Object.assign({}, YToptions)}
-                bind:player={stagePlayers[stage.id]}
-                on:play={() => youtubePlayed(stage.id)}
-              />
-            </div>
+          <div
+            class="flex gap-6 mt-4 flex-wrap md:flex-nowrap"
+            bind:clientWidth
+          >
+            {#if !loading}
+              <div use:scrollRef={stage.id}>
+                <YouTube
+                  videoId={stageStatus[stage.id].stream.name}
+                  class="bg-blue-web-bg/60"
+                  id="player-{stage.id}"
+                  options={Object.assign({}, YToptions)}
+                  bind:player={stagePlayers[stage.id]}
+                  on:play={() => youtubePlayed(stage.id)}
+                />
+              </div>
+            {:else}
+              <div
+                class="w-full h-full bg-blue-web-bg/60 my-2 py-2 text-center my-auo italic text-white/50"
+              >
+                Načitám video..
+              </div>
+            {/if}
             <div class="pr-2 w-full">
               {#each [stageStatus[stage.id]] as ss}
                 <div>
@@ -342,10 +387,7 @@
                     </div>
                   {:else}
                     <div class="text-xl italic">
-                      ☕ Přestávka {#if ss.next[0]}do {format(
-                          new Date(ss.next[0].period.start),
-                          "HH:mm"
-                        )}{/if}
+                      <TVScheduleDesc {ss} />
                     </div>
                   {/if}
                 </div>
