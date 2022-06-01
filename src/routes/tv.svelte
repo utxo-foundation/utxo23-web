@@ -7,7 +7,7 @@
   import { bundle, userData } from "$lib/stores.js";
   import { format, formatDistanceToNow } from "date-fns";
   import { formatCET } from "$lib/utils.js";
-  import { parsePeriod } from "$lib/periods.js";
+  import { genStatus } from '$lib/schedule.js';
   import EventTypeLabel from "$lib/EventTypeLabel.svelte";
   import TVScheduleDesc from "$lib/TVScheduleDesc.svelte";
   import Avatar from "$lib/Avatar.svelte";
@@ -73,13 +73,13 @@
   bundle.subscribe((_bundle) => {
     events = _bundle.spec.schedule;
     cachedBundle = _bundle;
-    genStatus(cachedBundle);
+    genStatus(cachedBundle, stageStatus);
   });
 
   let interval = null;
   onMount(() => {
     interval = setInterval(() => {
-      genStatus(cachedBundle);
+      genStatus(cachedBundle, stateStatus);
     }, 5000);
   });
   onDestroy(() => {
@@ -105,85 +105,6 @@
 
   function findSpeaker(sp, _bundle) {
     return _bundle.spec.speakers.find((s) => s.id === sp);
-  }
-
-  function extendEvents(arr, _bundle) {
-    for (const ev of arr) {
-      ev._event = _bundle.spec.events.find((e) => e.id === ev.event);
-    }
-    return arr;
-  }
-
-  function genStatus(_bundle) {
-    //const now = new Date(`2022-06-05T${format(new Date(), "HH:mm:ss")}`);
-    const now = new Date();
-    //const now = new Date(`2022-06-04T13:25`)
-
-    let globalNextEvents = events.filter((ev) => {
-      return new Date(ev.period.end).getTime() > now.getTime();
-    });
-
-    const stages = _bundle.spec.stages;
-    for (const stage of stages.filter((s) => s.livestream)) {
-      let allEvents = globalNextEvents.filter((e) => e.stage === stage.id);
-      let nextEvents = [...allEvents];
-      let current = null;
-      if (
-        nextEvents.length > 0 &&
-        new Date(nextEvents[0].period.start).getTime() <= now.getTime()
-      ) {
-        current = nextEvents[0];
-        nextEvents = nextEvents.slice(1);
-      }
-
-      let breakType = "break";
-
-      const allStreams = stage.streams.map((st) => parsePeriod(_bundle, st));
-      const nextStreams = allStreams.filter(
-        (s) => s.period.end.getTime() >= now.getTime()
-      );
-      if (nextStreams.length === 0) {
-        nextStreams.push(allStreams[allStreams.length - 1]);
-      }
-      let currentPercentage = null;
-      if (current) {
-        let duration =
-          (new Date(current.period.end).getTime() -
-            new Date(current.period.start).getTime()) /
-          1000;
-        let elapsed = Math.floor(
-          (now.getTime() - new Date(current.period.start).getTime()) / 1000
-        );
-        currentPercentage = elapsed / (duration / 100);
-      }
-
-      if (!current && nextEvents[0] && allEvents[0].id === nextEvents[0].id) {
-        breakType = "beforeStart";
-      }
-      if (!current && nextEvents.length === 0) {
-        breakType = "afterEnd";
-      }
-
-      const day = formatCET(
-        new Date(nextStreams[0].period.start),
-        "yyyy-MM-dd"
-      );
-      let ctime = 0;
-      if (day === "2022-06-05") {
-        ctime = 2;
-      }
-      const scheduleLink = `/program?time=${ctime}&stage=${stage.id}&desc=true`;
-
-      stageStatus[stage.id] = {
-        current: current ? extendEvents([current], _bundle)[0] : null,
-        currentPercentage,
-        next: extendEvents(nextEvents.slice(0, 2), _bundle),
-        stream: nextStreams[0],
-        scheduleLink,
-        breakType,
-      };
-    }
-    //console.log(stageStatus);
   }
 
   function makeSpoiler(_e) {

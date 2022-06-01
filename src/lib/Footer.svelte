@@ -2,9 +2,10 @@
   import { bundle } from "$lib/stores";
   import SocialButtons from "$lib/SocialButtons.svelte";
   import { version } from "$lib/version.js";
+  import { page } from "$app/stores";
 </script>
 
-{#if $bundle}
+{#if $bundle && !['/kiosk'].includes($page.url.pathname)}
   <div class="bg-blue-web-bg text-white print:hidden">
     <div
       class="relative mx-auto px-6 pt-10 pb-2 sm:pb-6 max-w-6xl sm:flex pr-4"
