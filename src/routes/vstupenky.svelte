@@ -577,7 +577,7 @@
                 <div class="mt-2">
                   {#if qrVisible === ticket.id}
                     <div class="mt-2">
-                      <QRCode value="{ticket.id}:xxxxx" />
+                      <QRCode value="{ticket.id}:{ticket.secret}" />
                       <div class="mt-2">
                         <a
                           href="#"
