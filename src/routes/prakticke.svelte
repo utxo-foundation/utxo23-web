@@ -25,7 +25,7 @@
             ><h2 class="text-xl uppercase font-bold">{item.name}</h2></a
           >
         </div>
-        <div class="mt-4">
+        <div class="mt-4 utxo-markdown">
           <SvelteMarkdown source={item.text} {renderers} />
         </div>
       </div>

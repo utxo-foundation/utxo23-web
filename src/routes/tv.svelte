@@ -270,8 +270,9 @@
         >
           <div class="md:flex gap-4">
             <h1 class="uppercase text-2xl font-bold">
-              <a use:scrollTo={stage.id} on:click={() => startStream(stage.id)}
-                ><i class="fa-solid fa-video mr-1 text-white/50" />
+              <a
+                ><!-- use:scrollTo={stage.id} on:click={() => startStream(stage.id)}-->
+                <i class="fa-solid fa-video mr-1 text-white/50" />
                 {stage.name}</a
               >
             </h1>
