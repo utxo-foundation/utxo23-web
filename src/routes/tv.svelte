@@ -6,6 +6,7 @@
   import { onMount, onDestroy } from "svelte";
   import { bundle, userData } from "$lib/stores.js";
   import { format, formatDistanceToNow } from "date-fns";
+  import { formatCET } from "$lib/utils.js";
   import { parsePeriod } from "$lib/periods.js";
   import EventTypeLabel from "$lib/EventTypeLabel.svelte";
   import Avatar from "$lib/Avatar.svelte";
@@ -89,8 +90,8 @@
   }
 
   function genStatus(_bundle) {
-    const now = new Date(`2022-06-04T${format(new Date(), "HH:mm:ss")}`);
-    //const now = new Date()
+    //const now = new Date(`2022-06-05T${format(new Date(), "HH:mm:ss")}`);
+    const now = new Date();
     //const now = new Date(`2022-06-04T13:25`)
 
     let globalNextEvents = events.filter((ev) => {
@@ -130,7 +131,10 @@
         currentPercentage = elapsed / (duration / 100);
       }
 
-      const day = format(new Date(nextStreams[0].period.start), "yyyy-MM-dd");
+      const day = formatCET(
+        new Date(nextStreams[0].period.start),
+        "yyyy-MM-dd"
+      );
       let ctime = 0;
       if (day === "2022-06-05") {
         ctime = 2;
@@ -178,7 +182,7 @@
             on:click={() => startStream(stage.id)}
           >
             <div class="uppercase font-semibold text-white text-lg">
-              #{i + 1}
+              <i class="fa-solid fa-video mr-1 text-white/50" />
               {stage.name}
             </div>
             <div class="mt-2 text-sm">
@@ -200,10 +204,10 @@
                   </div>
                   <div>
                     <span class="text-white/70"
-                      >{format(
+                      >{formatCET(
                         new Date(ss.current.period.start),
                         "HH:mm"
-                      )}-{format(
+                      )}-{formatCET(
                         new Date(ss.current.period.end),
                         "HH:mm"
                       )}</span
@@ -212,7 +216,7 @@
                   </div>
                 {:else}
                   <span class="italic"
-                    >☕ Přestávka {#if ss.next[0]}do {format(
+                    >☕ Přestávka {#if ss.next[0]}do {formatCET(
                         new Date(ss.next[0].period.start),
                         "HH:mm"
                       )}{/if}</span
@@ -227,14 +231,14 @@
     <section class="relative mx-auto lg:py-6 px-6 text-white">
       {#each $bundle.spec.stages.filter((s) => s.livestream) as stage, i}
         <div
-          use:scrollRef={stage.id}
           id={stage.id}
           class="mb-8 bg-blue-web-bg/90 p-4 rounded-lg shadow-xl"
         >
           <div class="md:flex gap-4">
             <h1 class="uppercase text-2xl font-bold">
               <a use:scrollTo={stage.id} on:click={() => startStream(stage.id)}
-                >Stream #{i + 1} - {stage.name}</a
+                ><i class="fa-solid fa-video mr-1 text-white/50" />
+                {stage.name}</a
               >
             </h1>
             <div class="my-auto mt-2 md:mt-0 text-sm flex-1 md:text-right">
@@ -246,7 +250,7 @@
             </div>
           </div>
           <div class="flex gap-6 mt-4 flex-wrap xl:flex-nowrap">
-            <div>
+            <div use:scrollRef={stage.id}>
               <YouTube
                 videoId={stageStatus[stage.id].stream.name}
                 class="bg-blue-web-bg/60"
@@ -380,6 +384,9 @@
         </div>
       {/each}
     </section>
+    <div class="text-center text-white/50 pb-10">
+      Všechny časy jsou lokální - středoevropské časové pásmo CET (+02:00).
+    </div>
   {:else}
     Načítám ...
   {/if}

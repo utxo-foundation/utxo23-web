@@ -85,7 +85,7 @@
     <div class="text-sm flex flex-wrap gap-3 flex-1">
       <div class="opacity-80"><EventTypeLabel event={e} /></div>
       {#if schedule && !hideDate}
-        <EventSchedule item={schedule} e={e} bundle={$bundle} />
+        <EventSchedule item={schedule} {e} bundle={$bundle} />
       {/if}
       {#if duration}<div class="text-xs my-auto">{duration}m</div>{/if}
       {#if e.track}

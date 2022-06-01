@@ -7,10 +7,11 @@
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import { format, compareAsc, compareDesc } from "date-fns";
-  import { formatCET } from '$lib/utils.js';
+  import { formatCET } from "$lib/utils.js";
   import { bundle, userData, loadInfo, schedulePref } from "$lib/stores.js";
   import { parsePeriod } from "$lib/periods.js";
-  import { cs } from "date-fns/locale/index.js"
+  import { cs } from "date-fns/locale/index.js";
+  import { EventTypes } from "$lib/config.js";
   import SvelteMarkdown from "svelte-markdown";
   import SvelteTooltip from "$lib/SvelteTooltip.svelte";
   const renderers = { link: Link };
@@ -228,6 +229,16 @@
     return "border border-blue-web/50";
   }
 
+  $: eventTypes = $bundle && $bundle.spec ? extendEventTypes($bundle) : [];
+
+  function extendEventTypes(bundle) {
+    return bundle.spec["event-types"]
+      .map((et) => {
+        return Object.assign({}, et, EventTypes[et.id]);
+      })
+      .filter((et) => !et.hidden);
+  }
+
   function isPeriodOverlap(x, y) {
     const xstart = new Date(x.start);
     const xend = new Date(x.end);
@@ -274,25 +285,9 @@
       console.log(`Event not found: ${eventId}`);
       return null;
     }
-    switch (ev.type) {
-      case "panel":
-        ev.color = "bg-orange-400/20 hover:bg-orange-400/40";
-        break;
-      case "talk":
-        ev.color = "bg-custom-green/20 hover:bg-custom-green/40";
-        break;
-      case "workshop":
-        ev.color = "bg-custom-blue/20 hover:bg-custom-blue/40";
-        break;
-      case "campfire":
-        ev.color = "bg-purple-400/20 hover:bg-purple-400/40";
-        break;
-      case "lightning-series":
-        ev.color = "bg-yellow-400/20 hover:bg-yellow-400/40";
-        break;
-      default:
-        ev.color = "bg-rose-400/20 hover:bg-rose-400/40";
-    }
+    const et = EventTypes[ev.type];
+    ev.color = et.color ? `${et.colorLight} hover:${et.colorDark}` : "";
+    console.log(ev.color);
     return ev;
   }
 </script>
@@ -402,26 +397,40 @@
   {#if $bundle}
     {#each scheduleTimes($bundle, $schedulePref.time) as st}
       <div
-        class="max-w-6xl mx-auto px-6 mb-4 print:max-w-full break-before-page flex gap-3"
+        class="max-w-6xl mx-auto px-6 mb-4 print:max-w-full break-before-page flex flex-wrap gap-3"
       >
-        <h2 class="uppercase text-xl font-bold">
+        <h2 class="flex-0 print:flex-1 uppercase text-xl font-bold">
           {#if st.name}
             {st.name}
           {:else}
             {formatCET(new Date(st.date), "iiii d.M.y")}
           {/if}
         </h2>
-        <div class="inline-block ml-2 text-sm font-normal my-auto print:hidden">
+        <div
+          class="flex-1 inline-block ml-2 text-sm font-normal my-auto print:hidden"
+        >
           <a
             href="https://pub.utxo.cz/22/pdf/{st.code}.pdf"
             target="_blank"
             class=""><i class="fa-regular fa-file-pdf" /> PDF</a
           >
         </div>
+        <div class="flex my-auto gap-2 justify-items-end mr-4">
+          {#each eventTypes as et}
+            <div class="flex gap-1 w-1/4 text-blue-web">
+              <div class="w-3 h-3 {et.color} my-auto rounded-sm shrink-0" />
+              <div class="text-sm print:text-lg my-auto whitespace-nowrap">
+                {#if et.url}<a href={et.url} target="_blank"
+                    >{et.shortname || et.name}</a
+                  >{:else}{et.shortname || et.name}{/if}
+              </div>
+            </div>
+          {/each}
+        </div>
         <div
-          class="flex-1 text-right hidden sm:block float-right text-blue-web/50"
+          class="text-right hidden sm:block float-right text-blue-web/50 text-sm print:text-base my-auto"
         >
-          Poslední aktualizace: {formatCET(new Date($bundle.time), "d.M.y H:mm")}
+          Aktualizováno: {formatCET(new Date($bundle.time), "d.M.y H:mm")}
         </div>
       </div>
       <div class="relative">
@@ -541,8 +550,12 @@
         </div>
       </div>
     {/each}
-    <div class="print:hidden italic max-w-6xl mx-auto px-6 mb-4 print:max-w-full break-before-page flex gap-3">
-      Všechny časy jsou lokální - středoevropské časové pásmo CET (+02:00). Všechny události jsou v češtině nebo slovenštině, pokud není uvedeno jinak.
+    <div
+      class="print:hidden italic max-w-6xl mx-auto px-6 mb-4 print:max-w-full break-before-page flex gap-3"
+    >
+      Všechny časy jsou lokální - středoevropské časové pásmo CET (+02:00).
+      Všechny události jsou v češtině nebo slovenštině, pokud není uvedeno
+      jinak.
     </div>
   {:else}
     Načítám ..

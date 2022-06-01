@@ -106,10 +106,12 @@
         arr = arr.filter((e) => e.track === f.key);
       }
       if (f.type === "text") {
-        if (f.key.substring(0,1) === '@') {
-          const schedule = bd.spec.schedule.find(e => e.id === f.key.substring(1))
+        if (f.key.substring(0, 1) === "@") {
+          const schedule = bd.spec.schedule.find(
+            (e) => e.id === f.key.substring(1)
+          );
           if (schedule) {
-            const ev = bd.spec.events.find(e => e.id === schedule.event)
+            const ev = bd.spec.events.find((e) => e.id === schedule.event);
             arr = [ev];
           } else {
             arr = [];
@@ -243,7 +245,7 @@
     </div>
   </div>
   <div class="mt-4">
-    {#each ids.map(id => $bundle.spec.events.find(e => e.id === id)) as ev}
+    {#each ids.map((id) => $bundle.spec.events.find((e) => e.id === id)) as ev}
       <Event event={ev} />
     {/each}
   </div>
