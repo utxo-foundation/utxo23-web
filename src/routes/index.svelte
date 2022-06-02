@@ -188,9 +188,9 @@
 <section class="mx-auto py-10 px-6 max-w-auto overflow-hidden">
   <div class="text-blue-web lg:mt-10">
     <div class="text-2xl uppercase font-bold text-center">Partneři</div>
-    <div class="mt-6 text-center">Sponzoři</div>
+    <div class="mt-6 text-center">Hlavní sponzoři</div>
     <div class="mt-6 flex flex-wrap gap-8 justify-center">
-      {#each $bundle.spec.partners.filter((p) => p.type === "sponsor") as p}
+      {#each $bundle.spec.partners.filter((p) => p.type === "sponsor").slice(0,4) as p}
         <div class="w-32">
           <a href={p.web.url} target="_blank"
             ><Avatar
@@ -198,6 +198,22 @@
               col="partners"
               size="custom"
               customSize="w-28 shadow-xl"
+            /></a
+          >
+          <div class="text-center text-sm uppercase font-bold">{p.name}</div>
+        </div>
+      {/each}
+    </div>
+    <div class="mt-6 text-center">Sponzoři</div>
+    <div class="mt-6 flex flex-wrap gap-8 justify-center">
+      {#each $bundle.spec.partners.filter((p) => p.type === "sponsor").slice(4) as p}
+        <div class="w-32">
+          <a href={p.web.url} target="_blank"
+            ><Avatar
+              speaker={p}
+              col="partners"
+              size="custom"
+              customSize="w-20 shadow-xl"
             /></a
           >
           <div class="text-center text-sm uppercase font-bold">{p.name}</div>
