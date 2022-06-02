@@ -415,7 +415,7 @@
             class=""><i class="fa-regular fa-file-pdf" /> PDF</a
           >
         </div>
-        <div class="flex my-auto gap-2 justify-items-end mr-4">
+        <div class="flex flex-wrap sm:flex-nowrap my-auto gap-2 justify-items-end mr-4">
           {#each eventTypes as et}
             <div class="flex gap-1 w-1/4 text-blue-web">
               <div class="w-3 h-3 {et.color} my-auto rounded-sm shrink-0" />
