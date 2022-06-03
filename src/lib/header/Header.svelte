@@ -75,13 +75,13 @@
               >
             {/if}
             {#if $page.url.pathname !== "/tv"}
-              <!--a
+              <a
                 sveltekit:prefetch
                 href="/tv"
                 class="m-auto hover:text-[#E16A61] text-custom-green"
                 class:text-blue-400={$page.url.pathname === "/tv"}
                 ><i class="fa-solid fa-video mr-1.5" /> Livestreamy</a
-              -->
+              >
             {/if}
             <a
               sveltekit:prefetch
