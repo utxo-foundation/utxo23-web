@@ -8,10 +8,9 @@ function extendEvents(arr, _bundle) {
   return arr;
 }
 
-export function genStatus(_bundle, stageStatus) {
-  //const now = new Date(`2022-06-05T${format(new Date(), "HH:mm:ss")}`);
-  //const now = new Date();
-  const now = new Date(`2022-06-04T13:25`)
+export function genStatus(_bundle, stageStatus, now = new Date()) {
+  //now = new Date(`2022-06-05T${format(new Date(), "HH:mm:ss")}`);
+  //now = new Date(`2022-06-04T13:25`)
 
   let globalNextEvents = _bundle.spec.schedule.filter((ev) => {
     return new Date(ev.period.end).getTime() > now.getTime();
@@ -19,7 +18,8 @@ export function genStatus(_bundle, stageStatus) {
 
   const stages = _bundle.spec.stages;
   for (const stage of stages.filter((s) => s.livestream)) {
-    let allEvents = globalNextEvents.filter((e) => e.stage === stage.id);
+    let stageEvents = _bundle.spec.schedule.filter((e) => e.stage === stage.id).sort((x, y) => x.period.start > y.period.start ? 1 : -1)
+    let allEvents = globalNextEvents.filter((e) => e.stage === stage.id).sort((x, y) => x.period.start > y.period.start ? 1 : -1);
     let nextEvents = [...allEvents];
     let current = null;
     if (
@@ -32,7 +32,7 @@ export function genStatus(_bundle, stageStatus) {
 
     let breakType = "break";
 
-    const allStreams = stage.streams.map((st) => parsePeriod(_bundle, st));
+    const allStreams = stage.streams.map((st) => parsePeriod(_bundle, st))
     const nextStreams = allStreams.filter(
       (s) => s.period.end.getTime() >= now.getTime()
     );
@@ -51,7 +51,8 @@ export function genStatus(_bundle, stageStatus) {
       currentPercentage = elapsed / (duration / 100);
     }
 
-    if (!current && nextEvents[0] && allEvents[0].id === nextEvents[0].id) {
+    if (!current && nextEvents[0] && stageEvents[0].id === nextEvents[0].id) {
+      //console.log(nextEvents[0], allEvents[0])
       breakType = "beforeStart";
     }
     if (!current && nextEvents.length === 0) {

@@ -79,7 +79,7 @@
   let interval = null;
   onMount(() => {
     interval = setInterval(() => {
-      genStatus(cachedBundle, stateStatus);
+      genStatus(cachedBundle, stageStatus);
     }, 5000);
   });
   onDestroy(() => {
