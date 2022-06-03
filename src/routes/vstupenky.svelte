@@ -412,7 +412,7 @@
                   <div
                     class="utxo-ticket-edit-button float-right transition-all"
                   >
-                    <button
+                    <!--button
                       class="text-blue-web/60 hover:text-blue-web/100"
                       on:click={handleTicketEditShow(
                         ticket.id,
@@ -420,7 +420,7 @@
                         ticket.orderId,
                         $userData
                       )}><i class="fas fa-edit" /></button
-                    >
+                    -->
                   </div>
                 {/if}
                 <div class="flex gap-3 text-sm">
