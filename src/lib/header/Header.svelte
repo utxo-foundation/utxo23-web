@@ -90,12 +90,12 @@
               class:text-blue-400={$page.url.pathname === "/program"}>Program</a
             >
             {#if $page.url.pathname !== "/tv"}
-              <!--a
+              <a
               sveltekit:prefetch
               href="/mapa"
               class="m-auto hover:text-[#E16A61]"
               class:text-blue-400={$page.url.pathname === "/mapa"}>Mapa</a
-            -->
+            >
               <a
                 sveltekit:prefetch
                 href="/prakticke"

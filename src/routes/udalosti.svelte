@@ -116,6 +116,9 @@
         <SvelteMarkdown source={e.description} {renderers} />
       </div>
     {/if}
+    <div>
+      <a href="https://ptej.se/qa/utxo-{schedule.id}" class="underline hover:no-underline" target="_blank">Otázky na přednášejícího/přednášku</a> (ptej.se)
+    </div>
     {#if e.parent}
       <div class="mt-6">
         <h2 class="text uppercase mb-4 font-semibold">Součást události:</h2>
