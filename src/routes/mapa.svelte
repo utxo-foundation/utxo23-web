@@ -15,7 +15,7 @@
   <h1 class="uppercase text-2xl font-bold">Mapa</h1>
 
   <div class="mt-6">
-    <img src="/img/mapa.jpg" alt="Mapa Gabriel Loci" />
+    <img src="/img/mapa@0.5x.png" alt="Mapa Gabriel Loci" />
 
   </div>
 </section>
