@@ -196,9 +196,9 @@
           >
         </div>
       </div>
-      <div class="mt-6 lg:mt-0 text-left sm:text-right lg:pr-20 mb-2 text-xl">
+      <!--div class="mt-6 lg:mt-0 text-left sm:text-right lg:pr-20 mb-2 text-xl">
         <Countdown />
-      </div>
+      </div-->
     </div>
   {/if}
 </header>

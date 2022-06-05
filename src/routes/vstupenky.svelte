@@ -748,8 +748,7 @@
                 vstupenky ({$apiStatus.wave.live.waiting}) se postupně vrací do
                 prodeje.
               {:else}
-                Aktuální vlna vstupenek je vyprodaná. Další budou k dispozici od
-                27. dubna 13:00.
+                Vyprodáno!
               {/if}
             </div>
           {:else if !showOrder && !forceShow}
