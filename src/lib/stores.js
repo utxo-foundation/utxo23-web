@@ -32,7 +32,7 @@ export const loadInfo = writable({ loaded: false })
 export const schedulePref = writable({
   stage: null,
   track: null,
-  time: null,
+  time: '2',
   tracks: [],
   showDescriptions: false
 });

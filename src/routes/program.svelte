@@ -43,6 +43,9 @@
             }
           } else {
             sp[up.key] = _sp ? _sp : "all";
+            if (up.key === 'time') {
+              sp[up.key] = _sp ? _sp : "2"; 
+            }
           }
         }
         return sp;
@@ -67,7 +70,7 @@
 
     const spsub = schedulePref.subscribe((sp) => {
       const updates = [];
-      updates.push(["time", sp.time === "all" ? undefined : sp.time]);
+      updates.push(["time", sp.time === "2" ? undefined : sp.time]);
       updates.push(["stage", sp.stage === "all" ? undefined : sp.stage]);
       updates.push([
         "desc",
