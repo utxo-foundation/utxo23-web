@@ -167,7 +167,7 @@
             <div class="">Gabriel Loci, Praha</div>
           </div>
         </div>
-        <div class="flex mt-10 gap-4 flex-wrap">
+        <!--div class="flex mt-10 gap-4 flex-wrap">
           <div class="text-left">
             <div class="">
               <a
@@ -183,6 +183,9 @@
               vstupenek (za {$apiStatus.wave.price} Kč)
             </div>
           {/if}
+        </div !-->
+        <div class="mt-10 font-bold">
+          Děkujeme všem za účast! Uvidíme se za rok .-)
         </div>
         <div class="mt-8 ml-3 lg:ml-6 text-left flex m-auto">
           <a
