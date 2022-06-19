@@ -44,5 +44,8 @@
     "svelte-qrcode": "^1.0.0",
     "svelte-scrolling": "^1.1.1",
     "svelte-youtube": "^0.0.2"
+  },
+  "engines": {
+    "node": ">=16.7"
   }
 }
