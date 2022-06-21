@@ -261,6 +261,8 @@
   );
   $: totalPrice = totalBeforeTip + tip;
 
+  $: enabled = false;
+
   const orderStatuses = {
     new: {
       name: "Čeká na platbu",
@@ -607,7 +609,7 @@
         <div class="mt-4">Nemáte žádnou vstupenku</div>
       {/if}
     </div>
-    {#if $apiStatus}
+    {#if $apiStatus && enabled}
       {#if orders.length > 0}
         <div class="mt-10">
           <h1 class="uppercase text-2xl font-bold">Vaše objednávky</h1>
