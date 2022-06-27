@@ -61,7 +61,7 @@
 </script>
 
 {#if size === "custom"}
-  <div class="customSize} text-center pb-4 m-auto">
+  <div class="{customSize} text-center m-auto">
     <img
       src={currentImg}
       class="{customSize} rounded-full m-auto"

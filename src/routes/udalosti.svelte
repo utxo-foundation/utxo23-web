@@ -16,6 +16,7 @@
   import Link from "$lib/Link.svelte";
   import Paragraph from "$lib/Paragraph.svelte";
   import EventSchedule from "$lib/EventSchedule.svelte";
+  import YouTube from "$lib/YouTube.svelte";
 
   const renderers = { link: Link, paragraph: Paragraph };
 
@@ -116,9 +117,15 @@
         <SvelteMarkdown source={e.description} {renderers} />
       </div>
     {/if}
-    <div>
+    {#if e.video && e.video.youtube}
+      <div class="mb-10 mt-10">
+        <div class="mb-4 text-xl font-semibold">Záznam</div>
+        <YouTube videoId={e.video.youtube} id="player-{e.id}" />
+      </div>
+    {/if}
+    <!--div>
       <a href="https://ptej.se/qa/utxo-{schedule.id}" class="underline hover:no-underline" target="_blank">Otázky na přednášejícího/přednášku</a> (ptej.se)
-    </div>
+    </div-->
     {#if e.parent}
       <div class="mt-6">
         <h2 class="text uppercase mb-4 font-semibold">Součást události:</h2>

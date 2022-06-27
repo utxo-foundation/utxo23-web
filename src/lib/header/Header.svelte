@@ -12,7 +12,7 @@
   }
 </script>
 
-{#if !['/kiosk'].includes($page.url.pathname)}
+{#if !['/kiosk', '/tv-screen'].includes($page.url.pathname)}
 <header
   class="relative bg-center bg-cover {$page.url.pathname !== '/tv'
     ? "bg-[url('/img/bg-header.jpg')]"
