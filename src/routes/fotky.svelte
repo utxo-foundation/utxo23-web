@@ -1,10 +1,10 @@
 
 <section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-blue-web">
-  <h1 class="uppercase text-2xl font-bold"><a href="https://photos.app.goo.gl/KsCZ9KrVbREr92TXA">Fotky - zavi</a></h1>
+  <h1 class="uppercase text-2xl font-bold mb-4"><a href="https://photos.app.goo.gl/KsCZ9KrVbREr92TXA">Fotky od zaviho</a></h1>
 
   <div class="aspect-[4/3]">
     <script src="https://cdn.jsdelivr.net/npm/publicalbum@latest/embed-ui.min.js" async></script>
-    <div class="pa-gallery-player-widget mt-4" style="display:none; width: 100%; height: 100%;"
+    <div class="pa-gallery-player-widget" style="display:none; width: 100%; height: 100%;"
       data-link="https://photos.app.goo.gl/KsCZ9KrVbREr92TXA"
       data-title="UTXO.22 - zavi"
       data-description="47 new items added to shared album">
@@ -57,4 +57,28 @@
       <object data="https://lh3.googleusercontent.com/_U4CCiVxAXVujfbDcFiNWlHtaDdccRQzPDape3NsC2BPU7q4Zg0uQguYe-D1qMISFcdZIjyiZXPWlDLAvkLCj2L5lLias72_xgYXVKcGQsVmdiH4LHra0GmyKvp_oU8sjTM7Jg9Al6Q=w1920-h1080"></object>
     </div>
   </div>
+
+  <h1 class="uppercase text-2xl font-bold mt-10 mb-4"><a href="https://photos.app.goo.gl/CmLgcgntsmBgMyNd9">Komunitní fotky</a></h1>
+  <div class="aspect-[4/3]">
+    <script src="https://cdn.jsdelivr.net/npm/publicalbum@latest/embed-ui.min.js" async></script>
+    <div class="pa-gallery-player-widget" style="width:100%; height:100%; display:none;"
+      data-link="https://photos.app.goo.gl/CmLgcgntsmBgMyNd9"
+      data-title="UTXO.22 - komunitní fotky"
+      data-description="12 new items added to shared album"
+      data-delay="3">
+      <object data="https://lh3.googleusercontent.com/E7BfuNBiciOqGsYlcssMj3AShbnUFtZbQJ-db7x9tb1JX2rVn-bacYj8oSzCN_lM91ESrxLIQ2IvGCO4zLDAWJVaxo6doN6Ja8WmPL51Q84dao_YSBSVbyCOcRa5P2DQj6jyEcJXJg=w1920-h1080"></object>
+      <object data="https://lh3.googleusercontent.com/fh-5aDW0xpRL249oRd4zz6dkGUJwNBGV2WmiDS7aw2ZuoIHzQ8vPqE0rrEGczZOlrZy1zkSNpD0s5IGucTYPpCQeiybGGPCW1G8tqAzkGGd86tp_I33dXaQm3g0vMV8Db0Pb3_hBKA=w1920-h1080"></object>
+      <object data="https://lh3.googleusercontent.com/b8P0xqNSmEqpp_C93Rv_9L1O-J3onVpFc7spLXWl-eQwIpqE-qoG8RKTkNsqY4hPLEqgUEuj-j8GaqzhgudCW0Pwfy8VSEyjOhnF7YaAQ59ow5maWhCa76IdFqotnZlpZ8pkbu9Ddw=w1920-h1080"></object>
+      <object data="https://lh3.googleusercontent.com/4BDdjtJdB12zbAR7AkpKpneHooNXbCCcvCsc47IeOMfLPBFbG0TZvHX0SYSVIzCU50HDhRvXcVDSn4gExguhHCEZLlP2xtc7TRdWjv3t3cZ7GQdfyq1jGprNdg2S6qZT3G5dxBZm5Q=w1920-h1080"></object>
+      <object data="https://lh3.googleusercontent.com/8cdQo_Cwova1asAT8XBO_ADnOZO81alPizX_vl7q8K4cHqvXYM4p37N0N89JOBiMunNq_IBXQsUfSlEM-AP_mS32-50ua9rbXARTBzTW5t3MpK4zoZ1UVrLgg5nCVsIqghW-PXX4Rw=w1920-h1080"></object>
+      <object data="https://lh3.googleusercontent.com/1-1AHfzfi6xMOo-pAb1k3Bdnxdm4FXVrmTCoS4Xud0zD6y8IJUCR2sEmPFyH5YpNLRBiv6WIH2eibO-8tNT0elTYVKgjer3OP6RX8eDkSksqoZo6Q9nYwdv_JSKekt1BrfpFgKdUJg=w1920-h1080"></object>
+      <object data="https://lh3.googleusercontent.com/1Aw2_K8tg4bZTgViGfhRRjh5ONaAS9d9oNSbralDbjpL7J6DXMT1IYTvrvk6MQ7HZpTBFjLQI5P2SoBVwsFk3P7MOjX7h-93Oyv8otyv7CCDpzAwB-mIN0CdsDS1dlyz8F1WA39C3w=w1920-h1080"></object>
+      <object data="https://lh3.googleusercontent.com/eFO7BE0jLNgpzmN_Pt7plvWfXXsvBGsviPX7hAUdNlHG4BdRAkf78c9hmgL2Q2kPBlhmCZ8NdXqNiYe75bCbXnhGu31BcMC8kb-tSsMRrcp8K3Bs-cJcRREwGX7Uw6_U8eAr8oJBaA=w1920-h1080"></object>
+      <object data="https://lh3.googleusercontent.com/RzuxaRs9ZzA9I9wtJXG97wfoZcQgeGwIfps1RrXArxek6Z75ZETdvN461WLlirzh8kvpNLVM2z0vEEcTwKluCEeCWc6xbN6k6PbilJJNHbXjxIMyD8Pspp73Q4pvPcB-CJmhJ9qQXQ=w1920-h1080"></object>
+      <object data="https://lh3.googleusercontent.com/vSlagnl2Xysd-PaD9m6pykfPvsmmtFiNrJtiD0cHpPhRH7qSH_kWe_Owc1QRZbhgk4EpZ6aZo743KGxlHmDaqBTFM2cjE74fpZSEHIXupGPmbDEzqERll-nPiwD1EbSnuujtGGWj_w=w1920-h1080"></object>
+      <object data="https://lh3.googleusercontent.com/UDuBaXhH-P_ehPub8XGoQjiBfO4h4Sa7y9dyPqi4z_t4W9jbXNyUJlLo01ispT-y0e1KcylsgKKYHSSTxYQ18K9tfGfvH7mOud7F0556rkPAYNUKItdxiXyVRBAG0-Xrqs5ZEnsNpg=w1920-h1080"></object>
+      <object data="https://lh3.googleusercontent.com/IHMBI8qWRddhj63VplnhHeVf97tPfYYPHURwJUWGTssECaB7XEne9KyIOyT5WBZwa3SFGwljduGEkDKtnHJu5nfEsip4FeRIlUY4MT5E07ogqd4fExojlpxJkX3KjEh2jYX6Jhbb3g=w1920-h1080"></object>
+    </div>
+  </div>
+
 </section>
