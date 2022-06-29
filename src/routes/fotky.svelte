@@ -2,6 +2,10 @@
   export const prerender = true;
 </script>
 
+<svelte:head>
+  <title>Fotky | UTXO.22</title>
+</svelte:head>
+
 <script src="https://cdn.jsdelivr.net/npm/publicalbum@latest/embed-ui.min.js" async></script>
 
 <section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-blue-web">
@@ -319,7 +323,7 @@
 
   </div>
 
-  <h1 class="uppercase text-2xl font-bold mt-10 mb-4"><a href="https://photos.app.goo.gl/CmLgcgntsmBgMyNd9">Komunitní fotky</a></h1>
+  <h1 class="uppercase text-2xl font-bold mt-10 mb-4"><a href="https://photos.app.goo.gl/CmLgcgntsmBgMyNd9">Komunitní fotky a videa</a></h1>
   <div class="mb-4">Po přihlášení Google účtem můžete přidat svoje fotky do sdíleného alba! <a href="https://photos.app.goo.gl/CmLgcgntsmBgMyNd9" target="_blank" class="underline hover:no-underline">Odkaz na album</a></div>
   <div class="aspect-video">
     <div class="pa-gallery-player-widget" style="width:100%; height:100%; display:none;"
