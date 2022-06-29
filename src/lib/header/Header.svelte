@@ -83,12 +83,6 @@
                 ><i class="fa-solid fa-video mr-1.5" /> Livestreamy</a
               -->
             {/if}
-            <a
-              sveltekit:prefetch
-              href="/program"
-              class="m-auto hover:text-[#E16A61]"
-              class:text-blue-400={$page.url.pathname === "/program"}>Program</a
-            >
             {#if $page.url.pathname !== "/tv"}
               <!--a
               sveltekit:prefetch
@@ -117,7 +111,7 @@
                 class:text-blue-400={$page.url.pathname === "/fotky"}
                 >Fotky</a
               >
-              <a
+              <!--a
                 sveltekit:prefetch
                 href="/vstupenky"
                 class="m-auto border-solid border border-[#E16A61] rounded-full {$page
@@ -128,8 +122,14 @@
                   Vstupenky{#if $userDataLocal.tickets && $userDataLocal.tickets.length > 0}&nbsp;({$userDataLocal
                       .tickets.length}){/if}
                 </div></a
-              >
+              -->
             {/if}
+            <a
+              sveltekit:prefetch
+              href="/program"
+              class="m-auto hover:text-[#E16A61]"
+              class:text-blue-400={$page.url.pathname === "/program"}>Program</a
+            >
           </div>
           {#if $page.url.pathname === "/"}
             <div
