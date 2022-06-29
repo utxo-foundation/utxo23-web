@@ -24,9 +24,10 @@
   $: stage = stageId && $bundle ? $bundle.spec.stages.find(s => s.id === stageId) : null
   $: ss = stageId ? stageStatus[stageId] : null
 
-  $: eventId = getParam($page.url.search, 'id')
-  $: si = $bundle ? $bundle.spec.schedule.find(i => i.id === eventId) : null
-  $: event = si ? $bundle.spec.events.find(e => e.id === si.event) : null
+  $: scheduleId = getParam($page.url.search, 'id')
+  $: eventId = getParam($page.url.search, 'event')
+  $: si = $bundle ? $bundle.spec.schedule.find(i => i.id === scheduleId) : null
+  $: event = si ? $bundle.spec.events.find(e => e.id === si.event) : (eventId && $bundle ? $bundle.spec.events.find(e => e.id === eventId) : null)
  
   function getSpeakers (speakers) {
     return speakers.map(sId => {
@@ -76,7 +77,7 @@
     <div class="flex" style="height: 900px;">
       <div class="my-auto text-white text-8xl pl-20 pr-20">
         <div class="text-5xl mb-10 flex">
-          <div class="inline-block px-4 py-3 rounded-xl text-black uppercase {EventTypes[event.type].color} w-auto">{event.type === 'talk' ? 'Přednáška' : (event.type == 'panel' ? 'Panelová debata' : 'Ostatní' )}</div>
+          <div class="inline-block px-4 py-3 rounded-xl text-black uppercase {EventTypes[event.type].color} w-auto">{EventTypes[event.type].text}</div>
         </div>
         <div class="font-semibold">{event.name}</div>
         <div class="text-6xl flex flex-wrap mt-12 gap-6">

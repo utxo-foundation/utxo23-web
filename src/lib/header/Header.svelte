@@ -90,7 +90,7 @@
               class:text-blue-400={$page.url.pathname === "/program"}>Program</a
             >
             {#if $page.url.pathname !== "/tv"}
-              <a
+              <!--a
               sveltekit:prefetch
               href="/mapa"
               class="m-auto hover:text-[#E16A61]"
@@ -102,6 +102,20 @@
                 class="m-auto hover:text-[#E16A61]"
                 class:text-blue-400={$page.url.pathname === "/prakticke"}
                 >Praktické</a
+              !-->
+              <a
+                sveltekit:prefetch
+                href="https://utxo.tv"
+                target="_blank"
+                class="m-auto hover:text-[#E16A61]"
+                >Záznamy - utxo.tv</a
+              >
+              <a
+                sveltekit:prefetch
+                href="/fotky"
+                class="m-auto hover:text-[#E16A61]"
+                class:text-blue-400={$page.url.pathname === "/fotky"}
+                >Fotky</a
               >
               <a
                 sveltekit:prefetch
