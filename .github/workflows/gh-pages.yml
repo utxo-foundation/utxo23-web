@@ -28,7 +28,7 @@ jobs:
       - run: npm run sitemaps
 
       - name: Add custom domain
-        run: "touch build/CNAME && echo \"utxo.cz\" >> build/CNAME"
+        run: "touch build/CNAME && echo \"dev.utxo.cz\" >> build/CNAME"
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
