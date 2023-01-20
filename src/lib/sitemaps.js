@@ -23,8 +23,11 @@ link('vstupenky')
 for (const x of bundle.spec.speakers) {
   link(`prednasejici?id=${x.id}`)
 }
-for (const x of bundle.spec.events) {
-  link(`udalosti?id=${x.id}`)
+
+if (bundle.spec.events) {
+  for (const x of bundle.spec.events) {
+    link(`udalosti?id=${x.id}`)
+  }
 }
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
