@@ -11,7 +11,7 @@
 
   const renderers = { link: Link };
 
-  let imagesRoot = "https://spec.utxo.cz/22/photos";
+  let imagesRoot = "https://spec.utxo.cz/23/photos";
   /*if ($page.url.hostname === 'localhost') {
     imagesRoot = 'http://localhost:8000/22/photos'
   }*/

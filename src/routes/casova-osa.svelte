@@ -175,7 +175,7 @@
 </script>
 
 <svelte:head>
-  <title>Časová osa | UTXO.22</title>
+  <title>Časová osa | UTXO.23</title>
 </svelte:head>
 
 <section

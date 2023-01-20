@@ -13,7 +13,7 @@
       <div class="flex-1">
         <div>
           <a href="/"
-            ><img src="/img/logo-white.svg" alt="UTXO.22" class="w-32" /></a
+            ><img src="/img/logo-white.svg" alt="UTXO.23" class="w-32" /></a
           >
         </div>
         <div class="mt-4 font-semibold">
@@ -46,7 +46,7 @@
         >
       </div>
       <div>
-        <a href="https://github.com/utxo-foundation/utxo22-web" target="_blank"
+        <a href="https://github.com/utxo-foundation/utxo23-web" target="_blank"
           ><span class="font-bold">v{version}</span></a
         >
         | powered by

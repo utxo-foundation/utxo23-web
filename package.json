@@ -9,7 +9,7 @@
     "prepare": "svelte-kit sync",
     "prettier": "prettier --write --plugin-search-dir=. ./**/*.svelte",
     "bump-version": "node -e 'console.log(\"export const version = \\\"\"+require(\"./package.json\").version+\"\\\";\");' > ./src/lib/version.js",
-    "postinstall": "wget -O src/lib/bundle.json https://spec.utxo.cz/22/bundle.json",
+    "postinstall": "wget -O src/lib/bundle.json https://spec.utxo.cz/23/bundle.json",
     "sitemaps": "node ./src/lib/sitemaps.js"
   },
   "devDependencies": {

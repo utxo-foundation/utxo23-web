@@ -51,7 +51,7 @@
 </script>
 
 <svelte:head>
-  <title>UTXO.22 {$bundle ? "- " + $bundle.description : ""}</title>
+  <title>UTXO.23 {$bundle ? "- " + $bundle.description : ""}</title>
 </svelte:head>
 
 {#if $bundle}
@@ -177,7 +177,7 @@
           prostory spravovalo československé Ministerstvo pošt a telegrafů. Dnes
           komplex využívají hlavně natáčecí studia jako HBO, Netflix nebo i ČT.
           No a my! 💪<br /><br />
-          Zažijte mysteriózní atmosféru komplexu na 1.ročníku konference UTXO.22.
+          Zažijte mysteriózní atmosféru komplexu na 2.ročníku konference UTXO.23.
           Část after-party si užijete doslova v pitevně ze seriálu Devadesátky 👌😀
         </div>
       </div>

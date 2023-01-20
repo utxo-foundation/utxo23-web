@@ -34,7 +34,7 @@
                   ><img
                     src="/img/logo-white.svg"
                     class="w-full"
-                    alt="UTXO.22"
+                    alt="UTXO.23"
                   /></a
                 >
               </div>
@@ -157,7 +157,7 @@
             ><img
               src="/img/logo-white.svg"
               class="w-3/4 md:w-1/2"
-              alt="UTXO.22"
+              alt="UTXO.23"
             /></a
           >
         </div>

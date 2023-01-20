@@ -17,7 +17,7 @@ class API {
         //const resp = await fetch('http://localhost:8000/22/bundle.json')
         //this.bundle = await resp.json()
       } else {
-        const resp = await fetch('https://spec.utxo.cz/22/bundle.json')
+        const resp = await fetch('https://spec.utxo.cz/23/bundle.json')
         this.bundle = await resp.json()
       }
       bundle.set(this.bundle)
