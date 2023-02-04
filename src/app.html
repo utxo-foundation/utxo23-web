@@ -10,7 +10,7 @@
     <meta name="twitter:image" content="https://utxo.cz/img/banner2.jpg" />
     <meta name="theme-color" content="#393F67" />
 
-		<link rel="icon" href="%svelte.assets%/favicon.png" />
+		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://kit.fontawesome.com/c1c6b3e09d.js" crossorigin="anonymous"></script>
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -19,7 +19,6 @@
     <link rel="manifest" href="/site.webmanifest">
     <!-- Plausible -->
 		<script defer data-domain="utxo.cz" src="https://x.gwei.cz/js/script.js"></script>
-		%svelte.head%
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -51,22 +50,9 @@
       }
     }
     </script>
+    %sveltekit.head%
 	</head>
-	<body>
-		<div class="h-full w-full">%svelte.body%</div>
-    <!--Start of Tawk.to Script-->
-      <!--script type="text/javascript">
-      var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-      (function(){
-      var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-      s1.async=true;
-      s1.src='https://embed.tawk.to/61d81a01f7cf527e84d0e84e/1foq2b5nc';
-      s1.charset='UTF-8';
-      s1.setAttribute('crossorigin','*');
-      s0.parentNode.insertBefore(s1,s0);
-      })();
-      </script--!>
-    <!--End of Tawk.to Script-->
-
+  <body data-sveltekit-preload-data="hover">
+    <div style="display: contents"  class="h-full w-full">%sveltekit.body%</div>
 	</body>
 </html>
