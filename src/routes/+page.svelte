@@ -4,6 +4,7 @@
   import SvelteMarkdown from "svelte-markdown";
   import Link from "$lib/Link.svelte";
   import SvelteTooltip from "$lib/SvelteTooltip.svelte";
+  import Transition from "$lib/Transition.svelte";
   const renderers = { link: Link };
 
   let onlyLead = true;
@@ -75,14 +76,14 @@
   {/if}
   <section class="relative mx-auto pt-6 sm:pt-10 px-6 max-w-6xl">
     <div
-      class="flex flex-wrap gap-1.5 sm:gap-3 text-xs uppercase font-bold text-blue-web justify-left"
+      class="flex flex-wrap gap-1.5 sm:gap-3 text-xs uppercase font-bold text-custom-darkpurple justify-left"
     >
       {#each tracks as track}
         <div
-          class="py-1.5 sm:py-2 px-2.5 sm:px-8 rounded-full shadow border border-solid {$userData.hpTrack ===
+          class="py-1.5 sm:py-2 px-2.5 sm:px-8 rounded-lg shadow border border-solid {$userData.hpTrack ===
           track.id
             ? 'bg-utxo-gradient border-0 text-white'
-            : 'border-blue-web hover:bg-blue-web hover:text-white hover:border-transparent cursor-pointer'}"
+            : 'border-custom-darkpurple  hover:bg-custom-darkpurple hover:text-white hover:border-transparent cursor-pointer'}"
           on:click={changeTrack(track.id)}
         >
           {track.shortname || track.name}
@@ -92,6 +93,7 @@
     </div>
   </section>
   <section class="pb-6 sm:-pb-10 mx-auto sm:px-2 lg:px-6 2xl:px-16">
+    <Transition key={$userData.hpTrack}>
     <div class="flex flex-wrap gap-6 mt-6 sm:mt-14 justify-center">
       {#each $bundle.spec.speakers as speaker}
         {#if ($userData.hpTrack === "top" && speaker.lead === true) || $userData.hpTrack !== "top"}
@@ -101,6 +103,7 @@
         {/if}
       {/each}
     </div>
+  </Transition>
     {#if $userData.hpTrack === "top"}
       <div class="relative cursor-pointer mb-10 max-w-screen-2xl mx-auto">
         <div

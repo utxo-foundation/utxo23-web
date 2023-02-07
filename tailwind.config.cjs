@@ -4,8 +4,11 @@ module.exports = {
     extend: {
       colors: {
         custom: {
+          green: '#06C87F',
+          purple: '#A85ABF',
+          darkpurple: '#5d3569',
+          darkestpurple: '#1c131e',
           blue: '#4D96FF',
-          green: '#6BCB77',
           yellow: '#FFD93D',
           red: '#FF6B6B',
         },
@@ -17,7 +20,7 @@ module.exports = {
         }
       },
       backgroundImage: {
-        'utxo-gradient': 'linear-gradient(130deg,#FF634D,#00A1FE)'
+        'utxo-gradient': 'linear-gradient(130deg,#06C87F,#A85ABF)'
       }
     }
   },

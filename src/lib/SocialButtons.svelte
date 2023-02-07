@@ -18,7 +18,7 @@
       {#each socials as soc}
         <a
           href={$bundle.links[soc.link]}
-          class="w-6 h-6 bg-white rounded-full hover:bg-utxo-gradient hover:text-white"
+          class="w-6 h-6 bg-white rounded-lg hover:bg-utxo-gradient hover:text-white"
           target="_blank"
         >
           <i class={soc.ico} />

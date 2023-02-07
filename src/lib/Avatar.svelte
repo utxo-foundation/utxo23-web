@@ -90,7 +90,7 @@
       on:mouseleave={mouseLeave}
       ><img
         src={currentImg}
-        class="w-36 sm:w-40 h-36 sm:h-40 rounded-full m-auto shadow-xl"
+        class="w-36 sm:w-40 h-36 sm:h-40 rounded-3xl m-auto shadow-xl"
         alt={speaker.name}
       /></a
     >

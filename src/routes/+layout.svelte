@@ -13,6 +13,7 @@
   } from "$lib/stores";
   import { loadOrders, loadApiStatus } from "$lib/orders";
   import { onMount, onDestroy } from "svelte";
+    import Transition from "$lib/Transition.svelte";
 
   let uds = null;
 
@@ -82,7 +83,9 @@
       <Header />
 
       <main>
-        <slot />
+        <Transition key={$page.url}>
+          <slot />
+        </Transition>
       </main>
     </div>
     <Footer />

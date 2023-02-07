@@ -6,14 +6,14 @@
 </script>
 
 {#if $bundle && !['/kiosk','/tv-screen'].includes($page.url.pathname)}
-  <div class="bg-blue-web-bg text-white print:hidden">
+  <div class="bg-gradient-to-br from-custom-darkpurple to-custom-darkestpurple text-white print:hidden">
     <div
       class="relative mx-auto px-6 pt-10 pb-2 sm:pb-6 max-w-6xl sm:flex pr-4"
     >
       <div class="flex-1">
         <div>
           <a href="/"
-            ><img src="/img/logo-white.svg" alt="UTXO.23" class="w-32" /></a
+            ><img src="/img/logo-utxo23-light-on-transparent.svg" alt="UTXO.23" class="w-32" /></a
           >
         </div>
         <div class="mt-4 font-semibold">
