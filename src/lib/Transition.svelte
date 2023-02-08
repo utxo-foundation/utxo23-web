@@ -2,13 +2,24 @@
     import { fly } from "svelte/transition";
     
     export let key;
+    export let type = 'fly';
 </script>
 
+
 {#key key}
-    <div
-        in:fly={{ x: -50, duration: 250, delay: 300}}
-        out:fly={{ x: -50, duration: 250}}
-    >
-        <slot />
-    </div>
+    {#if type == 'random'}
+        <div
+            in:fly={{ y: Math.random() * 100 - 50, duration: Math.random() * 2000, delay: Math.random() * 300 + 300}}
+            out:fly={{ x: Math.random() * 100 - 50, duration: 250}}
+        >
+            <slot />
+        </div>
+    {:else}
+        <div
+            in:fly={{ y: -50, duration: 250, delay: 300}}
+            out:fly={{ y: -50, duration: 250}}
+        >
+            <slot />
+        </div>
+    {/if}
 {/key}

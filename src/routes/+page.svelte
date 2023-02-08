@@ -93,17 +93,19 @@
     </div>
   </section>
   <section class="pb-6 sm:-pb-10 mx-auto sm:px-2 lg:px-6 2xl:px-16">
-    <Transition key={$userData.hpTrack}>
+    
     <div class="flex flex-wrap gap-6 mt-6 sm:mt-14 justify-center">
       {#each $bundle.spec.speakers as speaker}
         {#if ($userData.hpTrack === "top" && speaker.lead === true) || $userData.hpTrack !== "top"}
           {#if !$userData.hpTrack || (speaker.tracks && speaker.tracks.includes($userData.hpTrack)) || $userData.hpTrack === "top"}
-            <Avatar {speaker} />
+            <Transition key={$userData.hpTrack} type='random'>
+              <Avatar {speaker} />
+            </Transition>
           {/if}
         {/if}
       {/each}
     </div>
-  </Transition>
+  
     {#if $userData.hpTrack === "top"}
       <div class="relative cursor-pointer mb-10 max-w-screen-2xl mx-auto">
         <div
@@ -270,14 +272,14 @@
 
 {#if $bundle}
   <section class="relative mx-auto py-10 px-6 max-w-6xl">
-    <div class="text-blue-web">
+    <div class="text-custom-darkpurple">
       <h2 class="uppercase pt-5 text-center" id="faq">
         Často kladené dotazy (FAQ)
       </h2>
       <div class="md:columns-2 columns-1 mt-8 h-auto">
         {#each $bundle.spec.faqs as item}
           <div
-            class="mb-5 break-inside-avoid-column bg-blue-100/60 rounded-xl px-8 py-6 text-left transition-all box-shadow-light overflow-visible"
+            class="mb-5 break-inside-avoid-column text-custom-darkgreen bg-custom-lightgreen rounded-xl px-8 py-6 text-left transition-all box-shadow-light overflow-visible"
           >
             <div class="mb-4 font-bold">{item.question}</div>
             <SvelteMarkdown source={item.answer} {renderers} />
