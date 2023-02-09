@@ -7,7 +7,7 @@
 
 <svg class={classes} height="100%" viewBox="0 0 405 70" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g id="g10">
-        <g in:fly={{ y: -50, duration: duration/5, delay: duration/12}}>
+        <g in:fly={{ y: -50, duration: duration/4, delay: duration/12}}>
             <g id="g14">
                 <path id="path16" d="M119.041,0.333L119.372,69.571L102.368,69.667L102.039,0.429L119.041,0.333Z" style="fill:white;fill-rule:nonzero;"/>
             </g>
@@ -15,7 +15,7 @@
                 <path id="path20" d="M144.606,27L144.705,43.997L76.805,44.333L76.705,27.336L144.606,27Z" style="fill:white;fill-rule:nonzero;"/>
             </g>
         </g>
-        <g in:fly={{ y: 50, duration: duration/5, delay: duration/6}}>
+        <g in:fly={{ y: 50, duration: duration/4, delay: duration/6}}>
             <g id="g22" >
                 <path id="path24" d="M211.944,13.004L155.7,69.753L143.624,57.821L199.868,1.072L211.944,13.004Z" style="fill:white;fill-rule:nonzero;"/>
             </g>
@@ -23,14 +23,14 @@
                 <path id="path28" d="M212.787,56.826L200.863,68.902L144.115,12.666L156.038,0.59L212.787,56.826Z" style="fill:white;fill-rule:nonzero;"/>
             </g>
         </g>
-        <g id="g30" in:fly={{ x: 50, duration: duration/5, delay: duration/4}}>
+        <g id="g30" in:fly={{ x: 50, duration: duration/4, delay: duration/4}}>
             <g id="g32">
                 <g id="g38">
                     <path id="path40" d="M248.274,17.181C257.843,17.181 265.662,25.136 265.662,35.021C265.662,44.905 257.843,52.86 248.274,52.86C238.704,52.86 230.886,44.905 230.886,35.021C230.886,25.136 238.704,17.181 248.274,17.181M248.274,0.333C229.332,0.333 214.038,15.896 214.038,35.021C214.038,54.145 229.332,69.708 248.274,69.708C267.215,69.708 282.51,54.145 282.51,35.021C282.51,15.896 267.215,0.333 248.274,0.333" style="fill:white;fill-rule:nonzero;"/>
                 </g>
             </g>
         </g>
-        <g in:fly={{ x: -50, duration: duration/5, delay: 0}}>
+        <g in:fly={{ x: -50, duration: duration/4, delay: 0}}>
             <g id="g42">
                 <g id="g44">
                     <g id="g50">
@@ -41,7 +41,7 @@
                 </g>
             </g>
         </g>
-        <g in:fade={{ duration: duration*2/5, delay: duration /2}}>
+        <g in:fade={{ duration: duration/2, delay: duration /2}}>
             <g id="g62">
                 <g id="g64">
                     <rect id="path70" x="282.752" y="59.747" width="8.877" height="8.877" style="fill:white;fill-rule:nonzero;"/>

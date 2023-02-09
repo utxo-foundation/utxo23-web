@@ -9,8 +9,8 @@
 {#key key}
     {#if type == 'random'}
         <div
-            in:fly={{ y: Math.random() * 100 - 50, duration: Math.random() * 2000, delay: Math.random() * 300 + 300}}
-            out:fly={{ x: Math.random() * 100 - 50, duration: 250}}
+            in:fly={{ y: Math.random() * 100 - 50, duration: Math.random() * 2000 + 500, delay: Math.random() * 500}}
+            
         >
             <slot />
         </div>
