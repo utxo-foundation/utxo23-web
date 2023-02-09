@@ -2,6 +2,8 @@
   import { page } from "$app/stores";
   import { bundle, userData, userDataLocal, apiStatus } from "$lib/stores";
   import Navbar from "$lib/Navbar.svelte";
+  import Logo from "$lib/Logo.svelte";
+  import { fade } from 'svelte/transition';
 
 
   function handleAnchorClick (event) {
@@ -41,20 +43,18 @@ class="relative bg-center bg-cover {$page.url.pathname !== '/tv'
     >
       <div class="my-8">
         <div
+        in:fade={{ duration: 2000, delay: 1500}}
           class="uppercase font-semibold m-auto text-md text-center text-white/90"
         >
           Otevřená komunitní kryptoměnová konference
         </div>
         <div class="my-8">
           <a href="/" on:click={logoClick}
-            ><img
-              src="/img/logo-utxo23-light-on-transparent.svg"
-              class="m-auto w-3/4 md:w-1/2"
-              alt="UTXO.23"
-            /></a
+            ><Logo duration="1500" classes="w-3/4 md:w-1/2 m-auto" /></a
           >
         </div>
         <div
+        in:fade={{ duration: 2000, delay: 1700}}
           class="my-8 flex flex-wrap gap-3 lg:gap-10 text-lg lg:text-xl font-semibold justify-center"
         >
           <div class="flex items-center gap-3">
@@ -77,6 +77,7 @@ class="relative bg-center bg-cover {$page.url.pathname !== '/tv'
         <div class="flex my-16 gap-4 flex-wrap">
           <div class="text-center w-full">
               <a
+              in:fade={{ duration: 2000, delay: 1900}}
                 href="/vstupenky"
                 class="rounded-2xl bg-utxo-gradient uppercase shadow-lg text-sm py-6 px-10 hover:text-base hover:font-bold transition-all"
                 >Koupit vstupenky</a
