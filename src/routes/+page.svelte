@@ -99,7 +99,7 @@
         {#if ($userData.hpTrack === "top" && speaker.lead === true) || $userData.hpTrack !== "top"}
           {#if !$userData.hpTrack || (speaker.tracks && speaker.tracks.includes($userData.hpTrack)) || $userData.hpTrack === "top"}
             <Transition key={$userData.hpTrack} type='random'>
-              <Avatar {speaker} />
+              <Avatar {speaker} size="flip" />
             </Transition>
           {/if}
         {/if}

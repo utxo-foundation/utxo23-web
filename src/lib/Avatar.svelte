@@ -7,7 +7,7 @@
 
   import SvelteMarkdown from "svelte-markdown";
   import Link from "$lib/Link.svelte";
-  import { page } from "$app/stores";
+  import Transition from "$lib/Transition.svelte";
 
   const renderers = { link: Link };
 
@@ -88,11 +88,13 @@
       href="/lide?id={speaker.id}"
       on:mouseover={mouseOver}
       on:mouseleave={mouseLeave}
-      ><img
-        src={currentImg}
-        class="w-36 sm:w-40 h-36 sm:h-40 rounded-3xl m-auto shadow-xl"
-        alt={speaker.name}
-      /></a
+      >
+          <img
+          src={currentImg}
+          class="w-36 sm:w-40 h-36 sm:h-40 rounded-3xl m-auto shadow-xl"
+          alt={speaker.name}
+          />
+      </a
     >
     <div class="mt-4 text-sm text-blue-web uppercase font-bold">
       <a href="/lide?id={speaker.id}"
@@ -107,6 +109,39 @@
     {/if}
     {#if speaker.orgs}
       <div class="mt-1 text-xs text-blue-web italic">
+        <SvelteMarkdown source={speaker.orgs} {renderers} />
+      </div>
+    {/if}
+  </div>
+{/if}
+
+{#if size === "flip"}
+  <div class="w-36 sm:w-44 text-center pb-4">
+    <a
+    href="/lide?id={speaker.id}"
+    >
+      <div class="flip-card">
+        <div class="flip-card-inner h-44">
+          <div class="flip-card-front h-44 bg-cover rounded-2xl" style="background-image: url({speakerImg})"></div>
+          <div class="flip-card-back h-44 bg-cover rounded-2xl" style="background-image: url({speakerImgAlt ? speakerImgAlt : speakerImg})"></div>
+        </div>
+      </div>
+          
+      </a
+    >
+    <div class="mt-4 text-sm text-custom-darkpurple uppercase font-bold">
+      <a href="/lide?id={speaker.id}"
+        >{speaker.name}{#if speaker.nickname}&nbsp; ({speaker.nickname}){/if}</a
+      >
+      {country}
+    </div>
+    {#if speaker.bio}
+      <div class="mt-1 text-xs text-custom-darkpurple italic">
+        <SvelteMarkdown source={speaker.bio} {renderers} />
+      </div>
+    {/if}
+    {#if speaker.orgs}
+      <div class="mt-1 text-xs text-custom-darkpurple italic">
         <SvelteMarkdown source={speaker.orgs} {renderers} />
       </div>
     {/if}
