@@ -120,7 +120,7 @@
               class="m-auto hover:text-[#E16A61]"
               class:text-blue-400={$page.url.pathname === "/program"}>Program</a
             >
-            <a
+            <!--a
               sveltekit:prefetch
               href="/navstevnici"
               class="m-auto hover:text-[#E16A61]"
@@ -131,7 +131,7 @@
               href="/gratulujeme"
               class="m-auto hover:text-[#E16A61]"
               class:text-blue-400={$page.url.pathname === "/gratulujeme"}>Gratulujeme</a
-            >
+            -->
           </div>
           {#if $page.url.pathname === "/"}
             <div
