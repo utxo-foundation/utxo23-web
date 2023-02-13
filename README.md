@@ -11,7 +11,6 @@ Stránka využívá data z [hlavního repozitáře "utxo"](https://github.com/ut
 - [Tailwind](https://tailwindcss.com/) - CSS framework
 - [FontAwesome](https://fontawesome.com/) - ikonky
 - [GitHub Pages](https://pages.github.com/) - hosting
-- [Tawt](https://www.tawk.to/) - chat
 
 ## Vývoj
 
