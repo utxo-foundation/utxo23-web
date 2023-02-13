@@ -74,6 +74,16 @@
               -->
             {/if}
             {#if $page.url.pathname !== "/tv"}
+            <a
+              href="https://vstupenky.utxo.cz/23/"
+              class="m-auto hover:text-[#E16A61]">Vstupenky</a
+            >
+              <!--a
+              sveltekit:prefetch
+              href="/program"
+              class="m-auto hover:text-[#E16A61]"
+              class:text-blue-400={$page.url.pathname === "/program"}>Program</a
+              -->
               <!--a
               sveltekit:prefetch
               href="/mapa"
@@ -92,14 +102,14 @@
                 href="https://utxo.tv"
                 target="_blank"
                 class="m-auto hover:text-[#E16A61]"
-                >Záznamy - utxo.tv</a
+                >Záznamy (utxo.tv)</a
               >
               <a
                 sveltekit:prefetch
                 href="/fotky"
                 class="m-auto hover:text-[#E16A61]"
                 class:text-blue-400={$page.url.pathname === "/fotky"}
-                >Fotky</a
+                >Fotky (2022)</a
               >
               <!--a
                 sveltekit:prefetch
@@ -114,12 +124,6 @@
                 </div></a
               -->
             {/if}
-            <a
-              sveltekit:prefetch
-              href="/program"
-              class="m-auto hover:text-[#E16A61]"
-              class:text-blue-400={$page.url.pathname === "/program"}>Program</a
-            >
             <!--a
               sveltekit:prefetch
               href="/navstevnici"

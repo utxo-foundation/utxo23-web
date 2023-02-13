@@ -78,7 +78,7 @@ class="relative bg-center bg-cover {$page.url.pathname !== '/tv'
           <div class="text-center w-full">
               <a
               in:fade={{ duration: 2000, delay: 1900}}
-                href="/vstupenky"
+                href="https://vstupenky.utxo.cz/23/"
                 class="rounded-2xl bg-utxo-gradient uppercase shadow-lg text-sm py-6 px-10 hover:text-base hover:font-bold transition-all"
                 >Koupit vstupenky</a
               >
