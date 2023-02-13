@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
+    "preview": "vite preview",
     "prettier": "prettier --write --plugin-search-dir=. ./**/*.svelte",
     "bump-version": "node -e 'console.log(\"export const version = \\\"\"+require(\"./package.json\").version+\"\\\";\");' > ./src/lib/version.js",
     "postinstall": "wget -O src/lib/bundle.json https://spec.utxo.cz/23/bundle.json",
