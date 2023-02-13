@@ -43,7 +43,7 @@
 
   async function baseLoad() {
     api.loadBundle($page.url.hostname === "localhost");
-    await apiLoad();
+    //await apiLoad();
 
     return true;
   }

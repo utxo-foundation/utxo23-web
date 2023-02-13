@@ -23,24 +23,26 @@ class API {
       bundle.set(this.bundle)
 
       // add speaker info to events
-      for (const ev of this.bundle.spec.events) {
-        ev.speakersInfo = ev.speakers.map(sId => {
-          const sp = this.bundle.spec.speakers.find(s => s.id === sId)
-          if (!sp) {
-            return null
-          }
-          return {
-            name: sp.name,
-            nickname: sp.nickname,
-            bio: sp.bio,
-            orgs: sp.orgs,
-            description: sp.desc
-          }
-        })
-        if (this.bundle.schedule) {
-          const schedule = this.bundle.schedule.find(s => s.event === ev.id)
-          if (schedule) {
-            ev.scheduleId = '@' + schedule.id
+      if (this.bundle.spec.events) {
+        for (const ev of this.bundle.spec.events) {
+          ev.speakersInfo = ev.speakers.map(sId => {
+            const sp = this.bundle.spec.speakers.find(s => s.id === sId)
+            if (!sp) {
+              return null
+            }
+            return {
+              name: sp.name,
+              nickname: sp.nickname,
+              bio: sp.bio,
+              orgs: sp.orgs,
+              description: sp.desc
+            }
+          })
+          if (this.bundle.schedule) {
+            const schedule = this.bundle.schedule.find(s => s.event === ev.id)
+            if (schedule) {
+              ev.scheduleId = '@' + schedule.id
+            }
           }
         }
       }

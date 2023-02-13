@@ -11,7 +11,7 @@
 
   $: id = getId($page.url.search);
   $: s = $bundle ? $bundle.spec.speakers.find((s) => s.id === id) : null;
-  $: events = s
+  $: events = s && $bundle.spec.events
     ? $bundle.spec.events.filter(
         (ev) => ev.speakers && ev.speakers.includes(s.id)
       )

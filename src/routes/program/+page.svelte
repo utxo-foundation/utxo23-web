@@ -197,7 +197,7 @@
   }
 
   function scheduleTimes(bundle, filter = false) {
-    let arr = bundle.scheduleTimes.map((item, i) => {
+    let arr = (bundle.scheduleTimes || []).map((item, i) => {
       const out = parsePeriod(bundle, item);
       out.id = String(i);
       switch (i) {
@@ -263,7 +263,7 @@
   }
 
   function allStages(bundle) {
-    return [{ id: "all", name: "Všechny sály" }, ...bundle.spec.stages];
+    return [{ id: "all", name: "Všechny sály" }, ...(bundle.spec.stages || [])];
   }
 
   function makeSpoiler(_e) {
