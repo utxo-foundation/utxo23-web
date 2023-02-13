@@ -122,8 +122,8 @@
     >
       <div class="flip-card">
         <div class="flip-card-inner h-44">
-          <div class="flip-card-front h-44 bg-cover rounded-2xl" style="background-image: url({speakerImg})"></div>
-          <div class="flip-card-back h-44 bg-cover rounded-2xl" style="background-image: url({speakerImgAlt ? speakerImgAlt : speakerImg})"></div>
+          <div class="flip-card-front h-44 bg-cover bg-center rounded-2xl" style="background-image: url({speakerImg})"></div>
+          <div class="flip-card-back h-44 bg-cover bg=center rounded-2xl" style="background-image: url({speakerImgAlt ? speakerImgAlt : speakerImg})"></div>
         </div>
       </div>
           
