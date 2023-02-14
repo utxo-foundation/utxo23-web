@@ -30,7 +30,7 @@
 <header
 class="relative bg-center bg-cover {$page.url.pathname !== '/tv'
     ? "bg-[url('/img/utxo23-bg.jpg')]"
-    : ''} bg-no-repeat bg-blue-web-bg print:hidden"
+    : ''} bg-no-repeat bg-custom-darkestpurple print:hidden"
 >
 <div class="flex flex-col bg-gradient-to-br from-custom-green/70 via-black/40 to-custom-purple/80 {$page.url.pathname == '/' ? 'min-h-[100vh]' : 'bg-gradient-to-r to-custom-purple/60'}">
   <div>

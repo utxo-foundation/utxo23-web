@@ -6,7 +6,7 @@
 </script>
 
 {#if $bundle && !['/kiosk','/tv-screen'].includes($page.url.pathname)}
-  <div class="bg-gradient-to-br from-custom-darkpurple to-custom-darkestpurple text-white print:hidden">
+  <div class="bg-gradient-to-b from-custom-darkpurple to-custom-darkestpurple text-white print:hidden">
     <div
       class="relative mx-auto px-6 pt-10 pb-2 sm:pb-6 max-w-7xl sm:flex pr-4"
     >

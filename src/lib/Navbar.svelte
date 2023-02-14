@@ -1,7 +1,6 @@
 <script>
     import { page } from "$app/stores";
     import SocialButtons from "$lib/SocialButtons.svelte";
-    import Logo from "./Logo.svelte";
 
     let hiddenMenu = true;
 
