@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
   import { onMount, onDestroy } from "svelte";
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
@@ -289,13 +289,15 @@
     console.log(ev.color);
     return ev;
   }
-</script>
+</script> -->
 
 <svelte:head>
-  <title>Program | UTXO.22</title>
+  <title>Program | UTXO.23</title>
 </svelte:head>
 
-<section
+<h1 class="max-w-7xl mx-auto py-8 text-3xl">Program</h1>
+
+<!-- <section
   class="relative mx-auto pt-6 sm:pt-10 pb-6 px-6 max-w-6xl text-blue-web print:hidden"
 >
   <h1 class="uppercase text-2xl font-bold mb-2">Program</h1>
@@ -332,7 +334,7 @@
                 : 'text-blue-web bg-blue-web-light hover:text-[#E16A61] hover:bg-[#E16A61]/20'} font-semibold py-1 px-2 rounded-full text-sm"
               on:click={() => ($schedulePref.stage = et.id)}>{et.name}</button
             >
-            <!--div class="u-choose-div m-0.5">
+            <div class="u-choose-div m-0.5">
               <label class="cursor-pointer"
                 ><input
                   type="checkbox"
@@ -345,7 +347,7 @@
                 on:click={() => ($schedulePref.stages = [et.id])}
                 >{et.name}</span
               >
-            </div-->
+            </div>
           {/each}
         </div>
       </div>
@@ -358,7 +360,7 @@
         >
       </div>
 
-      <!--div class="mb-4">
+      <div class="mb-4">
         <div class="font-semibold uppercase mb-1">Kategorie</div>
         <div class="flex gap-2 flex-wrap">
           <div class="m-0.5">
@@ -388,7 +390,7 @@
             </div>
           {/each}
         </div>
-      </div-->
+      </div>
     {/if}
   </div>
 </section>
@@ -541,7 +543,7 @@
                       {/if}
                     {/if}
                   {/each}
-                  <!--th valign="top" class="pl-2 pt-1 text-sm" height="70">{ds.title}</th-->
+                  <th valign="top" class="pl-2 pt-1 text-sm" height="70">{ds.title}</th>
                 </tr>
               {/each}
             </tbody>
@@ -561,11 +563,11 @@
   {/if}
 </section>
 
-<style>
+ <style>
   .utxo-program-head a {
     text-decoration: underline;
   }
   .utxo-program-head a:hover {
     text-decoration: none;
   }
-</style>
+</style> -->

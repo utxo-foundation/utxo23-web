@@ -74,9 +74,9 @@
       </div>
     </section>
   {/if}
-  <section class="relative mx-auto pt-6 sm:pt-10 px-6 max-w-6xl">
+  <section class="relative mx-auto pt-6 sm:pt-10 px-6">
     <div
-      class="flex flex-wrap gap-1.5 sm:gap-3 text-xs uppercase font-bold text-custom-darkpurple justify-left"
+      class="flex flex-wrap gap-1.5 sm:gap-3 text-xs uppercase font-bold text-custom-darkpurple justify-center"
     >
       {#each tracks as track}
         <div
@@ -126,7 +126,7 @@
 {/if}
 
 <section class="bg-utxo-gradient">
-  <div class="relative mx-auto py-6 px-6 max-w-6xl">
+  <div class="relative mx-auto py-6 px-6 max-w-7xl">
     <div class="py-6 md:py-10 md:flex gap-12">
       <div class="block flex-1">
         <img
@@ -271,7 +271,7 @@
 </section>
 
 {#if $bundle}
-  <section class="relative mx-auto py-10 px-6 max-w-6xl">
+  <section class="relative mx-auto py-10 px-6 max-w-7xl">
     <div class="text-custom-darkpurple">
       <h2 class="uppercase pt-5 text-center" id="faq">
         Často kladené dotazy (FAQ)

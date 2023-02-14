@@ -32,7 +32,7 @@ class="relative bg-center bg-cover {$page.url.pathname !== '/tv'
     ? "bg-[url('/img/utxo23-bg.jpg')]"
     : ''} bg-no-repeat bg-blue-web-bg print:hidden"
 >
-<div class="flex flex-col bg-gradient-to-br from-custom-green/70 via-black/40 to-custom-purple/80 {$page.url.pathname == '/' ? 'min-h-[100vh]' : 'h-24 bg-gradient-to-r to-custom-purple/60'}">
+<div class="flex flex-col bg-gradient-to-br from-custom-green/70 via-black/40 to-custom-purple/80 {$page.url.pathname == '/' ? 'min-h-[100vh]' : 'bg-gradient-to-r to-custom-purple/60'}">
   <div>
     <Navbar />
   </div>
@@ -43,7 +43,7 @@ class="relative bg-center bg-cover {$page.url.pathname !== '/tv'
     >
       <div class="my-8">
         <div
-        in:fade={{ duration: 2000, delay: 1500}}
+        in:fade={{ duration: 2000, delay: 500}}
           class="uppercase font-semibold m-auto text-md text-center text-white/90"
         >
           Otevřená komunitní kryptoměnová konference
@@ -54,7 +54,7 @@ class="relative bg-center bg-cover {$page.url.pathname !== '/tv'
           >
         </div>
         <div
-        in:fade={{ duration: 2000, delay: 1700}}
+        in:fade={{ duration: 2000, delay: 500}}
           class="my-8 flex flex-wrap gap-3 lg:gap-10 text-lg lg:text-xl font-semibold justify-center"
         >
           <div class="flex items-center gap-3">
@@ -63,7 +63,7 @@ class="relative bg-center bg-cover {$page.url.pathname !== '/tv'
             >
               <i class="fa-regular fa-calendar-days text-custom-white" />
             </div>
-            <div class="text-white">4.-5. červen 2022</div>
+            <div class="text-white">2.-4. červen 2023</div>
           </div>
           <div class="flex items-center gap-3">
             <div
@@ -77,7 +77,7 @@ class="relative bg-center bg-cover {$page.url.pathname !== '/tv'
         <div class="flex my-16 gap-4 flex-wrap">
           <div class="text-center w-full">
               <a
-              in:fade={{ duration: 2000, delay: 1900}}
+              in:fade={{ duration: 2000, delay: 500}}
                 href="https://vstupenky.utxo.cz/23/"
                 class="rounded-2xl bg-utxo-gradient uppercase shadow-lg text-sm py-6 px-10 hover:text-base hover:font-bold transition-all"
                 >Koupit vstupenky</a

@@ -10,7 +10,9 @@
   <title>Praktické informace | {$bundle ? $bundle.name : "UTXO.22"}</title>
 </svelte:head>
 
-<section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-blue-web">
+<h1 class="max-w-7xl mx-auto py-8 text-3xl">Praktické informace</h1>
+
+<!-- <section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-blue-web">
   <h1 class="uppercase text-2xl font-bold">Praktické informace</h1>
 
   {#if bundle}
@@ -29,4 +31,4 @@
   {:else}
     Načítám ..
   {/if}
-</section>
+</section> -->

@@ -1,6 +1,42 @@
 <script>
     import { page } from "$app/stores";
     import SocialButtons from "$lib/SocialButtons.svelte";
+    import Logo from "./Logo.svelte";
+
+    let hiddenMenu = true;
+
+    let links=[
+      {
+        text: "Vstupenky",
+        url: "https://vstupenky.utxo.cz/23/",
+        newWindow: true
+      },
+      {
+        text: "Program",
+        url: "/program",
+        newWindow: false
+      },
+      {
+        text: "Praktické",
+        url: "/prakticke",
+        newWindow: false
+      },
+      {
+        text: "Mapa",
+        url: "/mapa",
+        newWindow: false
+      },
+      {
+        text: "Záznamy",
+        url: "https://utxo.tv/",
+        newWindow: true
+      },
+      {
+        text: "Fotky 2022",
+        url: "/fotky",
+        newWindow: false
+      }
+    ]
   
     function logoClick() {
       userData.update((ud) => {
@@ -8,142 +44,71 @@
         return ud;
       });
     }
+
+    function hideMenu(){
+      if(hiddenMenu == false) hiddenMenu=true;
+    }
+
+    function showMenu(){
+      hiddenMenu=false;
+    }
   </script>
 
-<nav
-      class="relative mx-auto lg:px-6 px-4 py-4 sm:pt-6 pb-2 sm:pb-6 max-w-6xl text-center"
+
+
+<nav class="px-2 sm:px-4 py-2.5">
+  <div class="container flex flex-wrap items-center justify-between mx-auto max-w-7xl">
+    {#if $page.url.pathname !== "/"}
+      <a href="/" class="flex">
+          <img src="/img/logo-only-white.svg" class="h-6 mr-3 sm:h-9" alt="UTXO 23 Logo" />
+      </a>
+    {:else}
+      <div class="flex"></div>
+    {/if}
+    <button on:click={showMenu} data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 ml-3 text-sm text-gray-200 rounded-lg md:hidden hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-default" aria-expanded="false">
+      <span class="sr-only">Otevřít menu</span>
+      <i class="fa-sharp fa-solid fa-bars fa-2x"></i>
+    </button>
+    
+    <div
+      class="{hiddenMenu ? 'hidden' : 'block' } fixed top-0 left-0 z-10 flex md:relative w-full min-h-[100vh] md:min-h-0 bg-gradient-to-br from-custom-darkpurple to-custom-darkestpurple md:bg-none md:block md:w-auto" id="navbar-default"
     >
-      <div class="">
-        <div class="lg:flex lg:flex-wrap lg:space-x-10">
-          {#if !["/", "/tv"].includes($page.url.pathname)}
-            <div
-              class="block justify-start lg:flex-1 my-auto text-center pb-3 lg:pb-0 pt-3 lg:pt-0"
-            >
-              <div class="w-40 lg:w-32 inline-block lg:block">
-                <a href="/" on:click={logoClick}
-                  ><img
-                    src="/img/logo-utxo23-light-on-transparent.svg"
-                    class="w-full"
-                    alt="UTXO.23"
-                  /></a
-                >
-              </div>
-            </div>
-          {:else if $page.url.pathname === "/tv"}
-            <div
-              class="block justify-start lg:flex-1 my-auto text-center pb-3 lg:pb-0 pt-3 lg:pt-0"
-            >
-              <div class="w-40 lg:w-32 inline-block lg:block">
-                <a href="/tv"
-                  ><img
-                    src="/img/utxo-tv.svg"
-                    class="w-full"
-                    alt="UTXO.TV"
-                  /></a
-                >
-              </div>
-            </div>
-          {:else}
-            <div class="flex-1" />
-          {/if}
-          <div
-            class="flex lg:space-x-10 uppercase text-sm font-bold text-white flex-wrap gap-3"
-          >
-            {#if $page.url.pathname === "/tv"}
-              <a
-                sveltekit:prefetch
-                href="/"
-                class="m-auto hover:text-[#E16A61] "
-                class:text-blue-400={$page.url.pathname === "/"}>O konferenci</a
-              >
-            {:else}
-              <a
-                sveltekit:prefetch
-                href="/"
-                class="m-auto hover:text-[#E16A61] "
-                class:text-blue-400={$page.url.pathname === "/"}>Úvod</a
-              >
-            {/if}
-            {#if $page.url.pathname !== "/tv"}
-              <!--a
-                sveltekit:prefetch
-                href="/tv"
-                class="m-auto hover:text-[#E16A61] text-custom-green"
-                class:text-blue-400={$page.url.pathname === "/tv"}
-                ><i class="fa-solid fa-video mr-1.5" /> Livestreamy</a
-              -->
-            {/if}
-            {#if $page.url.pathname !== "/tv"}
-            <a
-              href="https://vstupenky.utxo.cz/23/"
-              class="m-auto hover:text-[#E16A61]">Vstupenky</a
-            >
-              <!--a
-              sveltekit:prefetch
-              href="/program"
-              class="m-auto hover:text-[#E16A61]"
-              class:text-blue-400={$page.url.pathname === "/program"}>Program</a
-              -->
-              <!--a
-              sveltekit:prefetch
-              href="/mapa"
-              class="m-auto hover:text-[#E16A61]"
-              class:text-blue-400={$page.url.pathname === "/mapa"}>Mapa</a
-            >
-              <a
-                sveltekit:prefetch
-                href="/prakticke"
-                class="m-auto hover:text-[#E16A61]"
-                class:text-blue-400={$page.url.pathname === "/prakticke"}
-                >Praktické</a
-              !-->
-              <a
-                sveltekit:prefetch
-                href="https://utxo.tv"
-                target="_blank"
-                class="m-auto hover:text-[#E16A61]"
-                >Záznamy (utxo.tv)</a
-              >
-              <a
-                sveltekit:prefetch
-                href="/fotky"
-                class="m-auto hover:text-[#E16A61]"
-                class:text-blue-400={$page.url.pathname === "/fotky"}
-                >Fotky (2022)</a
-              >
-              <!--a
-                sveltekit:prefetch
-                href="/vstupenky"
-                class="m-auto border-solid border border-[#E16A61] rounded-full {$page
-                  .url.pathname === '/vstupenky'
-                  ? 'border-0 bg-utxo-gradient m-px'
-                  : 'hover:border-0 hover:bg-utxo-gradient hover:p-px'}"
-                ><div class="py-1.5 px-2 lg:px-6">
-                  Vstupenky{#if $userDataLocal.tickets && $userDataLocal.tickets.length > 0}&nbsp;({$userDataLocal
-                      .tickets.length}){/if}
-                </div></a
-              -->
-            {/if}
-            <!--a
-              sveltekit:prefetch
-              href="/navstevnici"
-              class="m-auto hover:text-[#E16A61]"
-              class:text-blue-400={$page.url.pathname === "/navstevici"}>Návštěvníci</a
-            >
-            <a
-              sveltekit:prefetch
-              href="/gratulujeme"
-              class="m-auto hover:text-[#E16A61]"
-              class:text-blue-400={$page.url.pathname === "/gratulujeme"}>Gratulujeme</a
-            -->
+      <button on:click={hideMenu}  type="button" class="{hiddenMenu && 'hidden' } absolute top-5 right-5 text-gray-200 rounded-lg md:hidden hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-gray-200">
+        <span class="sr-only">Zavřít menu</span>
+        <i class="fa-solid fa-xmark fa-2x"></i>
+      </button>
+      <div class="flex flex-col md:flex-row my-auto w-full">
+        <a on:click={hideMenu} href="/" class="flex md:hidden">
+          <img src="/img/logo.svg" class="h-10 m-auto" alt="UTXO 23 Logo" />
+        </a>
+        <ul class="flex shrink-0 flex-col p-4 mt-4 text-center text-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0">
+            {#each links as el}
+                <li class="relative">
+                  <a
+                      sveltekit:prefetch
+                      href={el.url}
+                      target="{el.newWindow ? "_blank" : "_self"}"
+                      on:click={hideMenu}
+                      class="
+                        block py-4 pl-3 pr-4 text-white rounded 
+                        hover:bg-white/20 md:hover:bg-transparent 
+                        md:border-0 md:hover:underline 
+                        md:hover:decoration-custom-green md:hover:decoration-2 
+                        md:hover:underline-offset-4 md:p-0
+                        {$page.url.pathname === el.url && "md:underline-offset-4 md:decoration-2 md:underline md:decoration-custom-purple"}
+                        "
+                      >{el.text}</a
+                    >
+                    <div class="md:hidden border-b absolute bottom-0 left-1/4 border-custom-green/50 w-1/2"></div>
+                    
+                </li>
+              
+            {/each}
+          </ul>
+          <div class="m-auto">
+            <SocialButtons size="small" />
           </div>
-          {#if $page.url.pathname === "/"}
-            <div
-              class="hidden lg:block my-auto lg:flex-1 lg:pt-0 pt-4 lg:justify-end justify-center"
-            >
-              <SocialButtons />
-            </div>
-          {/if}
         </div>
       </div>
-    </nav>
+  </div>
+</nav>

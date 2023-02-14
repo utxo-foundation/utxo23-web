@@ -8,16 +8,16 @@
 {#if $bundle && !['/kiosk','/tv-screen'].includes($page.url.pathname)}
   <div class="bg-gradient-to-br from-custom-darkpurple to-custom-darkestpurple text-white print:hidden">
     <div
-      class="relative mx-auto px-6 pt-10 pb-2 sm:pb-6 max-w-6xl sm:flex pr-4"
+      class="relative mx-auto px-6 pt-10 pb-2 sm:pb-6 max-w-7xl sm:flex pr-4"
     >
       <div class="flex-1">
         <div>
           <a href="/"
-            ><img src="/img/logo-utxo23-light-on-transparent.svg" alt="UTXO.23" class="w-32" /></a
+            ><img src="/img/logo.svg" alt="UTXO.23" class="w-32" /></a
           >
         </div>
         <div class="mt-4 font-semibold">
-          2.-4. červen 2023 @ TBA, Praha
+          2.-4. červen 2023 @ Gabriel Loci, Praha
         </div>
         <div class="mt-2 font-thin">
           Otevřená komunitní kryptoměnová konference
@@ -25,7 +25,7 @@
         <div class="mt-4">
           <a
             href={$bundle.links.docs}
-            class="hover:text-red-500"
+            class="hover:text-custom-green"
             target="_blank"><i class="fas fa-book" />&nbsp; Dokumentace</a
           >
         </div>
