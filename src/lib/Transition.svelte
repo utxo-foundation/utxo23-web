@@ -17,7 +17,7 @@
         </div>
     {:else}
         <div
-            in:fly={{ x: 500, duration: 1000, easing: quintOut}}
+            in:fly={{ y: 50, duration: 1000, easing: quintOut}}
         >
             <slot />
         </div>
