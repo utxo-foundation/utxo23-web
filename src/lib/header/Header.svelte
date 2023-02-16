@@ -32,7 +32,12 @@ class="relative bg-center bg-cover {$page.url.pathname !== '/tv'
     ? "bg-[url('/img/bg-utxo-05.jpg')]"
     : ''} bg-no-repeat bg-custom-darkestpurple print:hidden"
 >
-<div class="flex flex-col bg-gradient-to-br from-custom-green/70 via-black/40 to-custom-purple/80 {$page.url.pathname == '/' ? 'min-h-[100vh] md:min-h-[70vh]' : 'bg-gradient-to-r to-custom-purple/60'}">
+<div class="flex flex-col 
+  {
+    $page.url.pathname == '/' 
+      ? 'min-h-[100vh] md:min-h-[70vh] bg-gradient-to-br from-custom-green/70 via-black/40 to-custom-darkpurple/80' 
+      : 'bg-gradient-to-r from-black/40 via-custom-green/70 to-custom-darkpurple/80'
+      }">
   <div>
     <Navbar />
   </div>

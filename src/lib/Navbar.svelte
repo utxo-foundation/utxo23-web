@@ -27,7 +27,7 @@
   <div class="container flex flex-wrap items-center justify-between mx-auto max-w-7xl">
     {#if $page.url.pathname !== "/"}
       <a href="/" class="flex">
-          <img src="/img/logo-only-white.svg" class="h-6 mr-3 sm:h-9" alt="UTXO 23 Logo" />
+          <img src="/img/logo.svg" class="h-6 mr-3 sm:h-9" alt="UTXO 23 Logo" />
       </a>
     {:else}
       <div class="flex"></div>
