@@ -50,6 +50,7 @@
         </a>
         <ul class="flex shrink-0 flex-col p-4 mt-4 text-center text-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0">
             {#each navBarLinks as el}
+              {#if !($page.url.pathname === "/" && el.hideOnHomepage) }
                 <li class="relative">
                   <a
                       sveltekit:prefetch
@@ -69,7 +70,7 @@
                     <div class="md:hidden border-b absolute bottom-0 left-1/4 border-custom-green/50 w-1/2"></div>
                     
                 </li>
-              
+                {/if} 
             {/each}
           </ul>
           <div class="m-auto">

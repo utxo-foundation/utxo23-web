@@ -47,6 +47,12 @@ export const EventTypes = {
 
 export const navBarLinks=[
   {
+    text: "Domů",
+    url: "/",
+    newWindow: false,
+    hideOnHomepage: true
+  },
+  {
     text: "Záznamy",
     url: "https://utxo.tv/",
     newWindow: true
