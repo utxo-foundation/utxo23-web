@@ -4,7 +4,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/publicalbum@latest/embed-ui.min.js" async></script>
 
-<section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-blue-web">
+<section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-custom-darkpurple">
   <h1 class="uppercase text-2xl font-bold mb-4"><a href="https://photos.app.goo.gl/8ogj2Y3cdUGwMAc4A">Fotky</a></h1>
   <div class="mb-4"><a href="https://photos.app.goo.gl/8ogj2Y3cdUGwMAc4A" target="_blank" class="underline hover:no-underline">Zobrazit všechny fotky</a></div>
 

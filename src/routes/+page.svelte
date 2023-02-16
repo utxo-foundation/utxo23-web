@@ -43,7 +43,7 @@
   }
 
   function statsIcon(ico = "fa-regular fa-calendar") {
-    return `<i class="${ico} inline-block align-baseline pr-1.5 sm:pr-2.5 text-blue-web/40"></i>`;
+    return `<i class="${ico} inline-block align-baseline pr-1.5 sm:pr-2.5 text-custom-darkpurple/40"></i>`;
   }
 </script>
 
@@ -56,7 +56,7 @@
     <section class="bg-blue-web-light">
       <div class="pb-4 pt-4 lg:pt-4 lg:pb-4 mx-auto sm:px-2 lg:px-6 2xl:px-16">
         <div
-          class="text-center text-xl sm:text-xl lg:text-2xl text-blue-web px-8 flex flex-wrap gap-4 lg:gap-8 justify-center"
+          class="text-center text-xl sm:text-xl lg:text-2xl text-custom-darkpurple px-8 flex flex-wrap gap-4 lg:gap-8 justify-center"
         >
           <div>
             {@html statsIcon("fa-solid fa-user-check")}
@@ -99,7 +99,7 @@
         {#if ($userData.hpTrack === "top" && speaker.lead === true) || $userData.hpTrack !== "top"}
           {#if !$userData.hpTrack || (speaker.tracks && speaker.tracks.includes($userData.hpTrack)) || $userData.hpTrack === "top"}
             <Transition key={$userData.hpTrack} type='random'>
-              <Avatar {speaker} size="flip" />
+              <Avatar {speaker} size="normal" />
             </Transition>
           {/if}
         {/if}
@@ -187,8 +187,9 @@
 </section>
 
 <section class="mx-auto py-10 px-6 max-w-auto overflow-hidden">
-  <div class="text-blue-web lg:mt-10">
+  <div class="text-custom-darkpurple lg:mt-10">
     <div class="text-2xl uppercase font-bold text-center">Partneři</div>
+    {#if $bundle.spec.partners.filter((p) => p.type === "sponsor").slice(0,4).length}
     <div class="mt-6 text-center">Hlavní sponzoři</div>
     <div class="mt-6 flex flex-wrap gap-8 justify-center">
       {#each $bundle.spec.partners.filter((p) => p.type === "sponsor").slice(0,4) as p}
@@ -205,6 +206,8 @@
         </div>
       {/each}
     </div>
+    {/if}
+    {#if $bundle.spec.partners.filter((p) => p.type === "sponsor").slice(4).length}
     <div class="mt-6 text-center">Sponzoři</div>
     <div class="mt-6 flex flex-wrap gap-8 justify-center">
       {#each $bundle.spec.partners.filter((p) => p.type === "sponsor").slice(4) as p}
@@ -221,6 +224,8 @@
         </div>
       {/each}
     </div>
+    {/if}
+    {#if $bundle.spec.partners.filter((p) => p.type === "community").length}
     <div class="mt-10 text-center">Komunity</div>
     <div class="mt-6 flex flex-wrap gap-6 justify-center">
       {#each $bundle.spec.partners.filter((p) => p.type === "community") as p}
@@ -237,13 +242,15 @@
                 speaker={p}
                 col="partners"
                 size="custom"
-                customSize="w-20 shadow-lg rounded-full"
+                customSize="w-20 shadow-lg"
               /></a
             >
           </SvelteTooltip>
         </div>
       {/each}
     </div>
+    {/if}
+    {#if $bundle.spec.partners.filter((p) => p.type === "medium").length}
     <div class="mt-10 text-center">Mediální partneři</div>
     <div class="mt-6 flex flex-wrap gap-4 justify-center">
       {#each $bundle.spec.partners.filter((p) => p.type === "medium") as p}
@@ -267,6 +274,7 @@
         </div>
       {/each}
     </div>
+    {/if}
   </div>
 </section>
 
@@ -289,6 +297,3 @@
     </div>
   </section>
 {/if}
-
-<style>
-</style>

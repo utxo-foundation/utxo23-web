@@ -9,7 +9,7 @@
   import Link from "$lib/Link.svelte";
   const renderers = { link: Link };
 
-  $: id = getId($page.url.search);
+  $: id = getId($page.params.id);
   $: s = $bundle ? $bundle.spec.speakers.find((s) => s.id === id) : null;
   $: events = s && $bundle.spec.events
     ? $bundle.spec.events.filter(
@@ -17,9 +17,7 @@
       )
     : [];
 
-  function getId(search) {
-    const searchParams = new URLSearchParams(search);
-    const cid = searchParams.get("id");
+  function getId(cid) {
     if (!$bundle.spec.speakers.find((s) => s.id === cid)) {
       goto("/");
     }
@@ -47,7 +45,7 @@
   <title>{s ? s.name : ""} | Lidé | {$bundle ? $bundle.name : "UTXO.22"}</title>
 </svelte:head>
 
-<section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-blue-web">
+<section class="relative mx-auto py-6 sm:py-10 px-6 max-w-7xl text-custom-darkpurple">
   {#if $bundle && s}
     <div class="mb-6 uppercase text-gray-500">
       <a href="javascript:history.back()"
@@ -66,12 +64,12 @@
           </div>
         {/if}
         {#if s.bio}
-          <div class="mt-4 text-blue-web italic">
+          <div class="mt-4 text-custom-darkpurple italic">
             <SvelteMarkdown source={s.bio} {renderers} />
           </div>
         {/if}
         {#if s.orgs}
-          <div class="mt-4 text-blue-web links">
+          <div class="mt-4 text-custom-darkpurple links">
             <SvelteMarkdown source={s.orgs} {renderers} />
           </div>
         {/if}

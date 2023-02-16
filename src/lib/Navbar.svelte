@@ -1,41 +1,9 @@
 <script>
     import { page } from "$app/stores";
     import SocialButtons from "$lib/SocialButtons.svelte";
+    import { navBarLinks } from "$lib/config.js";
 
     let hiddenMenu = true;
-
-    let links=[
-      {
-        text: "Vstupenky",
-        url: "https://vstupenky.utxo.cz/23/",
-        newWindow: true
-      },
-      {
-        text: "Program",
-        url: "/program",
-        newWindow: false
-      },
-      {
-        text: "Praktické",
-        url: "/prakticke",
-        newWindow: false
-      },
-      {
-        text: "Mapa",
-        url: "/mapa",
-        newWindow: false
-      },
-      {
-        text: "Záznamy",
-        url: "https://utxo.tv/",
-        newWindow: true
-      },
-      {
-        text: "Fotky 2022",
-        url: "/fotky",
-        newWindow: false
-      }
-    ]
   
     function logoClick() {
       userData.update((ud) => {
@@ -81,7 +49,7 @@
           <img src="/img/logo.svg" class="h-10 m-auto" alt="UTXO 23 Logo" />
         </a>
         <ul class="flex shrink-0 flex-col p-4 mt-4 text-center text-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0">
-            {#each links as el}
+            {#each navBarLinks as el}
                 <li class="relative">
                   <a
                       sveltekit:prefetch

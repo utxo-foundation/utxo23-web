@@ -75,6 +75,7 @@ class="relative bg-center bg-cover {$page.url.pathname !== '/tv'
           </div>
         </div>
         <div class="flex my-16 gap-4 flex-wrap">
+          {#if false}
           <div class="text-center w-full">
               <a
               in:fade={{ duration: 2000, delay: 500}}
@@ -83,6 +84,7 @@ class="relative bg-center bg-cover {$page.url.pathname !== '/tv'
                 >Koupit vstupenky</a
               >
           </div>
+          {/if}
           {#if $apiStatus && $apiStatus.wave}
             <div class="my-auto sm:mt-0 mt-2 sm:ml-0 ml-2 italic opacity-50">
               Zbývá <span class="font-bold">{$apiStatus.wave.live.left}</span>

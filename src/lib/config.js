@@ -43,3 +43,17 @@ export const EventTypes = {
     colorDark: 'bg-rose-400/40'
   }
 }
+
+
+export const navBarLinks=[
+  {
+    text: "Záznamy",
+    url: "https://utxo.tv/",
+    newWindow: true
+  },
+  {
+    text: "Fotky 2022",
+    url: "/fotky",
+    newWindow: false
+  }
+]
