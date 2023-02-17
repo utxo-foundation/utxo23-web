@@ -2,6 +2,7 @@
     import { page } from "$app/stores";
     import SocialButtons from "$lib/SocialButtons.svelte";
     import { navBarLinks } from "$lib/config.js";
+    import { fly } from "svelte/transition";
 
     let hiddenMenu = true;
   
@@ -37,7 +38,9 @@
       <i class="fa-sharp fa-solid fa-bars fa-2x"></i>
     </button>
     
+    {#key hiddenMenu}
     <div
+      transition:fly={{x: 100, duration: 100}}
       class="{hiddenMenu ? 'hidden' : 'block' } fixed top-0 left-0 z-10 flex md:relative w-full min-h-[100vh] md:min-h-0 bg-gradient-to-br from-custom-darkpurple to-custom-darkestpurple md:bg-none md:block md:w-auto" id="navbar-default"
     >
       <button on:click={hideMenu}  type="button" class="{hiddenMenu && 'hidden' } absolute top-5 right-5 text-gray-200 rounded-lg md:hidden hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-gray-200">
@@ -78,5 +81,6 @@
           </div>
         </div>
       </div>
+    {/key}
   </div>
 </nav>
