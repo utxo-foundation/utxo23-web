@@ -130,21 +130,21 @@
     <div class="py-6 md:py-10 md:flex gap-12">
       <div class="block flex-1">
         <img
-          src="/photos/gabriel-loci.jpeg"
+          src="/photos/optimized/gabriel-loci.jpeg"
           class="flex rounded-xl shadow-xl"
           alt="Gabriel Loci"
         />
         <div class="flex mt-3 gap-3">
           <div class="w-1/2">
             <img
-              src="/photos/rajska-zahrada.jpeg"
+              src="/photos/optimized/rajska-zahrada.jpeg"
               class="rounded-lg shadow-lg"
               alt="Gabriel Loci - Rajská zahrada"
             />
           </div>
           <div class="w-1/2">
             <img
-              src="/photos/knihovna.jpeg"
+              src="/photos/optimized/knihovna.jpeg"
               class="rounded-lg shadow-lg"
               alt="Gabriel Loci - Knihovna"
             />
