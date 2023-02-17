@@ -2,6 +2,7 @@
     import { page } from "$app/stores";
     import SocialButtons from "$lib/SocialButtons.svelte";
     import { navBarLinks } from "$lib/config.js";
+    import { HtmlTag } from "svelte/internal";
 
     let hiddenMenu = true;
   
@@ -66,7 +67,7 @@
                         md:hover:underline-offset-4 md:p-0
                         {$page.url.pathname === el.url && "md:underline-offset-4 md:decoration-2 md:underline md:decoration-custom-purple"}
                         "
-                      >{el.text}</a
+                      >{el.text}{@html el.newWindow ? '&nbsp;<i class="fa-solid fa-up-right-from-square fa-sm opacity-70"></i>' : ''}</a
                     >
                     <div class="md:hidden border-b absolute bottom-0 left-1/4 border-custom-green/50 w-1/2"></div>
                     
