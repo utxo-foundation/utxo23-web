@@ -9,7 +9,7 @@
   import Link from "$lib/Link.svelte";
   const renderers = { link: Link };
 
-  $: id = getId($page.params.id);
+  $: id = getId($page.url.search);
   $: s = $bundle ? $bundle.spec.speakers.find((s) => s.id === id) : null;
   $: events = s && $bundle.spec.events
     ? $bundle.spec.events.filter(
@@ -17,7 +17,9 @@
       )
     : [];
 
-  function getId(cid) {
+  function getId(search) {
+    const searchParams = new URLSearchParams(search);
+    const cid = searchParams.get("id");
     if (!$bundle.spec.speakers.find((s) => s.id === cid)) {
       goto("/");
     }
