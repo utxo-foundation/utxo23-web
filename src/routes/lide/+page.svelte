@@ -9,10 +9,12 @@
   import Link from "$lib/Link.svelte";
   const renderers = { link: Link };
 
+  export let data;
+
   $: id = getId($page.url.search);
-  $: s = $bundle ? $bundle.spec.speakers.find((s) => s.id === id) : null;
-  $: events = s && $bundle.spec.events
-    ? $bundle.spec.events.filter(
+  $: s = data.bundle ? data.bundle.spec.speakers.find((s) => s.id === id) : null;
+  $: events = s && data.bundle.spec.events
+    ? data.bundle.spec.events.filter(
         (ev) => ev.speakers && ev.speakers.includes(s.id)
       )
     : [];
@@ -20,7 +22,7 @@
   function getId(search) {
     const searchParams = new URLSearchParams(search);
     const cid = searchParams.get("id");
-    if (!$bundle.spec.speakers.find((s) => s.id === cid)) {
+    if (!data.bundle.spec.speakers.find((s) => s.id === cid)) {
       goto("/");
     }
     return cid;
@@ -30,7 +32,7 @@
     if (!trackId) {
       return "n/a";
     }
-    const track = $bundle.spec.tracks.find((t) => t.id === trackId);
+    const track = data.bundle.spec.tracks.find((t) => t.id === trackId);
     return track.shortname || track.name;
   }
 
@@ -44,11 +46,11 @@
 </script>
 
 <svelte:head>
-  <title>{s ? s.name : ""} | Lidé | {$bundle ? $bundle.name : "UTXO.22"}</title>
+  <title>{s ? s.name : ""} | Lidé | {data.bundle ? data.bundle.name : "UTXO.22"}</title>
 </svelte:head>
 
 <section class="relative mx-auto py-6 sm:py-10 px-6 max-w-7xl text-custom-darkpurple">
-  {#if $bundle && s}
+  {#if data.bundle && s}
     <div class="mb-6 uppercase text-gray-500">
       <a href="javascript:history.back()"
         ><i class="fa-solid fa-arrow-left" />&nbsp;Zpět</a

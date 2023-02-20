@@ -8,8 +8,10 @@
   import WordCloud from "$lib/WordCloud.svelte";
   import Fuse from "fuse.js";
 
-  $: tags = getTags($bundle);
-  $: totalDuration = calcTotalDuration($bundle);
+  export let data;
+
+  $: tags = getTags(data.bundle);
+  $: totalDuration = calcTotalDuration(data.bundle);
 
   let fuse = null;
   let searchText = "";
@@ -55,8 +57,8 @@
     return true;
   }
 
-  $: filters = makeFilters($page, $bundle);
-  $: events = applyFilters(filters, $page, $bundle);
+  $: filters = makeFilters($page, data.bundle);
+  $: events = applyFilters(filters, $page, data.bundle);
   $: ids = [];
 
   function makeFilters(pg, bd) {
@@ -154,12 +156,12 @@
   });
 
   function searchTextSubmit() {
-    filters = makeFilters($page, $bundle);
+    filters = makeFilters($page, data.bundle);
   }
 
   function cancelFilter() {
     searchText = "";
-    filters = makeFilters($page, $bundle);
+    filters = makeFilters($page, data.bundle);
     goto("/program");
   }
 </script>
@@ -182,11 +184,11 @@
   </div>
   <!--div class="mt-6 flex flex-wrap gap-3 px-4 text-center">
     <div class="flex-1">
-      <div class="text-4xl">{$bundle.spec.events.length}</div>
+      <div class="text-4xl">{data.bundle.spec.events.length}</div>
       <div class="uppercase font-sm mt-1">událostí</div>
     </div>
     <div class="flex-1">
-      <div class="text-4xl">{$bundle.spec.speakers.length}</div>
+      <div class="text-4xl">{data.bundle.spec.speakers.length}</div>
       <div class="uppercase font-sm mt-1">přednášejících</div>
     </div>
     <div class="flex-1">
@@ -225,7 +227,7 @@
   <div class="mt-6 sm:flex">
     <div class="my-auto flex-1">
       <h1 class="uppercase text-lg font-semibold">
-        Seznam událostí ({ids.length}/{$bundle.spec.events.length})
+        Seznam událostí ({ids.length}/{data.bundle.spec.events.length})
       </h1>
     </div>
     <div class="my-auto flex gap-2 mt-2 sm:mt-0">
@@ -241,12 +243,12 @@
     </div>
   </div>
   <div class="mt-4">
-    {#each ids.map((id) => $bundle.spec.events.find((e) => e.id === id)) as ev}
+    {#each ids.map((id) => data.bundle.spec.events.find((e) => e.id === id)) as ev}
       <Event event={ev} />
     {/each}
   </div>
   <!--div class="mt-4">
-    {#each $bundle.spec.events as e}
+    {#each data.bundle.spec.events as e}
       {#if ids.includes(e.id)}
         <Event event={e} />
       {/if}

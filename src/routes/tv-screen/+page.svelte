@@ -8,6 +8,8 @@
   import Avatar from "$lib/Avatar.svelte";
   import { EventTypes } from "$lib/config.js"
 
+  export let data;
+
   const screens = [
     { type: 'main' },
     { type: 'program' },
@@ -17,17 +19,17 @@
   let stageStatus = {}
 
   $: stageId = getParam($page.url.search, 's')
-  $: stage = stageId && $bundle ? $bundle.spec.stages.find(s => s.id === stageId) : null
+  $: stage = stageId && data.bundle ? data.bundle.spec.stages.find(s => s.id === stageId) : null
   $: ss = stageId ? stageStatus[stageId] : null
 
   $: scheduleId = getParam($page.url.search, 'id')
   $: eventId = getParam($page.url.search, 'event')
-  $: si = $bundle ? $bundle.spec.schedule.find(i => i.id === scheduleId) : null
-  $: event = si ? $bundle.spec.events.find(e => e.id === si.event) : (eventId && $bundle ? $bundle.spec.events.find(e => e.id === eventId) : null)
+  $: si = data.bundle ? data.bundle.spec.schedule.find(i => i.id === scheduleId) : null
+  $: event = si ? data.bundle.spec.events.find(e => e.id === si.event) : (eventId && data.bundle ? data.bundle.spec.events.find(e => e.id === eventId) : null)
  
   function getSpeakers (speakers) {
     return speakers.map(sId => {
-      return $bundle.spec.speakers.find(s => s.id === sId)
+      return data.bundle.spec.speakers.find(s => s.id === sId)
     })
   }
   
@@ -65,7 +67,7 @@
 </script>
 
 
-{#if $bundle && event}
+{#if data.bundle && event}
   <div style="width: 1920px; height: 1080px;" class="relative bg-[url('/img/tv-bg.png')] text-white/50 text-xl" id="utxo-tv">
     <div class="absolute bottom-20 left-20">
       <img src="/img/logo-white.svg" style="width: 520px;" />

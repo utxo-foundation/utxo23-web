@@ -6,6 +6,8 @@
   import { formatCET } from "$lib/utils.js";
   import { cs } from "date-fns/locale/index.js";
 
+  export let data;
+
   const screens = [
     { type: 'main' },
     { type: 'program' },
@@ -15,7 +17,7 @@
   let stageStatus = {}
 
   $: stageId = getParam($page.url.search, 's')
-  $: stage = stageId && $bundle ? $bundle.spec.stages.find(s => s.id === stageId) : null
+  $: stage = stageId && data.bundle ? data.bundle.spec.stages.find(s => s.id === stageId) : null
   $: ss = stageId ? stageStatus[stageId] : null
   
   let time = getTime()
@@ -52,7 +54,7 @@
 </script>
 
 
-{#if $bundle && stage}
+{#if data.bundle && stage}
   <div class="relative w-screen h-screen bg-[url('/img/bg-header.jpg')] bg-cover text-white/50 text-xl">
   {#each screens as sc}
     <div class="absolute top-0 uppercase text-md py-5 px-5">{stage.name}</div>

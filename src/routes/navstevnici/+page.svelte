@@ -6,6 +6,8 @@
   import { onMount, onDestroy } from "svelte";
   import { loadOrders, loadApiStatus } from "$lib/orders";
 
+  export let data;
+
   let tickets = null;
   let lastUpdate = null;
   let interval = null;
@@ -73,7 +75,7 @@
 </script>
 
 <svelte:head>
-  <title>Návštěvníci | {$bundle ? $bundle.name : "UTXO.22"}</title>
+  <title>Návštěvníci | {data.bundle ? data.bundle.name : "UTXO.22"}</title>
 </svelte:head>
 
 <section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-blue-web">

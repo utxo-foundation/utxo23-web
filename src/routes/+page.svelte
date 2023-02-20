@@ -7,10 +7,12 @@
   import Transition from "$lib/Transition.svelte";
   const renderers = { link: Link };
 
+  export let data;
+
   let onlyLead = true;
   let onlyLeadPreview = false;
 
-  $: currentBundle = $bundle;
+  $: currentBundle = data.bundle;
   $: leadSpeakersCount = currentBundle
     ? currentBundle.spec.speakers.filter((s) => !!s.lead).length
     : 0;
@@ -48,10 +50,10 @@
 </script>
 
 <svelte:head>
-  <title>UTXO.23 {$bundle ? "- " + $bundle.description : ""}</title>
+  <title>UTXO.23 {data.bundle ? "- " + data.bundle.description : ""}</title>
 </svelte:head>
 
-{#if $bundle}
+{#if data.bundle}
   {#if $apiStatus}
     <section class="bg-blue-web-light">
       <div class="pb-4 pt-4 lg:pt-4 lg:pb-4 mx-auto sm:px-2 lg:px-6 2xl:px-16">
@@ -60,11 +62,11 @@
         >
           <div>
             {@html statsIcon("fa-solid fa-user-check")}
-            <b>{$bundle.spec.speakers.length}</b> přednášejících
+            <b>{data.bundle.spec.speakers.length}</b> přednášejících
           </div>
           <div>
             {@html statsIcon("fa-regular fa-calendar")}
-            <b>{$bundle.spec.events.length}</b> událostí
+            <b>{data.bundle.spec.events.length}</b> událostí
           </div>
           <div>
             {@html statsIcon("fa-solid fa-users")}
@@ -87,7 +89,7 @@
           on:click={changeTrack(track.id)}
         >
           {track.shortname || track.name}
-          {#if !track.id}({$bundle.spec.speakers.length}){/if}
+          {#if !track.id}({data.bundle.spec.speakers.length}){/if}
         </div>
       {/each}
     </div>
@@ -95,7 +97,7 @@
   <section class="pb-6 sm:-pb-10 mx-auto sm:px-2 lg:px-6 2xl:px-16">
     
     <div class="flex flex-wrap gap-6 mt-6 sm:mt-14 justify-center">
-      {#each $bundle.spec.speakers as speaker}
+      {#each data.bundle.spec.speakers as speaker}
         {#if ($userData.hpTrack === "top" && speaker.lead === true) || $userData.hpTrack !== "top"}
           {#if !$userData.hpTrack || (speaker.tracks && speaker.tracks.includes($userData.hpTrack)) || $userData.hpTrack === "top"}
             <Transition key={$userData.hpTrack} type='random'>
@@ -113,7 +115,7 @@
           on:click={handleShowFull}
         />
         <div class="flex flex-wrap gap-3 mt-10 justify-center">
-          {#each $bundle.spec.speakers
+          {#each data.bundle.spec.speakers
             .filter((s) => !s.lead)
             .sort(() => 0.5 - Math.random())
             .slice(0, 27) as speaker}
@@ -189,10 +191,10 @@
 <section class="mx-auto py-10 px-6 max-w-auto overflow-hidden">
   <div class="text-custom-darkpurple lg:mt-10">
     <div class="text-2xl uppercase font-bold text-center">Partneři</div>
-    {#if $bundle.spec.partners.filter((p) => p.type === "sponsor").slice(0,4).length}
+    {#if data.bundle.spec.partners.filter((p) => p.type === "sponsor").slice(0,4).length}
     <div class="mt-6 text-center">Hlavní sponzoři</div>
     <div class="mt-6 flex flex-wrap gap-8 justify-center">
-      {#each $bundle.spec.partners.filter((p) => p.type === "sponsor").slice(0,4) as p}
+      {#each data.bundle.spec.partners.filter((p) => p.type === "sponsor").slice(0,4) as p}
         <div class="w-32">
           <a href={p.web.url} target="_blank"
             ><Avatar
@@ -207,10 +209,10 @@
       {/each}
     </div>
     {/if}
-    {#if $bundle.spec.partners.filter((p) => p.type === "sponsor").slice(4).length}
+    {#if data.bundle.spec.partners.filter((p) => p.type === "sponsor").slice(4).length}
     <div class="mt-6 text-center">Sponzoři</div>
     <div class="mt-6 flex flex-wrap gap-8 justify-center">
-      {#each $bundle.spec.partners.filter((p) => p.type === "sponsor").slice(4) as p}
+      {#each data.bundle.spec.partners.filter((p) => p.type === "sponsor").slice(4) as p}
         <div class="w-32">
           <a href={p.web.url} target="_blank"
             ><Avatar
@@ -225,10 +227,10 @@
       {/each}
     </div>
     {/if}
-    {#if $bundle.spec.partners.filter((p) => p.type === "community").length}
+    {#if data.bundle.spec.partners.filter((p) => p.type === "community").length}
     <div class="mt-10 text-center">Komunity</div>
     <div class="mt-6 flex flex-wrap gap-6 justify-center">
-      {#each $bundle.spec.partners.filter((p) => p.type === "community") as p}
+      {#each data.bundle.spec.partners.filter((p) => p.type === "community") as p}
         <div>
           <SvelteTooltip tip={p.name} bottom="true">
             <a
@@ -250,10 +252,10 @@
       {/each}
     </div>
     {/if}
-    {#if $bundle.spec.partners.filter((p) => p.type === "medium").length}
+    {#if data.bundle.spec.partners.filter((p) => p.type === "medium").length}
     <div class="mt-10 text-center">Mediální partneři</div>
     <div class="mt-6 flex flex-wrap gap-4 justify-center">
-      {#each $bundle.spec.partners.filter((p) => p.type === "medium") as p}
+      {#each data.bundle.spec.partners.filter((p) => p.type === "medium") as p}
         <div>
           <SvelteTooltip tip={p.name} bottom="true">
             <a
@@ -278,14 +280,14 @@
   </div>
 </section>
 
-{#if $bundle}
+{#if data.bundle}
   <section class="relative mx-auto py-10 px-6 max-w-7xl">
     <div class="text-custom-darkpurple">
       <h2 class="uppercase pt-5 text-center" id="faq">
         Často kladené dotazy (FAQ)
       </h2>
       <div class="md:columns-2 columns-1 mt-8 h-auto">
-        {#each $bundle.spec.faqs as item}
+        {#each data.bundle.spec.faqs as item}
           <div
             class="mb-5 break-inside-avoid-column text-custom-darkgreen bg-custom-lightgreen rounded-xl px-8 py-6 text-left transition-all box-shadow-light overflow-visible"
           >

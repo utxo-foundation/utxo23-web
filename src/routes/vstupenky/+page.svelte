@@ -23,6 +23,8 @@
   import { loadOrders, loadApiStatus } from "$lib/orders";
   import Avatar from "$lib/Avatar.svelte";
 
+  export let data;
+
   const renderers = { link: Link };
   const orderTicketFormLS = localStorage.getItem("orderTicketForm");
   let parsed = JSON.parse(orderTicketFormLS);
@@ -425,7 +427,7 @@
                   {#if (ticket.type === "speaker" || ticket.type === "organizator") && ticket.link && ticket.link.id && ticket.link.type === "speaker"}
                     <a href="/lide?id={ticket.link.id}"
                       ><Avatar
-                        speaker={$bundle.spec.speakers.find(
+                        speaker={data.bundle.spec.speakers.find(
                           (s) => s.id === ticket.link.id
                         )}
                         size="semi-small"
@@ -701,23 +703,23 @@
             13:00.<br /><br />
             Sledujte naše sociální sítě -
             <a
-              href={$bundle.links.twitter}
+              href={data.bundle.links.twitter}
               target="_blank"
               class="underline hover:no-underline">Twitter</a
             >,
             <a
-              href={$bundle.links.instagram}
+              href={data.bundle.links.instagram}
               target="_blank"
               class="underline hover:no-underline">Instagram</a
             >,
             <a
-              href={$bundle.links.fbevent}
+              href={data.bundle.links.fbevent}
               target="_blank"
               class="underline hover:no-underline">Facebook</a
             >
             nebo odebírejte náš
             <a
-              href={$bundle.links.substack}
+              href={data.bundle.links.substack}
               target="_blank"
               class="underline hover:no-underline">Newsletter</a
             >.

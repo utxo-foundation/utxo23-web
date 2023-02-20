@@ -4,8 +4,10 @@
   import { bundle, userData, loadInfo, schedulePref } from "$lib/stores.js";
   import { cs } from "date-fns/locale/index.js";
 
+  export let data;
+
   let planNumber = 0;
-  $: plan = $bundle ? $bundle.spec["schedule-candidates"][planNumber] : null;
+  $: plan = data.bundle ? data.bundle.spec["schedule-candidates"][planNumber] : null;
 
   onMount(async () => {
     bundle.subscribe((bundle) => {
@@ -178,14 +180,14 @@
   class="relative mx-auto pt-6 sm:pt-10 pb-6 px-6 max-w-6xl text-blue-web"
 >
   <h1 class="uppercase text-2xl font-bold mb-6">Časová osa</h1>
-  {#if $bundle}
+  {#if data.bundle}
     <div class="font-semibold uppercase mb-1">Plán (řešení)</div>
     <div class="flex flex-wrap gap-1">
       <select
         class="border border-blue-web rounded-md p-1.5 text-blue-web bg-white"
         bind:value={planNumber}
       >
-        {#each $bundle.spec["schedule-candidates"] as p, i}
+        {#each data.bundle.spec["schedule-candidates"] as p, i}
           <option value={i}
             >#{i} [{[
               "score",
@@ -207,7 +209,7 @@
   {/if}
 </section>
 <section class="relative mx-auto pb-6 sm:pb-10 px-0 text-blue-web">
-  {#if $bundle}
+  {#if data.bundle}
     <div class="max-w-6xl mx-auto px-6 mb-10">
       <div class="">
         <div class="font-semibold uppercase mb-1">Sál / Místo</div>
@@ -217,11 +219,11 @@
               href="#"
               class="hover:underline"
               on:click={() =>
-                ($schedulePref.stages = $bundle.spec.stages.map((s) => s.id))}
+                ($schedulePref.stages = data.bundle.spec.stages.map((s) => s.id))}
               >Všechny sály</a
             >
           </div>
-          {#each $bundle.spec.stages as et}
+          {#each data.bundle.spec.stages as et}
             <div class="u-choose-div m-0.5">
               <label class="cursor-pointer"
                 ><input
@@ -247,11 +249,11 @@
               href="#"
               class="hover:underline"
               on:click={() =>
-                ($schedulePref.tracks = $bundle.spec.tracks.map((s) => s.id))}
+                ($schedulePref.tracks = data.bundle.spec.tracks.map((s) => s.id))}
               >Všechny kategorie</a
             >
           </div>
-          {#each $bundle.spec.tracks as et}
+          {#each data.bundle.spec.tracks as et}
             <div class="u-choose-div m-0.5">
               <label class="cursor-pointer"
                 ><input
@@ -271,7 +273,7 @@
         </div>
       </div>
     </div>
-    {#each scheduleTimes($bundle) as st}
+    {#each scheduleTimes(data.bundle) as st}
       <div class="max-w-6xl mx-auto px-6 mb-4">
         <h2 class="uppercase text-xl font-bold">
           {format(new Date(st.date), "iiii d.M.y", { locale: cs })}
@@ -283,7 +285,7 @@
             <thead class="">
               <tr>
                 <th class="xl:w-16" />
-                {#each activeStages($bundle, $bundle.spec.stages, st.date, plan) as stage}
+                {#each activeStages(data.bundle, data.bundle.spec.stages, st.date, plan) as stage}
                   {#if $schedulePref && $schedulePref.stages.includes(stage.id)}
                     <th
                       class="text-md py-1.5 px-1 sticky top-0 bg-white align-bottom"
@@ -299,22 +301,22 @@
               </tr>
             </thead>
             <tbody>
-              {#each dateSlots(plan, st.period, $bundle, $schedulePref) as ds}
+              {#each dateSlots(plan, st.period, data.bundle, $schedulePref) as ds}
                 <tr class="bg-gray-100">
                   <th
                     valign="top"
                     class="w-auto pl-2 pr-2 pt-1 text-sm sticky left-0 bg-white"
                     height="110">{ds.title}</th
                   >
-                  {#each activeStages($bundle, $bundle.spec.stages, st.date, plan) as stage}
+                  {#each activeStages(data.bundle, data.bundle.spec.stages, st.date, plan) as stage}
                     {#if $schedulePref && $schedulePref.stages.includes(stage.id)}
                       {#if ds.stages[stage.id] === undefined}
                         <td />
                       {:else if ds.stages[stage.id] !== null}
-                        {#each [[ds.stages[stage.id], findEvent($bundle, ds.stages[stage.id].event)]] as [si, event]}
+                        {#each [[ds.stages[stage.id], findEvent(data.bundle, ds.stages[stage.id].event)]] as [si, event]}
                           <td
                             class="text-sm h-full transition-all {event.color} {eventTrackClasses(
-                              $bundle,
+                              data.bundle,
                               event,
                               $schedulePref.tracks
                             )}"
@@ -328,7 +330,7 @@
                                   "HH:mm"
                                 )}-{format(new Date(si.period.end), "HH:mm")}
                                 <span class="opacity-70">@{si.id}</span>
-                                {#if event.track}[{#each [$bundle.spec.tracks.find((t) => t.id === event.track)] as track}{track.shortname ||
+                                {#if event.track}[{#each [data.bundle.spec.tracks.find((t) => t.id === event.track)] as track}{track.shortname ||
                                       track.name}{/each}]{/if}
                               </div>
                               <div class="font-semibold mt-1">
@@ -337,7 +339,7 @@
                                 >
                               </div>
                               <div class="text-xs mt-1">
-                                {@html showEventDetail($bundle, event)}
+                                {@html showEventDetail(data.bundle, event)}
                               </div>
                               <div class="text-xs mt-2 text-blue-web/50">
                                 {event.tags.map((t) => `#${t}`).join(", ")}

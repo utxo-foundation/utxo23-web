@@ -14,21 +14,23 @@
   import EventSchedule from "$lib/EventSchedule.svelte";
   import YouTube from "$lib/YouTube.svelte";
 
+  export let data;
+
   const renderers = { link: Link, paragraph: Paragraph };
 
   $: id = getId($page.url.search);
-  $: e = $bundle ? $bundle.spec.events.find((ev) => ev.id === id) : null;
-  $: duration = e ? calcDuration(e, $bundle) : null;
-  $: childrens = e ? $bundle.spec.events.filter((i) => i.parent === e.id) : [];
+  $: e = data.bundle ? data.bundle.spec.events.find((ev) => ev.id === id) : null;
+  $: duration = e ? calcDuration(e, data.bundle) : null;
+  $: childrens = e ? data.bundle.spec.events.filter((i) => i.parent === e.id) : [];
 
-  $: schedule = $bundle
-    ? $bundle.spec.schedule.find((s) => s.event === id)
+  $: schedule = data.bundle
+    ? data.bundle.spec.schedule.find((s) => s.event === id)
     : null;
 
   function getId(search) {
     const searchParams = new URLSearchParams(search);
     const cid = searchParams.get("id");
-    if (!$bundle.spec.events.find((s) => s.id === cid)) {
+    if (!data.bundle.spec.events.find((s) => s.id === cid)) {
       goto("/");
     }
     return cid;
@@ -37,24 +39,24 @@
   function speakersMap(arr) {
     if (!arr) return;
     return arr.map((sId) => {
-      return $bundle.spec.speakers.find((sp) => sp.id === sId);
+      return data.bundle.spec.speakers.find((sp) => sp.id === sId);
     });
   }
 
   function trackRender(trackId) {
-    const track = $bundle.spec.tracks.find((t) => t.id === trackId);
+    const track = data.bundle.spec.tracks.find((t) => t.id === trackId);
     return track.shortname || track.name;
   }
 </script>
 
 <svelte:head>
   <title
-    >{e ? e.name : ""} | Události | {$bundle ? $bundle.name : "UTXO.22"}</title
+    >{e ? e.name : ""} | Události | {data.bundle ? data.bundle.name : "UTXO.22"}</title
   >
 </svelte:head>
 
 <section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-blue-web">
-  {#if $bundle && e}
+  {#if data.bundle && e}
     <div class="mb-6 uppercase text-gray-500">
       <a href="javascript:history.back()"
         ><i class="fa-solid fa-arrow-left" />&nbsp;Zpět</a
@@ -63,7 +65,7 @@
     <div class="mb-6 flex flex-wrap gap-4">
       <div><EventTypeLabel event={e} size="big" /></div>
       {#if schedule}
-        <EventSchedule item={schedule} event={e} bundle={$bundle} />
+        <EventSchedule item={schedule} event={e} bundle={data.bundle} />
       {/if}
       {#if duration}
         <div class="text-sm my-auto">{duration}m</div>
@@ -125,7 +127,7 @@
     {#if e.parent}
       <div class="mt-6">
         <h2 class="text uppercase mb-4 font-semibold">Součást události:</h2>
-        <Event event={$bundle.spec.events.find((ev) => ev.id === e.parent)} />
+        <Event event={data.bundle.spec.events.find((ev) => ev.id === e.parent)} />
       </div>
     {/if}
     {#if childrens.length}

@@ -6,7 +6,8 @@ const config = {
 	kit: {
 		adapter: adapter(),
     prerender: {
-      handleMissingId: 'warn'
+      handleMissingId: 'warn',
+      handleHttpError: 'warn',
     }
   },
   preprocess: vitePreprocess()

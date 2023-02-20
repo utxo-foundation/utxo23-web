@@ -13,6 +13,8 @@
   import { scrollTo, scrollRef, scrollTop } from "svelte-scrolling";
   const renderers = { link: Link };
 
+  export let data;
+
   const maxSingleWidth = 700;
 
   let loading = true;
@@ -121,12 +123,12 @@
 </svelte:head>
 
 <div class="w-full h-full bg-blue-web-bg/90">
-  {#if $bundle}
+  {#if data.bundle}
     <div class="px-16 py-4">
       <div
         class="flex w-full justify-center lg:pt-6 text-white gap-4 flex-wrap lg:flex-nowrap"
       >
-        {#each $bundle.spec.stages.filter((s) => s.livestream) as stage, i}
+        {#each data.bundle.spec.stages.filter((s) => s.livestream) as stage, i}
           <div
             class="w-full md:w-1/3 lg:w-1/4 px-6 py-4 bg-blue-web-bg/70 rounded-2xl text-center  transition-all shadow-xl"
           >
@@ -180,7 +182,7 @@
       </div>
     </div>
     <section class="relative mx-auto lg:py-6 px-2 lg:px-6 text-white">
-      {#each $bundle.spec.stages.filter((s) => s.livestream) as stage, i}
+      {#each data.bundle.spec.stages.filter((s) => s.livestream) as stage, i}
         <div
           id={stage.id}
           class="mb-8 bg-blue-web-bg/90 p-4 rounded-lg shadow-xl"
@@ -265,7 +267,7 @@
                       >
                     </div>
                     <div class="flex flex-wrap mt-2 gap-3">
-                      {#each ss.current._event.speakers.map( (sp) => findSpeaker(sp, $bundle) ) as speaker}
+                      {#each ss.current._event.speakers.map( (sp) => findSpeaker(sp, data.bundle) ) as speaker}
                         <div class="flex gap-2">
                           <Avatar {speaker} size="extra-small" />
                           <div>

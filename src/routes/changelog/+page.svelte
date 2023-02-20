@@ -5,6 +5,8 @@
   import Link from "$lib/Link.svelte";
   const renderers = { link: Link };
 
+  export let data;
+
   let text = null;
 
   onMount(async () => {
@@ -14,7 +16,7 @@
 </script>
 
 <svelte:head>
-  <title>Speciální vstupenky | {$bundle ? $bundle.name : "UTXO.23"}</title>
+  <title>Speciální vstupenky | {data.bundle ? data.bundle.name : "UTXO.23"}</title>
 </svelte:head>
 
 <section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-blue-web">

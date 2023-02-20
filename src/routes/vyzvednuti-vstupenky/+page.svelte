@@ -9,6 +9,8 @@
   import removeMd from "remove-markdown";
   import { userData } from "$lib/stores";
 
+  export let data;
+
   let claim = null;
   let form = {
     email: "",
@@ -19,17 +21,17 @@
   let formProcessing = false;
   let formError = null;
 
-  $: target = $bundle && claim ? findTarget(claim.link) : null;
+  $: target = data.bundle && claim ? findTarget(claim.link) : null;
 
   function findTarget(link) {
     if (link.type === "speaker") {
-      return $bundle.spec.speakers.find((s) => s.id === link.id);
+      return data.bundle.spec.speakers.find((s) => s.id === link.id);
     }
     if (link.type === "partner") {
-      return $bundle.spec.partners.find((s) => s.id === link.id);
+      return data.bundle.spec.partners.find((s) => s.id === link.id);
     }
     if (link.type === "team") {
-      return $bundle.spec.team.persons[link.id];
+      return data.bundle.spec.team.persons[link.id];
     }
     return null;
   }
@@ -46,12 +48,12 @@
       goto("/");
     }
     if (
-      $bundle &&
+      data.bundle &&
       claim.type === "speaker" &&
       claim.link &&
       claim.link.type === "speaker"
     ) {
-      const sp = $bundle.spec.speakers.find((s) => s.id === claim.link.id);
+      const sp = data.bundle.spec.speakers.find((s) => s.id === claim.link.id);
       if (sp) {
         form.name = sp.name || "";
         form.org = sp.orgs ? removeMd(sp.orgs).substring(0, 25) : "";
@@ -162,13 +164,13 @@
 </script>
 
 <svelte:head>
-  <title>Vyzvednutí vstupenky | {$bundle ? $bundle.name : "UTXO.22"}</title>
+  <title>Vyzvednutí vstupenky | {data.bundle ? data.bundle.name : "UTXO.22"}</title>
 </svelte:head>
 
 <section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-blue-web">
   <h1 class="uppercase text-2xl font-bold">Vyzvednutí vstupenky</h1>
   <div class="mt-6 mb-10">
-    {#if claim && $bundle}
+    {#if claim && data.bundle}
       <div
         class="p-3 bg-blue-web-light rounded-md mt-6 text-blue-web shadow-md"
       >

@@ -2,12 +2,14 @@
   import { bundle, userData } from "$lib/stores.js";
   import SvelteMarkdown from "svelte-markdown";
 
+  export let data;
+
   import Link from "$lib/Link.svelte";
   const renderers = { link: Link };
 </script>
 
 <svelte:head>
-  <title>Praktické informace | {$bundle ? $bundle.name : "UTXO.22"}</title>
+  <title>Praktické informace | {data.bundle ? data.bundle.name : "UTXO.22"}</title>
 </svelte:head>
 
 <h1 class="max-w-7xl mx-auto py-8 text-3xl">Praktické informace</h1>
@@ -16,7 +18,7 @@
   <h1 class="uppercase text-2xl font-bold">Praktické informace</h1>
 
   {#if bundle}
-    {#each $bundle.spec["practical-info"] as item}
+    {#each data.bundle.spec["practical-info"] as item}
       <div class="mt-8">
         <div>
           <a id={item.id} href="#{item.id}"

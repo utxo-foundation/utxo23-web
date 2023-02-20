@@ -3,9 +3,11 @@
   import SocialButtons from "$lib/SocialButtons.svelte";
   import { version } from "$lib/version.js";
   import { page } from "$app/stores";
+
+  export let data;
 </script>
 
-{#if $bundle && !['/kiosk','/tv-screen'].includes($page.url.pathname)}
+{#if data.bundle && !['/kiosk','/tv-screen'].includes($page.url.pathname)}
   <div class="bg-gradient-to-b from-custom-darkpurple to-custom-darkestpurple text-white print:hidden">
     <div
       class="relative mx-auto px-6 pt-10 pb-2 sm:pb-6 max-w-7xl sm:flex pr-4"
@@ -24,7 +26,7 @@
         </div>
         <div class="mt-4">
           <a
-            href={$bundle.links.docs}
+            href={data.bundle.links.docs}
             class="hover:text-custom-green"
             target="_blank"><i class="fas fa-book" />&nbsp; Dokumentace</a
           >

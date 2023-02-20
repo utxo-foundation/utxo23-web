@@ -5,8 +5,9 @@
   import Avatar from "$lib/Avatar.svelte";
   import api from "$lib/api.js";
 
+  export let data;
+
   let lastUpdate = null;
-  let data = null;
   let speakersWithoutTicket = null;
   let selectedType = "all";
 
@@ -54,9 +55,9 @@
     }
     let item = null;
     if (link.type === "team") {
-      item = $bundle.spec.team.persons[link.id];
+      item = data.bundle.spec.team.persons[link.id];
     } else {
-      item = $bundle.spec[ltype.col].find((i) => i.id === link.id);
+      item = data.bundle.spec[ltype.col].find((i) => i.id === link.id);
     }
     if (!item) {
       return "not exists!";
@@ -82,7 +83,7 @@
       return null;
     }
     const wt = [];
-    $bundle.spec.speakers.forEach((sp) => {
+    data.bundle.spec.speakers.forEach((sp) => {
       if (!data.find((i) => i.link.type === "speaker" && i.link.id === sp.id)) {
         wt.push(sp);
       }
@@ -96,7 +97,7 @@
 </script>
 
 <svelte:head>
-  <title>Speciální vstupenky | {$bundle ? $bundle.name : "UTXO.22"}</title>
+  <title>Speciální vstupenky | {data.bundle ? data.bundle.name : "UTXO.22"}</title>
 </svelte:head>
 
 <section class="relative mx-auto py-6 sm:py-10 px-6 max-w-6xl text-blue-web">
@@ -166,10 +167,10 @@
                 >
                 <td class="border-b">
                   <a href={claim.linkInfo.url}>
-                    {#if !claim.linkInfo.withoutAvatar && $bundle.spec[claim.linkInfo.col]}
+                    {#if !claim.linkInfo.withoutAvatar && data.bundle.spec[claim.linkInfo.col]}
                       <div class="inline-block align-middle">
                         <Avatar
-                          speaker={$bundle.spec[claim.linkInfo.col].find(
+                          speaker={data.bundle.spec[claim.linkInfo.col].find(
                             (i) => i.id === claim.link.id
                           )}
                           col={claim.linkInfo.col}
