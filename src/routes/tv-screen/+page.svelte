@@ -68,9 +68,9 @@
 
 
 {#if data.bundle && event}
-  <div style="width: 1920px; height: 1080px;" class="relative bg-[url('/img/tv-bg.png')] text-white/50 text-xl" id="utxo-tv">
+  <div style="width: 1920px; height: 1080px;" class="relative bg-[url('/img/tv-bg.jpg')] text-white/50 text-xl" id="utxo-tv">
     <div class="absolute bottom-20 left-20">
-      <img src="/img/logo-white.svg" style="width: 520px;" />
+      <img src="/img/logo.svg" style="width: 520px;" />
     </div>
     <div class="flex" style="height: 900px;">
       <div class="my-auto text-white text-8xl pl-20 pr-20">

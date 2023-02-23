@@ -68,7 +68,7 @@ class="relative bg-center bg-cover {$page.url.pathname !== '/tv'
             >
               <i class="fa-regular fa-calendar-days text-custom-white" />
             </div>
-            <div class="text-white">2.-4. červen 2023</div>
+            <div class="text-white">3.-4. červen 2023</div>
           </div>
           <div class="flex items-center gap-3">
             <div

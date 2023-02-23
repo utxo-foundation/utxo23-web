@@ -19,7 +19,7 @@
           >
         </div>
         <div class="mt-4 font-semibold">
-          2.-4. červen 2023 @ Gabriel Loci, Praha
+          3.-4. červen 2023 @ Gabriel Loci, Praha
         </div>
         <div class="mt-2 font-thin">
           Otevřená komunitní kryptoměnová konference

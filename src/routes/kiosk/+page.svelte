@@ -67,7 +67,7 @@
         <div class="text-center m-auto">
           <div class="mb-10">Obrazovka I.</div>
           <div class="mb-10 text-4xl">{stage.name}</div>
-          <img src="/img/logo-white.svg" class="w-100" />
+          <img src="/img/logo.svg" class="w-100" />
           <div class="mt-10">Zde budou sponzoři, partneři, atp...</div>
         </div>
       {/if}
