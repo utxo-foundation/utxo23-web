@@ -20,6 +20,7 @@
           href={$bundle.links[soc.link]}
           class="w-6 h-6 bg-white rounded-lg hover:bg-utxo-gradient hover:text-white"
           target="_blank"
+          rel="noreferrer"
         >
           <i class={soc.ico} />
         </a>
@@ -31,7 +32,7 @@
       <div class="sm:flex flex-wrap gap-3 justify-end">
         {#each socials as soc}
           <div class="mr-4 sm:mr-0 inline-block sm:block hover:text-custom-green">
-            <a href={$bundle.links[soc.link]} class="block flex" target="_blank"
+            <a href={$bundle.links[soc.link]} class="block flex" target="_blank" rel="noreferrer"
               ><i class="{soc.ico} mr-2 my-auto" />{soc.name}</a
             >
           </div>

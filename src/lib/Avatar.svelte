@@ -85,7 +85,7 @@
 {#if size === "normal"}
   <div class="w-44 sm:w-44 text-center pb-4">
     <a
-    href="/lide?id={speaker.id}"
+    href="/lide/{speaker.id}"
     >
       <div class="h-44">
         <div class="flip-card">
@@ -99,7 +99,7 @@
       </a
     >
     <div class="mt-4 text-sm text-custom-darkpurple uppercase font-bold">
-      <a href="/lide?id={speaker.id}"
+      <a href="/lide/{speaker.id}"
         >{speaker.name}{#if speaker.nickname}&nbsp; ({speaker.nickname}){/if}</a
       >
       {country}
@@ -139,7 +139,7 @@
 
 {#if size === "extra-small"}
   <div class="w-6 h-6 text-center {inline ? 'inline-block align-middle' : ''}">
-    <a href="/lide?id={speaker.id}"
+    <a href="/lide/{speaker.id}"
       ><img
         src={currentImg}
         class="w-6 rounded-lg m-auto"
@@ -151,7 +151,7 @@
 
 {#if size === "micro"}
   <div class="w-4 h-4 text-center {inline ? 'inline-block align-middle' : ''}">
-    <a href="/lide?id={speaker.id}"
+    <a href="/lide/{speaker.id}"
       ><img
         src={currentImg}
         class="w-4 rounded-lg m-auto"

@@ -87,6 +87,7 @@
             ? 'bg-utxo-gradient border-0 text-white'
             : 'border-custom-darkpurple  hover:bg-custom-darkpurple hover:text-white hover:border-transparent cursor-pointer'}"
           on:click={changeTrack(track.id)}
+          on:keydown={changeTrack(track.id)}
         >
           {track.shortname || track.name}
           {#if !track.id}({data.bundle.spec.speakers.length}){/if}
@@ -113,6 +114,7 @@
         <div
           class="absolute inset-0 bg-gradient-to-b from-transparent to-white flex"
           on:click={handleShowFull}
+          on:keydown={handleShowFull}
         />
         <div class="flex flex-wrap gap-3 mt-10 justify-center">
           {#each data.bundle.spec.speakers
@@ -162,12 +164,15 @@
             ><a
               href="https://goo.gl/maps/u1aY4RxXMgcm889V7"
               class="underline hover:no-underline"
-              target="_blank">Google Maps</a
+              target="_blank"
+              rel="noreferrer"
+              >Google Maps</a
             >,
             <a
               href="https://mapy.cz/s/cuvetubafo"
               class="underline hover:no-underline"
-              target="_blank">Mapy.cz</a
+              target="_blank"
+              rel="noreferrer">Mapy.cz</a
             ></span
           >
         </div>
@@ -196,7 +201,7 @@
     <div class="mt-6 flex flex-wrap gap-8 justify-center">
       {#each data.bundle.spec.partners.filter((p) => p.type === "sponsor").slice(0,4) as p}
         <div class="w-32">
-          <a href={p.web.url} target="_blank"
+          <a href={p.web.url} target="_blank" rel="noreferrer"
             ><Avatar
               speaker={p}
               col="partners"
@@ -214,7 +219,7 @@
     <div class="mt-6 flex flex-wrap gap-8 justify-center">
       {#each data.bundle.spec.partners.filter((p) => p.type === "sponsor").slice(4) as p}
         <div class="w-32">
-          <a href={p.web.url} target="_blank"
+          <a href={p.web.url} target="_blank" rel="noreferrer"
             ><Avatar
               speaker={p}
               col="partners"
@@ -240,6 +245,7 @@
                 ? `https://twitter.com/${p.twitter}`
                 : ""}
               target="_blank"
+              rel="noreferrer"
               ><Avatar
                 speaker={p}
                 col="partners"
@@ -265,6 +271,7 @@
                 ? `https://twitter.com/${p.twitter}`
                 : ""}
               target="_blank"
+              rel="noreferrer"
               ><Avatar
                 speaker={p}
                 col="partners"

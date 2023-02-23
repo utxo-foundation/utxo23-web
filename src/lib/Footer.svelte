@@ -28,7 +28,8 @@
           <a
             href={data.bundle.links.docs}
             class="hover:text-custom-green"
-            target="_blank"><i class="fas fa-book" />&nbsp; Dokumentace</a
+            target="_blank"
+            rel="noreferrer"><i class="fas fa-book" />&nbsp; Dokumentace</a
           >
         </div>
       </div>
@@ -44,19 +45,20 @@
         <a
           href="https://utxo.foundation"
           class="underline hover:no-underline"
-          target="_blank">UTXO Foundation, z.s.</a
+          target="_blank"
+          rel="noreferrer">UTXO Foundation, z.s.</a
         >
       </div>
       <div>
-        <a href="https://github.com/utxo-foundation/utxo23-web" target="_blank"
+        <a href="https://github.com/utxo-foundation/utxo23-web" target="_blank" rel="noreferrer"
           ><span class="font-bold">v{version}</span></a
         >
         | powered by
-        <a href="https://svelte.dev/" class="font-bold" target="_blank"
+        <a href="https://svelte.dev/" class="font-bold" target="_blank" rel="noreferrer"
           ><img src="/img/svelte-logo.svg" class="w-5 inline" alt="Svelte" /> Svelte</a
         >
         | grafický návrh
-        <a href="https://www.ppmedia.cz/" target="_blank"
+        <a href="https://www.ppmedia.cz/" target="_blank" rel="noreferrer"
           ><img
             src="/img/pen-production-logo.svg"
             class="w-28 inline-block pb-2 ml-1"

@@ -1,17 +1,14 @@
 <script>
-  import { goto } from "$app/navigation";
   import Avatar from "$lib/Avatar.svelte";
   import Event from "$lib/Event.svelte";
-  import { onMount, beforeUpdate } from "svelte";
   import { page } from "$app/stores";
-  import { bundle } from "$lib/stores.js";
   import SvelteMarkdown from "svelte-markdown";
   import Link from "$lib/Link.svelte";
   const renderers = { link: Link };
 
   export let data;
 
-  $: id = getId($page.url.search);
+  $: id = $page.params.slug;
   $: s = data.bundle ? data.bundle.spec.speakers.find((s) => s.id === id) : null;
   $: events = s && data.bundle.spec.events
     ? data.bundle.spec.events.filter(
@@ -19,14 +16,7 @@
       )
     : [];
 
-  function getId(search) {
-    const searchParams = new URLSearchParams(search);
-    const cid = searchParams.get("id");
-    if (!data.bundle.spec.speakers.find((s) => s.id === cid)) {
-      goto("/");
-    }
-    return cid;
-  }
+
 
   function trackRender(trackId) {
     if (!trackId) {
@@ -46,13 +36,14 @@
 </script>
 
 <svelte:head>
-  <title>{s ? s.name : ""} | Lidé | {data.bundle ? data.bundle.name : "UTXO.22"}</title>
+  <title>{s ? s.name : ""} | Lidé | {data.bundle ? data.bundle.name : "UTXO.23"}</title>
 </svelte:head>
 
 <section class="relative mx-auto py-6 sm:py-10 px-6 max-w-7xl text-custom-darkpurple">
   {#if data.bundle && s}
     <div class="mb-6 uppercase text-gray-500">
-      <a href="javascript:history.back()"
+      <a href="/"
+        on:click|preventDefault={() => history.back()}
         ><i class="fa-solid fa-arrow-left" />&nbsp;Zpět</a
       >
     </div>
@@ -85,6 +76,7 @@
         {#if s.twitter}
           <div class="mt-2">
             Twitter: <a
+              rel="noreferrer"
               href="https://twitter.com/{s.twitter}"
               target="_blank"
               class="font-bold">@{s.twitter}</a
@@ -94,6 +86,7 @@
         {#if s.linkedin}
           <div class="mt-2">
             LinkedIn: <a
+              rel="noreferrer"
               href="https://linkedin.com/in/{s.linkedin}"
               target="_blank"
               class="font-bold">@{s.linkedin}</a
@@ -102,7 +95,7 @@
         {/if}
         {#if s.web && s.web.url}
           <div class="mt-2">
-            Web: <a href={s.web.url} target="_blank" class="font-bold"
+            Web: <a href={s.web.url} target="_blank" rel="noreferrer" class="font-bold"
               >{s.web.name || s.web.url.replace(/^https?:\/\//, "")}</a
             >
           </div>
@@ -126,5 +119,7 @@
         {/if}
       </div>
     </div>
+  {:else}
+    <h2>404 Nenalezeno</h2>
   {/if}
 </section>
