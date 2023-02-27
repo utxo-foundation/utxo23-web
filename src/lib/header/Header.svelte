@@ -80,16 +80,17 @@ class="relative bg-center bg-cover {$page.url.pathname !== '/tv'
           </div>
         </div>
         <div class="flex my-16 gap-4 flex-wrap">
-          {#if false}
+          
           <div class="text-center w-full">
               <a
               in:fade={{ duration: 2000, delay: 500}}
                 href="https://vstupenky.utxo.cz/23/"
+                target="_blank" rel="noreferrer"
                 class="rounded-2xl bg-utxo-gradient uppercase shadow-lg text-sm py-6 px-10 hover:text-base hover:font-bold transition-all"
                 >Koupit vstupenky</a
               >
           </div>
-          {/if}
+          
           {#if $apiStatus && $apiStatus.wave}
             <div class="my-auto sm:mt-0 mt-2 sm:ml-0 ml-2 italic opacity-50">
               Zbývá <span class="font-bold">{$apiStatus.wave.live.left}</span>
