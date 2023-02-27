@@ -38,7 +38,7 @@
       </div>
     </div>
     <div
-      class="relative mx-auto px-6 pt-10 pb-6 max-w-6xl text-xs opacity-50 sm:flex"
+      class="relative mx-auto px-6 pt-10 pb-6 max-w-7xl text-xs opacity-50 sm:flex"
     >
       <div class="flex-1 mt-2 mb-2">
         <i class="fas fa-heart text-red-500" /> S láskou organizuje

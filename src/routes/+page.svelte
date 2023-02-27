@@ -125,9 +125,15 @@
           {/each}
         </div>
       </div>
+      <div class="text-center text-custom-darkpurple text-xl">... a mnoho dalších</div>
     {/if}
   </section>
 {/if}
+
+<h2 class="text-2xl uppercase font-bold text-center text-custom-darkpurple my-4 md:mt-8">Loňský ročník</h2>
+<div class="text-center mx-auto mt-4 mb-16 w-full md:w-1/2 px-2">
+  <iframe class="w-full aspect-video" src="https://www.youtube.com/embed/MfxBGAtakl4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
 
 <section class="bg-utxo-gradient">
   <div class="relative mx-auto py-6 px-6 max-w-7xl">
@@ -250,7 +256,7 @@
                 speaker={p}
                 col="partners"
                 size="custom"
-                customSize="w-20 shadow-lg"
+                customSize="w-20 shadow-lg rounded-xl"
               /></a
             >
           </SvelteTooltip>

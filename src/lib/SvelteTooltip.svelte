@@ -5,7 +5,7 @@
   export let bottom = false;
   export let left = false;
   export let active = false;
-  export let color = "#393F67";
+  export let color = "#462a4e";
 
   let style = `background-color: ${color};`;
 </script>
