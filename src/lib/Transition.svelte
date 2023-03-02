@@ -3,7 +3,7 @@
     import { quintOut } from 'svelte/easing';
     
     export let key;
-    export let type;
+    export let type = "default";
 </script>
 
 
