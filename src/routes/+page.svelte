@@ -282,7 +282,7 @@
                 speaker={p}
                 col="partners"
                 size="custom"
-                customSize="w-16 shadow-lg"
+                customSize="w-16 shadow-lg rounded-lg"
               /></a
             >
           </SvelteTooltip>
