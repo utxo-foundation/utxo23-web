@@ -98,6 +98,7 @@ class="relative bg-center bg-cover {$page.url.pathname !== '/tv'
             </div>
           {/if}
           </div>
+          <div class="text-center">UTXO je součástí <a href="https://prgblockweek.com/" target="_blank" rel="noreferrer" class="decoration-white/40 md:hover:decoration-custom-green decoration-dotted hover:decoration-solid decoration-1 hover:decoration-2 underline-offset-4 underline">Prague Blockchain Week&nbsp;<i class="fa-solid fa-up-right-from-square fa-sm opacity-70"></i></a></div>
       </div>
       <!--div class="mt-6 lg:mt-0 text-left sm:text-right lg:pr-20 mb-2 text-xl">
         <Countdown />

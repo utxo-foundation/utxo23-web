@@ -66,5 +66,10 @@ export const navBarLinks=[
     text: "Fotky 2022",
     url: "/fotky",
     newWindow: false
+  },
+  {
+    text: "#PBW23",
+    url: "https://prgblockweek.com/",
+    newWindow: true
   }
 ]
