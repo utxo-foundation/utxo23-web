@@ -1,0 +1,1 @@
+import{s as e}from"./bundle-0c8d5c58.js";const t=!0;function o(){return{bundle:e}}const n=Object.freeze(Object.defineProperty({__proto__:null,load:o,prerender:t},Symbol.toStringTag,{value:"Module"}));export{n as _,o as l,t as p};
