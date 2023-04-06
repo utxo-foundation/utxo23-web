@@ -11,6 +11,7 @@
 
   let onlyLead = true;
   let onlyLeadPreview = false;
+  let mainSponsorsCount = 0;
 
   $: currentBundle = data.bundle;
   $: leadSpeakersCount = currentBundle
@@ -202,10 +203,10 @@
 <section class="mx-auto py-10 px-6 max-w-auto overflow-hidden">
   <div class="text-custom-darkpurple lg:mt-10">
     <div class="text-2xl uppercase font-bold text-center">Partneři</div>
-    {#if data.bundle.spec.partners.filter((p) => p.type === "sponsor").slice(0,4).length}
+    {#if data.bundle.spec.partners.filter((p) => p.type === "sponsor").slice(0,mainSponsorsCount).length}
     <div class="mt-6 text-center">Hlavní sponzoři</div>
     <div class="mt-6 flex flex-wrap gap-8 justify-center">
-      {#each data.bundle.spec.partners.filter((p) => p.type === "sponsor").slice(0,4) as p}
+      {#each data.bundle.spec.partners.filter((p) => p.type === "sponsor").slice(0,mainSponsorsCount) as p}
         <div class="w-32">
           <a href={p.web.url} target="_blank" rel="noreferrer"
             ><Avatar
@@ -220,10 +221,10 @@
       {/each}
     </div>
     {/if}
-    {#if data.bundle.spec.partners.filter((p) => p.type === "sponsor").slice(4).length}
+    {#if data.bundle.spec.partners.filter((p) => p.type === "sponsor").slice(mainSponsorsCount).length}
     <div class="mt-6 text-center">Sponzoři</div>
     <div class="mt-6 flex flex-wrap gap-8 justify-center">
-      {#each data.bundle.spec.partners.filter((p) => p.type === "sponsor").slice(4) as p}
+      {#each data.bundle.spec.partners.filter((p) => p.type === "sponsor").slice(mainSponsorsCount) as p}
         <div class="w-32">
           <a href={p.web.url} target="_blank" rel="noreferrer"
             ><Avatar
