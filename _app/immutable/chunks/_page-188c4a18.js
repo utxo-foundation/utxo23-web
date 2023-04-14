@@ -1,1 +1,0 @@
-import{s as r}from"./bundle-b86ef32e.js";import{e as t}from"./index-b40a4f3c.js";function s({params:e}){if(!r.spec.speakers.find(o=>o.id===e.slug))throw t(404,"404 Not found")}const l=Object.freeze(Object.defineProperty({__proto__:null,load:s},Symbol.toStringTag,{value:"Module"}));export{l as _,s as l};
