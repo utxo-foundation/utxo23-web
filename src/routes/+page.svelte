@@ -11,7 +11,7 @@
 
   let onlyLead = true;
   let onlyLeadPreview = false;
-  let mainSponsorsCount = 0;
+  let mainSponsorsCount = 1;
 
   $: currentBundle = data.bundle;
   $: leadSpeakersCount = currentBundle
