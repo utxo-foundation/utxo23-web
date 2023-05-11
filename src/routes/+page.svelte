@@ -216,7 +216,7 @@
               customSize="w-28 shadow-xl"
             /></a
           >
-          <div class="text-center text-sm uppercase font-bold">{p.name}</div>
+          <div class="text-center text-sm uppercase font-bold mt-3">{p.name}</div>
         </div>
       {/each}
     </div>
