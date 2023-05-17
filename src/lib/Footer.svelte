@@ -31,6 +31,13 @@
             target="_blank"
             rel="noreferrer"><i class="fas fa-book" />&nbsp; Dokumentace</a
           >
+          <a
+            href="utxo-obchodni-podminky.pdf"
+            class="hover:text-custom-green ml-4"
+            target="_blank"
+            rel="noreferrer"
+            ><i class="fas fa-book" />&nbsp; Obchodní podmínky</a
+          >
         </div>
       </div>
       <div class="sm:mt-0 mt-6 sm:w-1/3 mr-2">
