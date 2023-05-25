@@ -12,6 +12,7 @@
   import SvelteTooltip from "$lib/SvelteTooltip.svelte";
   const renderers = { link: Link };
   import Link from "$lib/Link.svelte";
+  import {browser} from "$app/environment";
 
   export let data;
 
@@ -34,7 +35,7 @@
       schedulePref.update((sp) => {
         for (const upk of Object.keys(params)) {
           const up = params[upk];
-          const _sp = $page.url.searchParams.get(upk);
+          const _sp = browser ? $page.url.searchParams.get(upk) : undefined;
           if (up.type === "boolean") {
             if (_sp !== undefined) {
               sp[up.key] = Boolean(_sp);
@@ -87,14 +88,18 @@
         for (const up of updates) {
           if (
             up[1] === undefined &&
-            $page.url.searchParams.get(up[0]) !== undefined
+            (browswer && $page.url.searchParams.get(up[0]) !== undefined)
           ) {
-            $page.url.searchParams.delete(up[0]);
+            if (browser) {
+              $page.url.searchParams.delete(up[0]);
+            }
           } else {
-            $page.url.searchParams.set(up[0], up[1]);
+            if (browser) {
+              $page.url.searchParams.set(up[0], up[1]);
+            }
           }
         }
-        target = `?${$page.url.searchParams.toString()}`;
+        target = `?${browser ? $page.url.searchParams.toString() : null}`;
       }
       goto(target);
 
