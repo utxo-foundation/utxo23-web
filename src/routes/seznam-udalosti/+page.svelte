@@ -7,6 +7,7 @@
   import { calcDuration } from "$lib/events.js";
   import WordCloud from "$lib/WordCloud.svelte";
   import Fuse from "fuse.js";
+  import {browser} from "$app/environment";
 
   export let data;
 
@@ -61,8 +62,14 @@
   $: events = applyFilters(filters, $page, data.bundle);
   $: ids = [];
 
+  class FakeSearchParams {
+    get() {
+      return ""
+    }
+  }
+
   function makeFilters(pg, bd) {
-    const search = pg.url.searchParams;
+    const search = browser ? pg.url.searchParams : new FakeSearchParams();
     let fl = [];
 
     // tags

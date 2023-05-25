@@ -23,7 +23,7 @@
   $: duration = e ? calcDuration(e, data.bundle) : null;
   $: childrens = e ? data.bundle.spec.events.filter((i) => i.parent === e.id) : [];
 
-  $: schedule = data.bundle
+  $: schedule = data.bundle && data.bundle.spec.schedule
     ? data.bundle.spec.schedule.find((s) => s.event === id)
     : null;
 
