@@ -112,7 +112,7 @@
       <div>
         {#if events.length > 0}
           {#each events as e}
-            <Event event={e} />
+            <Event event={e} {data} />
           {/each}
         {:else}
           Tento člověk zatím nemá v programu žádnou událost.
