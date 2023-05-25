@@ -4,7 +4,7 @@
   import { page } from "$app/stores";
   import { format, compareAsc, compareDesc } from "date-fns";
   import { formatCET } from "$lib/utils.js";
-  import { bundle, userData, loadInfo, schedulePref } from "$lib/stores.js";
+  import { userData, loadInfo, schedulePref } from "$lib/stores.js";
   import { parsePeriod } from "$lib/periods.js";
   import { cs } from "date-fns/locale/index.js";
   import { EventTypes } from "$lib/config.js";
@@ -52,7 +52,10 @@
   );
 
   onMount(async () => {
-    const bsub = bundle.subscribe((bundle) => {
+    scheduleTimesArr = scheduleTimes(data.bundle);
+    stagesArr = data.bundle.spec.stages;
+
+    /*const bsub = bundle.subscribe((bundle) => {
       scheduleTimesArr = scheduleTimes(bundle);
       stagesArr = bundle.spec.stages;
       const pref = {};
@@ -61,7 +64,7 @@
       //pref.times = scheduleTimesArr.map((s) => s.id);
       //schedulePref.set(pref);
     });
-    subs.push(bsub);
+    subs.push(bsub);*/
 
     const pref = {};
     let schedulePrefInicialized = null;
@@ -160,7 +163,7 @@
             (new Date(si.period.end).getTime() -
               new Date(si.period.start).getTime()) /
               (1000 * 60) /
-              30
+              5
           );
           si.span = span;
           if (span > 1) {
@@ -169,7 +172,7 @@
         }
       }
       arr.push({ title: formatCET(time, "HH:mm"), stages });
-      time = new Date(time.getTime() + 30 * 60 * 1000);
+      time = new Date(time.getTime() + 5 * 60 * 1000);
     }
     return arr;
   }
@@ -334,11 +337,11 @@
                 : 'text-blue-web bg-blue-web-light hover:text-[#E16A61] hover:bg-[#E16A61]/20'} font-semibold py-1 px-2 rounded-full text-sm"
               on:click={() => ($schedulePref.stage = et.id)}>{et.name}</button
             >
-            <div class="u-choose-div m-0.5">
+            <!--div class="u-choose-div m-0.5">
               <label class="cursor-pointer"
                 ><input
                   type="checkbox"
-                  bind:group={$schedulePref.stages}
+                  
                   value={et.id}
                 /></label
               >
@@ -347,7 +350,7 @@
                 on:click={() => ($schedulePref.stages = [et.id])}
                 >{et.name}</span
               >
-            </div>
+            </div-->
           {/each}
         </div>
       </div>
@@ -360,7 +363,7 @@
         >
       </div>
 
-      <div class="mb-4">
+      <!--div class="mb-4">
         <div class="font-semibold uppercase mb-1">Kategorie</div>
         <div class="flex gap-2 flex-wrap">
           <div class="m-0.5">
@@ -390,7 +393,7 @@
             </div>
           {/each}
         </div>
-      </div>
+      </div-->
     {/if}
   </div>
 </section>
@@ -479,7 +482,7 @@
                   <th
                     valign="top"
                     class="w-auto pl-2 pr-2 pt-1 text-sm left-0 bg-white"
-                    height="60">{ds.title}</th
+                    height="10">{ds.title}</th
                   >
                   {#each activeStages(data.bundle, data.bundle.spec.stages, st, plan) as stage}
                     {#if $schedulePref && ($schedulePref.stage === stage.id || $schedulePref.stage === "all")}
@@ -516,7 +519,7 @@
                                 {@html showEventDetail(data.bundle, event)}
                               </div>
                               <div class="text-xs mt-2 text-blue-web/50">
-                                {event.tags.map((t) => `#${t}`).join(", ")}
+                                {event.tags?.map((t) => `#${t}`).join(", ")}
                               </div>
                               {#if event.description && $schedulePref.showDescriptions}
                                 {#each [makeSpoiler(event)] as spoiler}
@@ -543,7 +546,7 @@
                       {/if}
                     {/if}
                   {/each}
-                  <th valign="top" class="pl-2 pt-1 text-sm" height="70">{ds.title}</th>
+                  <!--th valign="top" class="pl-2 pt-1 text-sm" height="70">{ds.title}</th-->
                 </tr>
               {/each}
             </tbody>
