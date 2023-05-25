@@ -13,12 +13,13 @@
   import Paragraph from "$lib/Paragraph.svelte";
   import EventSchedule from "$lib/EventSchedule.svelte";
   import YouTube from "$lib/YouTube.svelte";
+  import {browser} from "$app/environment";
 
   export let data;
 
   const renderers = { link: Link, paragraph: Paragraph };
 
-  $: id = getId($page.url.search);
+  $: id = browser ? getId($page.url.search) : null;
   $: e = data.bundle ? data.bundle.spec.events.find((ev) => ev.id === id) : null;
   $: duration = e ? calcDuration(e, data.bundle) : null;
   $: childrens = e ? data.bundle.spec.events.filter((i) => i.parent === e.id) : [];
@@ -31,7 +32,7 @@
     const searchParams = new URLSearchParams(search);
     const cid = searchParams.get("id");
     if (!data.bundle.spec.events.find((s) => s.id === cid)) {
-      goto("/");
+      browser ? goto("/") : null;
     }
     return cid;
   }
@@ -101,7 +102,7 @@
           <div class="flex gap-2">
             <Avatar speaker={s} size="semi-small" />
             <div class="m-auto">
-              <a href="/lide?id={s.id}" class="text-xl"
+              <a href="/lide/{s.id}" class="text-xl"
                 >{s.name}
                 {#if s.nickname} ({s.nickname}){/if}</a
               >

@@ -32,7 +32,7 @@
             rel="noreferrer"><i class="fas fa-book" />&nbsp; Dokumentace</a
           >
           <a
-            href="utxo-obchodni-podminky.pdf"
+            href="/utxo-obchodni-podminky.pdf"
             class="hover:text-custom-green ml-4"
             target="_blank"
             rel="noreferrer"
