@@ -13,11 +13,13 @@
   import Link from "$lib/Link.svelte";
   const renderers = { link: Link };
 
+  export let data;
+
   $: e = event;
-  $: duration = calcDuration(e, $bundle);
+  $: duration = calcDuration(e, data.bundle);
   $: spoiler = makeSpoiler(e);
-  $: schedule = $bundle
-    ? $bundle.spec.schedule.find((s) => s.event === e.id)
+  $: schedule = data.bundle && data.bundle.spec.schedule
+    ? data.bundle.spec.schedule.find((s) => s.event === e.id)
     : null;
 
   function makeSpoiler(_e) {
@@ -35,17 +37,17 @@
   function speakersMap(arr) {
     if (!arr) return;
     return arr.map((sId) => {
-      return $bundle.spec.speakers.find((sp) => sp.id === sId);
+      return data.bundle.spec.speakers.find((sp) => sp.id === sId);
     });
   }
 
   function trackRender(trackId) {
-    const track = $bundle.spec.tracks.find((t) => t.id === trackId);
+    const track = data.bundle.spec.tracks.find((t) => t.id === trackId);
     return track.shortname || track.name;
   }
 
   function getChildrens(e) {
-    return $bundle.spec.events.filter((i) => i.parent === e.id);
+    return data.bundle.spec.events.filter((i) => i.parent === e.id);
   }
 </script>
 
@@ -85,7 +87,7 @@
     <div class="text-sm flex flex-wrap gap-3 flex-1">
       <div class="opacity-80"><EventTypeLabel event={e} /></div>
       {#if schedule && !hideDate}
-        <EventSchedule item={schedule} {e} bundle={$bundle} />
+        <EventSchedule item={schedule} {e} bundle={data.bundle} />
       {/if}
       {#if duration}<div class="text-xs my-auto">{duration}m</div>{/if}
       {#if e.track}

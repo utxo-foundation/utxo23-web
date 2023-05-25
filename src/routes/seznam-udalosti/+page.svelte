@@ -130,8 +130,7 @@
     return arr;
   }
 
-  bundle.subscribe((bd) => {
-    fuse = new Fuse(bd.spec.events, {
+  fuse = new Fuse(data.bundle.spec.events, {
       //includeScore: true,
       //minMatchCharLength: 1,
       threshold: 0.4,
@@ -149,7 +148,10 @@
         { name: "speakersInfo.description", weight: 1 },
       ],
     });
-  });
+
+  /*bundle.subscribe((bd) => {
+
+  });*/
 
   page.subscribe(() => {
     searchText = "";
@@ -244,7 +246,7 @@
   </div>
   <div class="mt-4">
     {#each ids.map((id) => data.bundle.spec.events.find((e) => e.id === id)) as ev}
-      <Event event={ev} />
+      <Event event={ev} {data}/>
     {/each}
   </div>
   <!--div class="mt-4">
