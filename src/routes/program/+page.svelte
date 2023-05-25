@@ -88,7 +88,7 @@
         for (const up of updates) {
           if (
             up[1] === undefined &&
-            (browswer && $page.url.searchParams.get(up[0]) !== undefined)
+            (browser && $page.url.searchParams.get(up[0]) !== undefined)
           ) {
             if (browser) {
               $page.url.searchParams.delete(up[0]);
