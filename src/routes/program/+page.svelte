@@ -1,4 +1,4 @@
-<!-- <script>
+<script>
   import { onMount, onDestroy } from "svelte";
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
@@ -13,11 +13,13 @@
   const renderers = { link: Link };
   import Link from "$lib/Link.svelte";
 
+  export let data;
+
   let scheduleTimesArr = null;
   let stagesArr = null;
 
   let planNumber = 0;
-  $: plan = $bundle ? $bundle.spec.schedule : null;
+  $: plan = data.bundle ? data.bundle.spec.schedule : null;
 
   const params = {
     time: { key: "time" },
@@ -228,7 +230,7 @@
     return "border border-blue-web/50";
   }
 
-  $: eventTypes = $bundle && $bundle.spec ? extendEventTypes($bundle) : [];
+  $: eventTypes = data.bundle && data.bundle.spec ? extendEventTypes(data.bundle) : [];
 
   function extendEventTypes(bundle) {
     return bundle.spec["event-types"]
@@ -289,15 +291,13 @@
     console.log(ev.color);
     return ev;
   }
-</script> -->
+</script>
 
 <svelte:head>
   <title>Program | UTXO.23</title>
 </svelte:head>
 
-<h1 class="max-w-7xl mx-auto py-8 text-3xl">Program</h1>
-
-<!-- <section
+<section
   class="relative mx-auto pt-6 sm:pt-10 pb-6 px-6 max-w-6xl text-blue-web print:hidden"
 >
   <h1 class="uppercase text-2xl font-bold mb-2">Program</h1>
@@ -310,11 +310,11 @@
     <a href="https://pub.utxo.cz/22/pdf/nedele.pdf" target="_blank">neděle</a>
   </div>
   <div>
-    {#if $bundle}
+    {#if data.bundle}
       <div class="mb-4">
         <div class="flex gap-1 flex-wrap">
           <div class="font-semibold uppercase my-auto mx-3">Den</div>
-          {#each allScheduleTimes($bundle) as st}
+          {#each allScheduleTimes(data.bundle) as st}
             <button
               class="{$schedulePref.time === st.id
                 ? 'bg-utxo-gradient text-white'
@@ -327,7 +327,7 @@
       <div class="mb-4">
         <div class="flex gap-1 flex-wrap">
           <div class="font-semibold uppercase my-auto mx-3">Sál</div>
-          {#each allStages($bundle) as et}
+          {#each allStages(data.bundle) as et}
             <button
               class="{$schedulePref.stage === et.id
                 ? 'bg-utxo-gradient text-white'
@@ -368,11 +368,11 @@
               href="#"
               class="hover:underline"
               on:click={() =>
-                ($schedulePref.tracks = $bundle.spec.tracks.map((s) => s.id))}
+                ($schedulePref.tracks = data.bundle.spec.tracks.map((s) => s.id))}
               >Všechny kategorie</a
             >
           </div>
-          {#each $bundle.spec.tracks as et}
+          {#each data.bundle.spec.tracks as et}
             <div class="u-choose-div m-0.5">
               <label class="cursor-pointer"
                 ><input
@@ -395,8 +395,8 @@
   </div>
 </section>
 <section class="relative mx-auto pb-6 sm:pb-10 px-0 text-blue-web">
-  {#if $bundle}
-    {#each scheduleTimes($bundle, $schedulePref.time) as st}
+  {#if data.bundle}
+    {#each scheduleTimes(data.bundle, $schedulePref.time) as st}
       <div
         class="max-w-6xl mx-auto px-6 mb-4 print:max-w-full break-before-page flex flex-wrap gap-3"
       >
@@ -431,7 +431,7 @@
         <div
           class="text-right hidden sm:block float-right text-blue-web/50 text-sm print:text-base my-auto"
         >
-          Aktualizováno: {formatCET(new Date($bundle.time), "d.M.y H:mm")}
+          Aktualizováno: {formatCET(new Date(data.bundle.time), "d.M.y H:mm")}
         </div>
       </div>
       <div class="relative">
@@ -446,7 +446,7 @@
                   >{formatCET(new Date(st.date), "iiiiii", { locale: cs })}<br
                   />{formatCET(new Date(st.date), "d.M.")}</th
                 >
-                {#each activeStages($bundle, $bundle.spec.stages, st, plan) as stage}
+                {#each activeStages(data.bundle, data.bundle.spec.stages, st, plan) as stage}
                   {#if $schedulePref && ($schedulePref.stage === stage.id || $schedulePref.stage === "all")}
                     <th
                       class="text-md py-1.5 px-1 sticky top-0 bg-white align-bottom"
@@ -474,22 +474,22 @@
               </tr>
             </thead>
             <tbody>
-              {#each dateSlots(plan, st.period, $bundle, $schedulePref) as ds}
+              {#each dateSlots(plan, st.period, data.bundle, $schedulePref) as ds}
                 <tr class="bg-gray-100">
                   <th
                     valign="top"
                     class="w-auto pl-2 pr-2 pt-1 text-sm left-0 bg-white"
                     height="60">{ds.title}</th
                   >
-                  {#each activeStages($bundle, $bundle.spec.stages, st, plan) as stage}
+                  {#each activeStages(data.bundle, data.bundle.spec.stages, st, plan) as stage}
                     {#if $schedulePref && ($schedulePref.stage === stage.id || $schedulePref.stage === "all")}
                       {#if ds.stages[stage.id] === undefined}
                         <td />
                       {:else if ds.stages[stage.id] !== null}
-                        {#each [[ds.stages[stage.id], findEvent($bundle, ds.stages[stage.id].event)]] as [si, event]}
+                        {#each [[ds.stages[stage.id], findEvent(data.bundle, ds.stages[stage.id].event)]] as [si, event]}
                           <td
                             class="text-sm h-full transition-all {event.color} {eventTrackClasses(
-                              $bundle,
+                              data.bundle,
                               event,
                               $schedulePref.tracks
                             )}"
@@ -503,7 +503,7 @@
                                   "HH:mm"
                                 )}-{formatCET(new Date(si.period.end), "HH:mm")}
                                 <span class="text-blue-web/80">@{si.id}</span>
-                                {#if event.track}[{#each [$bundle.spec.tracks.find((t) => t.id === event.track)] as track}{track.shortname ||
+                                {#if event.track}[{#each [data.bundle.spec.tracks.find((t) => t.id === event.track)] as track}{track.shortname ||
                                       track.name}{/each}]{/if}
                               </div>
                               <div class="font-bold mt-1">
@@ -513,7 +513,7 @@
                                 >
                               </div>
                               <div class="text-xs mt-1">
-                                {@html showEventDetail($bundle, event)}
+                                {@html showEventDetail(data.bundle, event)}
                               </div>
                               <div class="text-xs mt-2 text-blue-web/50">
                                 {event.tags.map((t) => `#${t}`).join(", ")}
@@ -570,4 +570,4 @@
   .utxo-program-head a:hover {
     text-decoration: none;
   }
-</style> -->
+</style>

@@ -20,7 +20,7 @@
 </script>
 
 <div class="font-semibold">
-  {formatCET(start, "yyyy-MM-dd") === "2022-06-04" ? "SO" : "NE"}
+  {formatCET(start, "yyyy-MM-dd") === "2023-06-03" ? "SO" : "NE"}
   {formatCET(start, "HH:mm")}-{formatCET(end, "HH:mm")} ({stage
     ? stage.name
     : "n/a"}) @{item.id}
