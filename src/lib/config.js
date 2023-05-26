@@ -53,6 +53,11 @@ export const navBarLinks=[
     hideOnHomepage: true
   },
   {
+    text: "Program",
+    url: "/program",
+    newWindow: false,
+  },
+  {
     text: "Vstupenky",
     url: "https://vstupenky.utxo.cz/23/",
     newWindow: true
