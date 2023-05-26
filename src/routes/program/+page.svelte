@@ -43,7 +43,8 @@
           } else {
             sp[up.key] = _sp ? _sp : "all";
             if (up.key === 'time') {
-              sp[up.key] = _sp ? _sp : "2"; 
+              sp[up.key] = _sp ? _sp : "all"; 
+              console.log(sp[up.key])
             }
           }
         }
@@ -296,7 +297,7 @@
     }
     const et = EventTypes[ev.type];
     ev.color = et.color ? `${et.colorLight} hover:${et.colorDark}` : "";
-    console.log(ev.color);
+    //console.log(ev.color);
     return ev;
   }
 </script>
@@ -310,12 +311,12 @@
 >
   <h1 class="uppercase text-2xl font-bold mb-2">Program</h1>
   <div class="mb-4 utxo-program-head">
-    <a href="/seznam-udalosti">Seznam všech událostí</a>, PDF:
+    <a href="/seznam-udalosti">Seznam všech událostí</a><!--, PDF:
     <a href="https://pub.utxo.cz/22/pdf/sobota.pdf" target="_blank">sobota</a>,
     <a href="https://pub.utxo.cz/22/pdf/sobota-party.pdf" target="_blank"
       >sobota (party)</a
     >,
-    <a href="https://pub.utxo.cz/22/pdf/nedele.pdf" target="_blank">neděle</a>
+    <a href="https://pub.utxo.cz/22/pdf/nedele.pdf" target="_blank">neděle</a>-->
   </div>
   <div>
     {#if data.bundle}
