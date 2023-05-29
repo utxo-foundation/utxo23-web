@@ -205,16 +205,16 @@
   <div class="text-custom-darkpurple lg:mt-10">
     <div class="text-2xl uppercase font-bold text-center">Partneři</div>
     {#if data.bundle.spec.partners.filter((p) => p.type === "sponsor").slice(0,topSponsorsCount).length}
-    <div class="mt-6 text-center">Top sponzoři</div>
+    <div class="mt-6 text-center">Top {#if topSponsorsCount === 1}sponzor{:else}sponzoři{/if}</div>
     <div class="mt-6 flex flex-wrap gap-8 justify-center">
       {#each data.bundle.spec.partners.filter((p) => p.type === "sponsor").slice(0,topSponsorsCount) as p}
-        <div class="w-32">
+        <div class="">
           <a href={p.web.url} target="_blank" rel="noreferrer"
             ><Avatar
               speaker={p}
               col="partners"
               size="custom"
-              customSize="w-28 shadow-xl"
+              customSize="w-[350px]  shadow-xl"
             /></a
           >
           <div class="text-center text-sm uppercase font-bold mt-3">{p.name}</div>
@@ -223,16 +223,16 @@
     </div>
     {/if}
     {#if data.bundle.spec.partners.filter((p) => p.type === "sponsor").slice(topSponsorsCount,topSponsorsCount+ mainSponsorsCount).length}
-    <div class="mt-6 text-center">Hlavní sponzoři</div>
+    <div class="mt-6 text-center">Hlavní {#if mainSponsorsCount === 1}sponzor{:else}sponzoři{/if}</div>
     <div class="mt-6 flex flex-wrap gap-8 justify-center">
       {#each data.bundle.spec.partners.filter((p) => p.type === "sponsor").slice(topSponsorsCount,topSponsorsCount+ mainSponsorsCount) as p}
-        <div class="w-32">
+        <div >
           <a href={p.web.url} target="_blank" rel="noreferrer"
             ><Avatar
               speaker={p}
               col="partners"
               size="custom"
-              customSize="w-28 shadow-xl"
+              customSize="w-[350px] shadow-xl"
             /></a
           >
           <div class="text-center text-sm uppercase font-bold mt-3">{p.name}</div>
