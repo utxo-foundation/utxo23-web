@@ -285,7 +285,7 @@
     </div>
     {/if}
     {#if data.bundle.spec.partners.filter((p) => p.type === "medium").length}
-    <div class="mt-10 text-center">Mediální partneři</div>
+    <div class="mt-10 text-center">Partneři</div>
     <div class="mt-6 flex flex-wrap gap-4 justify-center">
       {#each data.bundle.spec.partners.filter((p) => p.type === "medium") as p}
         <div>
