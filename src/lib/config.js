@@ -54,8 +54,8 @@ export const navBarLinks=[
   },
   {
     text: "Program",
-    url: "/program",
-    newWindow: false,
+    url: "https://cfp.utxo.cz/23/schedule/",
+    newWindow: true,
   },
   {
     text: "Vstupenky",
