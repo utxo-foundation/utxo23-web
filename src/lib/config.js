@@ -63,7 +63,7 @@ export const navBarLinks=[
     newWindow: true
   },
   {
-    text: "Záznamy",
+    text: "Stream",
     url: "https://utxo.tv/",
     newWindow: true
   },
