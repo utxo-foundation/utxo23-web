@@ -68,6 +68,11 @@ export const navBarLinks=[
     newWindow: true
   },
   {
+    text: "KryptoVláďa Studio",
+    url: "https://www.youtube.com/playlist?list=PLkRrLw53Og1aaMEF4ia54JdLKu6fumZwX",
+    newWindow: true
+  },
+  {
     text: "Fotky 2022",
     url: "/fotky",
     newWindow: false
