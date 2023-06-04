@@ -79,25 +79,6 @@ class="relative bg-center bg-cover {$page.url.pathname !== '/tv'
             <div class="text-white">Gabriel Loci, Praha</div>
           </div>
         </div>
-        <div class="flex my-16 gap-4 flex-wrap">
-          
-          <div class="text-center w-full">
-              <a
-              in:fade={{ duration: 2000, delay: 500}}
-                href="https://vstupenky.utxo.cz/23/"
-                target="_blank" rel="noreferrer"
-                class="rounded-2xl bg-utxo-gradient uppercase shadow-lg text-sm py-6 px-10 hover:text-base hover:font-bold transition-all"
-                >Koupit vstupenky</a
-              >
-          </div>
-          
-          {#if $apiStatus && $apiStatus.wave}
-            <div class="my-auto sm:mt-0 mt-2 sm:ml-0 ml-2 italic opacity-50">
-              Zbývá <span class="font-bold">{$apiStatus.wave.live.left}</span>
-              vstupenek (za {$apiStatus.wave.price} Kč)
-            </div>
-          {/if}
-          </div>
           <div class="text-center">UTXO je součástí <a href="https://prgblockweek.com/" target="_blank" rel="noreferrer" class="decoration-white/40 md:hover:decoration-custom-green decoration-dotted hover:decoration-solid decoration-1 hover:decoration-2 underline-offset-4 underline">Prague Blockchain Week&nbsp;<i class="fa-solid fa-up-right-from-square fa-sm opacity-70"></i></a></div>
       </div>
       <!--div class="mt-6 lg:mt-0 text-left sm:text-right lg:pr-20 mb-2 text-xl">

@@ -58,11 +58,6 @@ export const navBarLinks=[
     newWindow: true,
   },
   {
-    text: "Vstupenky",
-    url: "https://vstupenky.utxo.cz/23/",
-    newWindow: true
-  },
-  {
     text: "Stream",
     url: "https://utxo.tv/",
     newWindow: true
