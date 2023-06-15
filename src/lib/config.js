@@ -68,7 +68,7 @@ export const navBarLinks=[
     newWindow: true
   },
   {
-    text: "Fotky 2022",
+    text: "Fotky 2023",
     url: "/fotky",
     newWindow: false
   },
